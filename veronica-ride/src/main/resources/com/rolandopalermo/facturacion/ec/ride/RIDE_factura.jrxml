@@ -299,6 +299,7 @@ Auxiliar]]></text>
 			<staticText>
 				<reportElement style="etiqueta-texto" x="3" y="214" width="62" height="19" uuid="4466cc55-aa82-484e-83ea-41da3ef5ea16"/>
 				<textElement verticalAlignment="Middle">
+					<font size="9"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[Dir Sucursal:]]></text>
@@ -503,6 +504,7 @@ Auxiliar]]></text>
 			<textField>
 				<reportElement style="etiqueta-texto" x="283" y="95" width="268" height="20" uuid="c13c5331-78b9-4a28-8428-73621611d9b6"/>
 				<textElement verticalAlignment="Middle">
+					<font size="9"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{numeroAutorizacion}]]></textFieldExpression>
