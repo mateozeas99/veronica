@@ -13,12 +13,17 @@ import com.rolandopalermo.facturacion.ec.common.sri.Signer;
 
 public class SignerUtils {
 
-	public static byte[] signXML(byte[] cotenido, String rutaCertificado, String passwordCertificado) throws IOException, VeronicaException {
-		// Actividad 1.- Generar archivo temporales para el XML y su respectivo archivo
-		// firmado
+	public static byte[] signXML(byte[] cotenido, byte[] certificado, String passwordCertificado) throws IOException, VeronicaException {
+		// Actividad 1.- Generar archivo temporales para el XML, certificado y el
+		// archivo firmado
 		String rutaArchivoXML = UUID.randomUUID().toString();
 		File temp = File.createTempFile(rutaArchivoXML, ".xml");
 		rutaArchivoXML = temp.getAbsolutePath();
+
+		String rutaArchivoCertificado = UUID.randomUUID().toString();
+		File tempCertificado = File.createTempFile(rutaArchivoXML, ".p12");
+		rutaArchivoCertificado = tempCertificado.getAbsolutePath();
+
 		String rutaArchivoXMLFirmado = UUID.randomUUID().toString();
 		File tempFirmado = File.createTempFile(rutaArchivoXMLFirmado, ".xml");
 		rutaArchivoXMLFirmado = tempFirmado.getAbsolutePath();
@@ -26,13 +31,17 @@ public class SignerUtils {
 		try (FileOutputStream fos = new FileOutputStream(rutaArchivoXML)) {
 			fos.write(cotenido);
 		}
-		// Actividad 3.- Firmar el archivo xml creado temporalmente
-		Signer firmador = new Signer(rutaArchivoXML, rutaArchivoXMLFirmado, rutaCertificado, passwordCertificado);
+		// Actividad 3.- Guardar certificado
+		try (FileOutputStream fos = new FileOutputStream(rutaArchivoCertificado)) {
+			fos.write(certificado);
+		}
+		// Actividad 4.- Firmar el archivo xml creado temporalmente
+		Signer firmador = new Signer(rutaArchivoXML, rutaArchivoXMLFirmado, rutaArchivoCertificado, passwordCertificado);
 		firmador.firmar();
-		// 4.- Obtener el contenido del archivo XML
+		// 5.- Obtener el contenido del archivo XML
 		Path path = Paths.get(rutaArchivoXMLFirmado);
 		byte[] data = Files.readAllBytes(path);
-		if (!temp.delete() || !tempFirmado.delete()) {
+		if (!temp.delete() || !tempFirmado.delete() || !tempCertificado.delete()) {
 			throw new VeronicaException("No se pudo eliminar los archivos temporales.");
 		}
 		return data;

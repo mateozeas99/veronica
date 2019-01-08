@@ -9,5 +9,7 @@ import com.rolandopalermo.facturacion.ec.persistence.entity.DigitalCert;
 public interface DigitalCertRepository extends JpaRepository<DigitalCert, Long> {
 
 	public List<DigitalCert> findByOwnerAndPasswordAndActive(String owner, String password, boolean active);
+	
+	public List<DigitalCert> findByOwner(String owner);
 
 }

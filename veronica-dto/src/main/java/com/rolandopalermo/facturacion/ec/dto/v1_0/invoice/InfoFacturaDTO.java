@@ -4,8 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.rolandopalermo.facturacion.ec.dto.v1_0.InfoComprobanteDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.PagoDTO;

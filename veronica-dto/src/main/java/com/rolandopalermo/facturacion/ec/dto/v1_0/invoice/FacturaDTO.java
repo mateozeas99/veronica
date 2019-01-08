@@ -1,7 +1,6 @@
 package com.rolandopalermo.facturacion.ec.dto.v1_0.invoice;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -9,7 +8,8 @@ import javax.validation.constraints.Size;
 
 import com.rolandopalermo.facturacion.ec.dto.v1_0.ComprobanteDTO;
 
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter

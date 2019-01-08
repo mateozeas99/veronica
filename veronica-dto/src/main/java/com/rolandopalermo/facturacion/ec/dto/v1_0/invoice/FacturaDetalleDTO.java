@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.DetAdicionalDTO;
