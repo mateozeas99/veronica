@@ -1,5 +1,13 @@
 package com.rolandopalermo.facturacion.ec.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
+import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.common.sri.ClaveDeAcceso;
 import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.ImpuestoDTO;
@@ -9,13 +17,6 @@ import com.rolandopalermo.facturacion.ec.modelo.InfoTributaria;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.ComprobanteRetencion;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.Impuesto;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.InfoCompRetencion;
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
-
-import java.text.ParseException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class RetencionMapper extends AbstractComprobanteMapper<RetencionDTO, ComprobanteRetencion> {
@@ -73,7 +74,7 @@ public class RetencionMapper extends AbstractComprobanteMapper<RetencionDTO, Com
                     .tipoEmision(infoTributaria.getTipoEmision())
                     .build()
                     .generarClaveAcceso();
-        } catch (ParseException e) {
+        } catch (VeronicaException e) {
             logger.error("RetencionMapper", e);
         }
         infoTributaria.setClaveAcceso(claveAcceso);

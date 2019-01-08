@@ -1,6 +1,5 @@
 package com.rolandopalermo.facturacion.ec.mapper;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,6 +7,7 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.AutorizacionDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.MensajeDTO;
@@ -30,7 +30,7 @@ public class RespuestaComprobanteMapper {
                             String fechaAutorizacion = "";
                             try {
                                 fechaAutorizacion = DateUtils.convertirGreggorianToDDMMYYYY(autorizacion.getFechaAutorizacion().toString());
-                            } catch (ParseException e) {
+                            } catch (VeronicaException e) {
                                 logger.error("RespuestaComprobanteMapper", e);
                             }
                             List<MensajeDTO> mensajes = new ArrayList<>();

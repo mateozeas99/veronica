@@ -10,7 +10,6 @@ import java.util.List;
 public class RespuestaSolicitudDTO {
 
     private String estado;
-    private String claveAcceso;
     private List<ComprobanteRespuestaDTO> comprobantes;
 
 }
