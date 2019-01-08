@@ -1,85 +1,79 @@
 package com.rolandopalermo.facturacion.ec.mapper;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
-import com.rolandopalermo.facturacion.ec.common.sri.ClaveDeAcceso;
-import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
-import com.rolandopalermo.facturacion.ec.dto.v1_0.ImpuestoDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.CampoAdicionalDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.InfoTributariaDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.withholding.InfoRetencionDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.withholding.RetencionDTO;
+import com.rolandopalermo.facturacion.ec.modelo.CampoAdicional;
 import com.rolandopalermo.facturacion.ec.modelo.InfoTributaria;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.ComprobanteRetencion;
-import com.rolandopalermo.facturacion.ec.modelo.retencion.Impuesto;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.InfoCompRetencion;
 
-@Component
-public class RetencionMapper extends AbstractComprobanteMapper<RetencionDTO, ComprobanteRetencion> {
+@Component("retencionMapper")
+public class RetencionMapper extends AbstractComprobanteMapper<RetencionDTO> implements Mapper<RetencionDTO, ComprobanteRetencion> {
 
-    private static final Logger logger = Logger.getLogger(FacturaMapper.class);
+	private Mapper<CampoAdicionalDTO, CampoAdicional> campoAdicionalMapper;
+	private Mapper<InfoTributariaDTO, InfoTributaria> infoTributariaMapper;
+	private Mapper<InfoRetencionDTO, InfoCompRetencion> infoCompRetencionMapper;
 
-    public ComprobanteRetencion toModel(RetencionDTO retencionDTO) {
-        InfoTributaria infoTributaria = buildInfoTributaria(retencionDTO);
-        ComprobanteRetencion comprobanteRetencion = new ComprobanteRetencion();
-        comprobanteRetencion.setCampoAdicional(buildCamposAdicionales(retencionDTO));
-        comprobanteRetencion.setId(retencionDTO.getId());
-        comprobanteRetencion.setVersion(retencionDTO.getVersion());
+	@Override
+	public ComprobanteRetencion convert(final RetencionDTO retencionDTO) {
+		if (retencionDTO == null) {
+			return null;
+		}
+		ComprobanteRetencion comprobanteRetencion = new ComprobanteRetencion();
+		comprobanteRetencion.setCampoAdicional(getCampoAdicionalMapper().convertAll(retencionDTO.getCampoAdicional()));
+		comprobanteRetencion.setId(retencionDTO.getId());
+		comprobanteRetencion.setVersion(retencionDTO.getVersion());
+		comprobanteRetencion.setInfoCompRetencion(getInfoCompRetencionMapper().convert(retencionDTO.getInfoRetencion()));
+		final InfoTributaria infoTributaria = getInfoTributariaMapper().convert(retencionDTO.getInfoTributaria());
+		if (infoTributaria != null) {
+			infoTributaria.setClaveAcceso(getClaveAcceso(infoTributaria, getFechaEmision(retencionDTO)));
+			comprobanteRetencion.setInfoTributaria(infoTributaria);
+		}
 
-        InfoCompRetencion infoCompRetencion = new InfoCompRetencion();
-        InfoRetencionDTO infoDTO = retencionDTO.getInfoRetencion();
-        infoCompRetencion.setFechaEmision(infoDTO.getFechaEmision());
-        infoCompRetencion.setDirEstablecimiento(infoDTO.getDirEstablecimiento());
-        infoCompRetencion.setContribuyenteEspecial(infoDTO.getContribuyenteEspecial());
-        infoCompRetencion.setObligadoContabilidad(infoDTO.getObligadoContabilidad());
-        infoCompRetencion.setTipoIdentificacionSujetoRetenido(infoDTO.getTipoIdentificacionSujetoRetenido());
-        infoCompRetencion.setRazonSocialSujetoRetenido(infoDTO.getRazonSocialSujetoRetenido());
-        infoCompRetencion.setPeriodoFiscal(infoDTO.getPeriodoFiscal());
-        comprobanteRetencion.setInfoCompRetencion(infoCompRetencion);
+		return comprobanteRetencion;
+	}
 
-        List<ImpuestoDTO> impuestosDTO = retencionDTO.getImpuesto();
-        List<Impuesto> impuestos = impuestosDTO.stream()
-                .map(impuestoDTO -> {
-                    Impuesto impuesto = new Impuesto();
-                    impuesto.setCodigo(impuestoDTO.getCodigo());
-                    impuesto.setCodigoRetencion(impuestoDTO.getCodigoRetencion());
-                    impuesto.setBaseImponible(impuestoDTO.getBaseImponible());
-                    impuesto.setPorcentajeRetener(impuestoDTO.getPorcentajeRetener());
-                    impuesto.setValorRetenido(impuestoDTO.getValorRetenido());
-                    impuesto.setCodDocSustento(impuestoDTO.getCodDocSustento());
-                    impuesto.setNumDocSustento(impuestoDTO.getNumDocSustento());
-                    impuesto.setFechaEmisionDocSustento(impuestoDTO.getFechaEmisionDocSustento());
-                    return impuesto;
-                })
-                .collect(Collectors.toList());
-        comprobanteRetencion.setImpuesto(impuestos);
-        StringBuilder sb = new StringBuilder(infoTributaria.getPtoEmi());
-        sb.append(infoTributaria.getEstab());
-        String serie = sb.toString();
-        String codigoNumerico = RandomStringUtils.randomNumeric(8);
-        String claveAcceso = "";
-        try {
-            claveAcceso = ClaveDeAcceso.builder()
-                    .fechaEmision(DateUtils.getFechaFromStringddMMyyyy(infoCompRetencion.getFechaEmision()))
-                    .ambiente(infoTributaria.getAmbiente())
-                    .codigoNumerico(codigoNumerico)
-                    .numeroComprobante(infoTributaria.getSecuencial())
-                    .ruc(infoTributaria.getRuc())
-                    .serie(serie)
-                    .tipoComprobante(infoTributaria.getCodDoc())
-                    .tipoEmision(infoTributaria.getTipoEmision())
-                    .build()
-                    .generarClaveAcceso();
-        } catch (VeronicaException e) {
-            logger.error("RetencionMapper", e);
-        }
-        infoTributaria.setClaveAcceso(claveAcceso);
-        comprobanteRetencion.setInfoTributaria(infoTributaria);
-        return comprobanteRetencion;
-    }
+	@Override
+	protected String getFechaEmision(final RetencionDTO comprobanteDTO) {
+		return Optional.ofNullable(comprobanteDTO).map(RetencionDTO::getInfoRetencion).map(InfoRetencionDTO::getFechaEmision).orElse(null);
+	}
+
+	protected Mapper<CampoAdicionalDTO, CampoAdicional> getCampoAdicionalMapper() {
+		return campoAdicionalMapper;
+	}
+
+	@Autowired
+	@Qualifier("campoAdicionalMapper")
+	public void setCampoAdicionalMapper(Mapper<CampoAdicionalDTO, CampoAdicional> campoAdicionalMapper) {
+		this.campoAdicionalMapper = campoAdicionalMapper;
+	}
+
+	protected Mapper<InfoTributariaDTO, InfoTributaria> getInfoTributariaMapper() {
+		return infoTributariaMapper;
+	}
+
+	@Autowired
+	@Qualifier("infoTributariaMapper")
+	public void setInfoTributariaMapper(Mapper<InfoTributariaDTO, InfoTributaria> infoTributariaMapper) {
+		this.infoTributariaMapper = infoTributariaMapper;
+	}
+
+	protected Mapper<InfoRetencionDTO, InfoCompRetencion> getInfoCompRetencionMapper() {
+		return infoCompRetencionMapper;
+	}
+
+	@Autowired
+	@Qualifier("infoCompRetencionMapper")
+	public void setInfoCompRetencionMapper(Mapper<InfoRetencionDTO, InfoCompRetencion> infoCompRetencionMapper) {
+		this.infoCompRetencionMapper = infoCompRetencionMapper;
+	}
 
 }

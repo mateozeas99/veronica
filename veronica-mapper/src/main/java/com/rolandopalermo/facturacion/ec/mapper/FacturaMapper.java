@@ -1,151 +1,95 @@
 package com.rolandopalermo.facturacion.ec.mapper;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
-import com.rolandopalermo.facturacion.ec.common.sri.ClaveDeAcceso;
-import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
-import com.rolandopalermo.facturacion.ec.dto.v1_0.DetAdicionalDTO;
-import com.rolandopalermo.facturacion.ec.dto.v1_0.ImpuestoDTO;
-import com.rolandopalermo.facturacion.ec.dto.v1_0.PagoDTO;
-import com.rolandopalermo.facturacion.ec.dto.v1_0.TotalImpuestoDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.CampoAdicionalDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.InfoTributariaDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.FacturaDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.FacturaDetalleDTO;
-import com.rolandopalermo.facturacion.ec.modelo.DetAdicional;
-import com.rolandopalermo.facturacion.ec.modelo.Impuesto;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.InfoFacturaDTO;
+import com.rolandopalermo.facturacion.ec.modelo.CampoAdicional;
 import com.rolandopalermo.facturacion.ec.modelo.InfoTributaria;
-import com.rolandopalermo.facturacion.ec.modelo.Pago;
 import com.rolandopalermo.facturacion.ec.modelo.factura.Factura;
 import com.rolandopalermo.facturacion.ec.modelo.factura.FacturaDetalle;
 import com.rolandopalermo.facturacion.ec.modelo.factura.InfoFactura;
-import com.rolandopalermo.facturacion.ec.modelo.factura.TotalImpuesto;
 
-@Component
-public class FacturaMapper extends AbstractComprobanteMapper<FacturaDTO, Factura> {
+@Component("facturaMapper")
+public class FacturaMapper extends AbstractComprobanteMapper<FacturaDTO> implements Mapper<FacturaDTO, Factura> {
 
-    private static final Logger logger = Logger.getLogger(FacturaMapper.class);
+    private Mapper<InfoTributariaDTO, InfoTributaria> InfoTributariaMapper;
+    private Mapper<CampoAdicionalDTO, CampoAdicional> campoAdicionalMapper;
+    private Mapper<InfoFacturaDTO, InfoFactura> infoFacturaMapper;
+    private Mapper<FacturaDetalleDTO, FacturaDetalle> facturaDetalleMapper;
 
-    public Factura toModel(FacturaDTO facturaDTO) {
-        InfoTributaria infoTributaria = buildInfoTributaria(facturaDTO);
-        Factura factura = new Factura();
-        factura.setCampoAdicional(buildCamposAdicionales(facturaDTO));
+    @Override
+    public Factura convert(final FacturaDTO facturaDTO) {
+        if (facturaDTO == null) {
+            return null;
+        }
+        final Factura factura = new Factura();
         factura.setId(facturaDTO.getId());
         factura.setVersion(facturaDTO.getVersion());
-
-        //Procesar lista de impuestos totales
-        List<TotalImpuestoDTO> totalImpuestosDTO = facturaDTO.getInfoFactura().getTotalImpuesto();
-        List<TotalImpuesto> totalImpuestos = totalImpuestosDTO.stream()
-                .map(totalImpuestoDTO -> {
-                    TotalImpuesto totalImpuesto = new TotalImpuesto();
-                    totalImpuesto.setCodigo(totalImpuestoDTO.getCodigo());
-                    totalImpuesto.setCodigoPorcentaje(totalImpuestoDTO.getCodigoPorcentaje());
-                    totalImpuesto.setBaseImponible(totalImpuestoDTO.getBaseImponible());
-                    totalImpuesto.setValor(totalImpuestoDTO.getValor());
-                    return totalImpuesto;
-                })
-                .collect(Collectors.toList());
-        //Procesar lista de pagos
-        List<PagoDTO> pagosDTO = facturaDTO.getInfoFactura().getPagos();
-        List<Pago> pagos = pagosDTO.stream()
-                .map(pagoDTO -> {
-                    Pago pago = new Pago();
-                    pago.setFormaPago(pagoDTO.getFormaPago());
-                    pago.setTotal(pagoDTO.getTotal());
-                    pago.setPlazo(pagoDTO.getPlazo());
-                    pago.setUnidadTiempo(pagoDTO.getUnidadTiempo());
-                    return pago;
-                })
-                .collect(Collectors.toList());
-        //Procesar detalles de factura
-        List<FacturaDetalleDTO> detallesDTO = facturaDTO.getDetalle();
-        List<FacturaDetalle> detalles = detallesDTO.stream()
-                .map(detalle -> {
-                    List<DetAdicionalDTO> detallesAdicionalesDTO = detalle.getDetAdicional();
-                    List<DetAdicional> detallesAdicionales = detallesAdicionalesDTO.stream()
-                            .map(detAdicionalDTO -> {
-                                DetAdicional detAdicional = new DetAdicional();
-                                detAdicional.setNombre(detAdicionalDTO.getNombre());
-                                detAdicional.setValor(detAdicionalDTO.getValor());
-                                return detAdicional;
-                            })
-                            .collect(Collectors.toList());
-                    
-                    List<ImpuestoDTO> impuestosDTO = detalle.getImpuesto();
-                    List<com.rolandopalermo.facturacion.ec.modelo.Impuesto> impuestos = impuestosDTO.stream()
-                            .map(impuestoDTO -> {
-                                Impuesto impuesto = new Impuesto();
-                                impuesto.setCodigo(impuestoDTO.getCodigo());
-                                impuesto.setCodigoPorcentaje(impuestoDTO.getCodigoPorcentaje());
-                                impuesto.setTarifa(impuestoDTO.getTarifa());
-                                impuesto.setBaseImponible(impuestoDTO.getBaseImponible());
-                                impuesto.setValor(impuestoDTO.getValor());
-                                return impuesto;
-                            })
-                            .collect(Collectors.toList());
-                    FacturaDetalle facturaDetalle = new FacturaDetalle();
-                    facturaDetalle.setCodigoPrincipal(detalle.getCodigoPrincipal());
-                    facturaDetalle.setCodigoAuxiliar(detalle.getCodigoAuxiliar());
-                    facturaDetalle.setDescripcion(detalle.getDescripcion());
-                    facturaDetalle.setCantidad(detalle.getCantidad());
-                    facturaDetalle.setPrecioUnitario(detalle.getPrecioUnitario());
-                    facturaDetalle.setDescuento(detalle.getDescuento());
-                    facturaDetalle.setPrecioTotalSinImpuesto(detalle.getPrecioTotalSinImpuesto());
-                    facturaDetalle.setDetAdicional(detallesAdicionales);
-                    facturaDetalle.setImpuesto(impuestos);
-                    return facturaDetalle;
-                })
-                .collect(Collectors.toList());
-
-        InfoFactura infoFactura = new InfoFactura();
-        infoFactura.setFechaEmision(facturaDTO.getInfoFactura().getFechaEmision());
-        infoFactura.setDirEstablecimiento(facturaDTO.getInfoFactura().getDirEstablecimiento());
-        infoFactura.setContribuyenteEspecial(facturaDTO.getInfoFactura().getContribuyenteEspecial());
-        infoFactura.setObligadoContabilidad(facturaDTO.getInfoFactura().getObligadoContabilidad());
-        infoFactura.setTipoIdentificacionComprador(facturaDTO.getInfoFactura().getTipoIdentificacionComprador());
-        infoFactura.setGuiaRemision(facturaDTO.getInfoFactura().getGuiaRemision());
-        infoFactura.setRazonSocialComprador(facturaDTO.getInfoFactura().getRazonSocialComprador());
-        infoFactura.setIdentificacionComprador(facturaDTO.getInfoFactura().getIdentificacionComprador());
-        infoFactura.setDireccionComprador(facturaDTO.getInfoFactura().getDireccionComprador());
-        infoFactura.setTotalSinImpuestos(facturaDTO.getInfoFactura().getTotalSinImpuestos());
-        infoFactura.setTotalDescuento(facturaDTO.getInfoFactura().getTotalDescuento());
-        infoFactura.setTotalImpuesto(totalImpuestos);
-        infoFactura.setPropina(facturaDTO.getInfoFactura().getPropina());
-        infoFactura.setImporteTotal(facturaDTO.getInfoFactura().getImporteTotal());
-        infoFactura.setMoneda(facturaDTO.getInfoFactura().getMoneda());
-        infoFactura.setPago(pagos);
-        infoFactura.setValorRetIva(facturaDTO.getInfoFactura().getValorRetIva());
-        infoFactura.setValorRetRenta(facturaDTO.getInfoFactura().getValorRetRenta());
-        factura.setInfoFactura(infoFactura);
-
-        factura.setDetalle(detalles);
-        
-        StringBuilder sb = new StringBuilder(infoTributaria.getPtoEmi());
-        sb.append(infoTributaria.getEstab());
-        String serie = sb.toString();
-        String codigoNumerico = RandomStringUtils.randomNumeric(8);
-        String claveAcceso = "";
-        try {
-            claveAcceso = ClaveDeAcceso.builder()
-                    .fechaEmision(DateUtils.getFechaFromStringddMMyyyy(infoFactura.getFechaEmision()))
-                    .ambiente(infoTributaria.getAmbiente())
-                    .codigoNumerico(codigoNumerico)
-                    .numeroComprobante(infoTributaria.getSecuencial())
-                    .ruc(infoTributaria.getRuc())
-                    .serie(serie)
-                    .tipoComprobante(infoTributaria.getCodDoc())
-                    .tipoEmision(infoTributaria.getTipoEmision())
-                    .build()
-                    .generarClaveAcceso();
-        } catch (VeronicaException e) {
-            logger.error("RetencionMapper", e);
+        final InfoTributaria infoTributaria = getInfoTributariaMapper().convert(facturaDTO.getInfoTributaria());
+        if (infoTributaria != null) {
+            infoTributaria.setClaveAcceso(getClaveAcceso(infoTributaria, getFechaEmision(facturaDTO)));
+            factura.setInfoTributaria(infoTributaria);
         }
-        infoTributaria.setClaveAcceso(claveAcceso);
-        factura.setInfoTributaria(infoTributaria);
+        factura.setCampoAdicional(getCampoAdicionalMapper().convertAll(facturaDTO.getCampoAdicional()));
+        factura.setInfoFactura(getInfoFacturaMapper().convert(facturaDTO.getInfoFactura()));
+        factura.setDetalle(getFacturaDetalleMapper().convertAll(facturaDTO.getDetalle()));
         return factura;
     }
+
+    @Override
+    protected String getFechaEmision(final FacturaDTO facturaDTO) {
+        return Optional.ofNullable(facturaDTO)
+                .map(FacturaDTO::getInfoFactura)
+                .map(InfoFacturaDTO::getFechaEmision)
+                .orElse(null);
+    }
+
+    protected Mapper<InfoTributariaDTO, InfoTributaria> getInfoTributariaMapper() {
+        return InfoTributariaMapper;
+    }
+
+    @Autowired
+    @Qualifier("infoTributariaMapper")
+    public void setInfoTributariaMapper(Mapper<InfoTributariaDTO, InfoTributaria> infoTributariaMapper) {
+        InfoTributariaMapper = infoTributariaMapper;
+    }
+
+    protected Mapper<CampoAdicionalDTO, CampoAdicional> getCampoAdicionalMapper() {
+        return campoAdicionalMapper;
+    }
+
+    @Autowired
+    @Qualifier("campoAdicionalMapper")
+    public void setCampoAdicionalMapper(Mapper<CampoAdicionalDTO, CampoAdicional> campoAdicionalMapper) {
+        this.campoAdicionalMapper = campoAdicionalMapper;
+    }
+
+    protected Mapper<InfoFacturaDTO, InfoFactura> getInfoFacturaMapper() {
+        return infoFacturaMapper;
+    }
+
+    @Autowired
+    @Qualifier("infoFacturaMapper")
+    public void setInfoFacturaMapper(Mapper<InfoFacturaDTO, InfoFactura> infoFacturaMapper) {
+        this.infoFacturaMapper = infoFacturaMapper;
+    }
+
+    protected Mapper<FacturaDetalleDTO, FacturaDetalle> getFacturaDetalleMapper() {
+        return facturaDetalleMapper;
+    }
+
+    @Autowired
+    @Qualifier("facturaDetalleMapper")
+    public void setFacturaDetalleMapper(Mapper<FacturaDetalleDTO, FacturaDetalle> facturaDetalleMapper) {
+        this.facturaDetalleMapper = facturaDetalleMapper;
+    }
+    
 }

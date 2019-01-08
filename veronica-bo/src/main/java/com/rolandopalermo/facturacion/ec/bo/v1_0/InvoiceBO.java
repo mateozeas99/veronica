@@ -34,7 +34,7 @@ public class InvoiceBO {
 	private InvoiceRepository invoiceRepository;
 
 	public FacturaIdDTO createInvoice(FacturaDTO facturaDTO) throws ResourceNotFoundException, VeronicaException {
-		Factura factura = facturaMapper.toModel(facturaDTO);
+		Factura factura = facturaMapper.convert(facturaDTO);
 		byte[] xmlContent;
 		xmlContent = FileUtils.convertirObjAXML(factura);
 		String rucNumber = factura.getInfoTributaria().getRuc();

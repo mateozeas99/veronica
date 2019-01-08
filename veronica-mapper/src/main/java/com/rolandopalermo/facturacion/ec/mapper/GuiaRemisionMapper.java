@@ -1,127 +1,92 @@
 package com.rolandopalermo.facturacion.ec.mapper;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
-import com.rolandopalermo.facturacion.ec.common.sri.ClaveDeAcceso;
-import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
-import com.rolandopalermo.facturacion.ec.dto.v1_0.DetAdicionalDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.CampoAdicionalDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.InfoTributariaDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.DestinatarioDTO;
-import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaDetallesDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaRemisionDTO;
-import com.rolandopalermo.facturacion.ec.modelo.DetAdicional;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.InfoGuiaRemisionDTO;
+import com.rolandopalermo.facturacion.ec.modelo.CampoAdicional;
 import com.rolandopalermo.facturacion.ec.modelo.InfoTributaria;
 import com.rolandopalermo.facturacion.ec.modelo.guia.Destinatario;
-import com.rolandopalermo.facturacion.ec.modelo.guia.GuiaDetalles;
 import com.rolandopalermo.facturacion.ec.modelo.guia.GuiaRemision;
 import com.rolandopalermo.facturacion.ec.modelo.guia.InfoGuiaRemision;
 
-@Component
-public class GuiaRemisionMapper extends AbstractComprobanteMapper<GuiaRemisionDTO, GuiaRemision> {
-	private static final Logger logger = Logger.getLogger(GuiaRemisionMapper.class);
+@Component("guiaRemisionMapper")
+public class GuiaRemisionMapper extends AbstractComprobanteMapper<GuiaRemisionDTO> implements Mapper<GuiaRemisionDTO, GuiaRemision> {
+
+	private Mapper<CampoAdicionalDTO, CampoAdicional> campoAdicionalMapper;
+	private Mapper<DestinatarioDTO, Destinatario> destinatarioMapper;
+	private Mapper<InfoGuiaRemisionDTO, InfoGuiaRemision> infoGuiaRemisionMapper;
+	private Mapper<InfoTributariaDTO, InfoTributaria> infoTributariaMapper;
 
 	@Override
-	public GuiaRemision toModel(GuiaRemisionDTO guiaRemisionDTO) {
-		InfoTributaria infoTributaria = buildInfoTributaria(guiaRemisionDTO);
-		GuiaRemision guiaRemision = new GuiaRemision();
-		guiaRemision.setCampoAdicional(buildCamposAdicionales(guiaRemisionDTO));
+	public GuiaRemision convert(final GuiaRemisionDTO guiaRemisionDTO) {
+		if (guiaRemisionDTO == null) {
+			return null;
+		}
+		final GuiaRemision guiaRemision = new GuiaRemision();
 		guiaRemision.setId(guiaRemisionDTO.getId());
 		guiaRemision.setVersion(guiaRemisionDTO.getVersion());
-
-		// Procesando el Detalle de la guia
-
-		List<DestinatarioDTO> guiaDetalleDTO = guiaRemisionDTO.getDestinatario();
-		List<Destinatario> guiaDestiRes = guiaDetalleDTO.stream().map(guiaDestinatario -> {
-			Destinatario des = new Destinatario();
-			des.setIdentificacionDestinatario(guiaDestinatario.getIdentificacionDestinatario());
-			des.setRazonSocialDestinatario(guiaDestinatario.getRazonSocialDestinatario());
-			des.setDirDestinatario(guiaDestinatario.getDirDestinatario());
-			des.setMotivoTraslado(guiaDestinatario.getMotivoTraslado());
-			des.setDocAduaneroUnico(guiaDestinatario.getDocAduaneroUnico());
-			des.setCodEstabDestino(guiaDestinatario.getCodEstabDestino());
-			des.setRuta(guiaDestinatario.getRuta());
-			des.setCodDocSustento(guiaDestinatario.getCodDocSustento());
-			des.setNumDocSustento(guiaDestinatario.getNumDocSustento());
-			des.setNumAutDocSustento(guiaDestinatario.getNumAutDocSustento());
-			des.setFechaEmisionDocSustento(guiaDestinatario.getFechaEmisionDocSustento());
-			
-			
-			List<GuiaDetallesDTO> guiaDetalleDTOS = guiaDestinatario.getDetalle();
-			List<GuiaDetalles> detalles = guiaDetalleDTOS.stream().map(guiaDetalleRes -> {
-				GuiaDetalles detalle = new GuiaDetalles();
-				detalle.setCodigoInterno(guiaDetalleRes.getCodigoInterno());
-				detalle.setCodigoAdicional(guiaDetalleRes.getCodigoAdicional());
-				detalle.setDescripcion(guiaDetalleRes.getDescripcion());
-				detalle.setCantidad(guiaDetalleRes.getCantidad());
-				
-				List<DetAdicionalDTO> detallesAdicionalesDTO = guiaDetalleRes.getDetAdicional();
-				List<DetAdicional> detallesAdicionales = detallesAdicionalesDTO.stream().map(detAdicionalDTO -> {
-					DetAdicional detAdicional = new DetAdicional();
-					detAdicional.setNombre(detAdicionalDTO.getNombre());
-					detAdicional.setValor(detAdicionalDTO.getValor());
-
-					return detAdicional;
-				}).collect(Collectors.toList());
-				detalle.setDetAdicional(detallesAdicionales);
-				return detalle;
-				}).collect(Collectors.toList());
-			
-				
-				
-			
-
-			des.setDetalle(detalles);
-
-			return des;
-		}).collect(Collectors.toList());
-
-		// Prosesamos Guia
-		InfoGuiaRemision infoGuiaRemision = new InfoGuiaRemision();
-		infoGuiaRemision.setDirEstablecimiento(guiaRemisionDTO.getInfoGuiaRemisionDTO().getDirEstablecimiento());
-		infoGuiaRemision.setDirPartida(guiaRemisionDTO.getInfoGuiaRemisionDTO().getDirPartida());
-		infoGuiaRemision
-				.setRazonSocialTransportista(guiaRemisionDTO.getInfoGuiaRemisionDTO().getRazonSocialTransportista());
-		infoGuiaRemision.setTipoIdentificacionTransportista(
-				guiaRemisionDTO.getInfoGuiaRemisionDTO().getTipoIdentificacionTransportista());
-		infoGuiaRemision.setRucTransportista(guiaRemisionDTO.getInfoGuiaRemisionDTO().getRucTransportista());
-		infoGuiaRemision.setObligadoContabilidad(guiaRemisionDTO.getInfoGuiaRemisionDTO().getObligadoContabilidad());
-		infoGuiaRemision.setContribuyenteEspecial(guiaRemisionDTO.getInfoGuiaRemisionDTO().getContribuyenteEspecial());
-		infoGuiaRemision.setFechaIniTransporte(guiaRemisionDTO.getInfoGuiaRemisionDTO().getFechaIniTransporte());
-		infoGuiaRemision.setFechaFinTransporte(guiaRemisionDTO.getInfoGuiaRemisionDTO().getFechaFinTransporte());
-		infoGuiaRemision.setPlaca(guiaRemisionDTO.getInfoGuiaRemisionDTO().getPlaca());
-		infoGuiaRemision.setRise(guiaRemisionDTO.getInfoGuiaRemisionDTO().getRise());
-
-		 StringBuilder sb = new StringBuilder(infoTributaria.getPtoEmi());
-	        sb.append(infoTributaria.getEstab());
-	        String serie = sb.toString();
-	        String codigoNumerico = RandomStringUtils.randomNumeric(8);
-	        String claveAcceso = "";
-	        try {
-	            claveAcceso = ClaveDeAcceso.builder()
-	                    .fechaEmision(DateUtils.getFechaFromStringddMMyyyy(infoGuiaRemision.getFechaIniTransporte()))
-	                    .ambiente(infoTributaria.getAmbiente())
-	                    .codigoNumerico(codigoNumerico)
-	                    .numeroComprobante(infoTributaria.getSecuencial())
-	                    .ruc(infoTributaria.getRuc())
-	                    .serie(serie)
-	                    .tipoComprobante(infoTributaria.getCodDoc())
-	                    .tipoEmision(infoTributaria.getTipoEmision())
-	                    .build()
-	                    .generarClaveAcceso();
-	        } catch (VeronicaException e) {
-	            logger.error("RetencionMapper", e);
-	        }
-	    infoTributaria.setClaveAcceso(claveAcceso);
-		guiaRemision.setInfoTributaria(infoTributaria);
-		guiaRemision.setInfoGuiaRemision(infoGuiaRemision);
-		guiaRemision.setDestinatario(guiaDestiRes);
-
+		guiaRemision.setCampoAdicional(getCampoAdicionalMapper().convertAll(guiaRemisionDTO.getCampoAdicional()));
+		guiaRemision.setDestinatario(getDestinatarioMapper().convertAll(guiaRemisionDTO.getDestinatario()));
+		guiaRemision.setInfoGuiaRemision(getInfoGuiaRemisionMapper().convert(guiaRemisionDTO.getInfoGuiaRemisionDTO()));
+		final InfoTributaria infoTributaria = getInfoTributariaMapper().convert(guiaRemisionDTO.getInfoTributaria());
+		if (infoTributaria != null) {
+			infoTributaria.setClaveAcceso(getClaveAcceso(infoTributaria, getFechaEmision(guiaRemisionDTO)));
+			guiaRemision.setInfoTributaria(infoTributaria);
+		}
 		return guiaRemision;
+	}
+
+	@Override
+	protected String getFechaEmision(final GuiaRemisionDTO comprobanteDTO) {
+		return Optional.ofNullable(comprobanteDTO).map(GuiaRemisionDTO::getInfoGuiaRemisionDTO).map(InfoGuiaRemisionDTO::getFechaIniTransporte).orElse(null);
+	}
+
+	protected Mapper<CampoAdicionalDTO, CampoAdicional> getCampoAdicionalMapper() {
+		return campoAdicionalMapper;
+	}
+
+	@Autowired
+	@Qualifier("campoAdicionalMapper")
+	public void setCampoAdicionalMapper(Mapper<CampoAdicionalDTO, CampoAdicional> campoAdicionalMapper) {
+		this.campoAdicionalMapper = campoAdicionalMapper;
+	}
+
+	protected Mapper<DestinatarioDTO, Destinatario> getDestinatarioMapper() {
+		return destinatarioMapper;
+	}
+
+	@Autowired
+	@Qualifier("destinatarioMapper")
+	public void setDestinatarioMapper(Mapper<DestinatarioDTO, Destinatario> destinatarioMapper) {
+		this.destinatarioMapper = destinatarioMapper;
+	}
+
+	protected Mapper<InfoGuiaRemisionDTO, InfoGuiaRemision> getInfoGuiaRemisionMapper() {
+		return infoGuiaRemisionMapper;
+	}
+
+	@Autowired
+	@Qualifier("infoGuiaRemisionMapper")
+	public void setInfoGuiaRemisionMapper(Mapper<InfoGuiaRemisionDTO, InfoGuiaRemision> infoGuiaRemisionMapper) {
+		this.infoGuiaRemisionMapper = infoGuiaRemisionMapper;
+	}
+
+	protected Mapper<InfoTributariaDTO, InfoTributaria> getInfoTributariaMapper() {
+		return infoTributariaMapper;
+	}
+
+	@Autowired
+	@Qualifier("infoTributariaMapper")
+	public void setInfoTributariaMapper(Mapper<InfoTributariaDTO, InfoTributaria> infoTributariaMapper) {
+		this.infoTributariaMapper = infoTributariaMapper;
 	}
 
 }
