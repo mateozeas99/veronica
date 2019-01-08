@@ -1,17 +1,19 @@
 package com.rolandopalermo.facturacion.ec.mapper;
 
-import autorizacion.ws.sri.gob.ec.RespuestaComprobante;
-import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
-import com.rolandopalermo.facturacion.ec.dto.rest.AutorizacionDTO;
-import com.rolandopalermo.facturacion.ec.dto.rest.MensajeDTO;
-import com.rolandopalermo.facturacion.ec.dto.rest.RespuestaComprobanteDTO;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
+import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.AutorizacionDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.MensajeDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaComprobanteDTO;
+
+import autorizacion.ws.sri.gob.ec.RespuestaComprobante;
 
 @Component
 public class RespuestaComprobanteMapper {

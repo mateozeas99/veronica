@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 
 import com.rolandopalermo.facturacion.ec.common.sri.ClaveDeAcceso;
 import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
-import com.rolandopalermo.facturacion.ec.dto.comprobantes.DetAdicionalDTO;
-import com.rolandopalermo.facturacion.ec.dto.comprobantes.FacturaDTO;
-import com.rolandopalermo.facturacion.ec.dto.comprobantes.FacturaDetalleDTO;
-import com.rolandopalermo.facturacion.ec.dto.comprobantes.ImpuestoDTO;
-import com.rolandopalermo.facturacion.ec.dto.comprobantes.PagoDTO;
-import com.rolandopalermo.facturacion.ec.dto.comprobantes.TotalImpuestoDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.DetAdicionalDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.ImpuestoDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.PagoDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.TotalImpuestoDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.FacturaDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.FacturaDetalleDTO;
 import com.rolandopalermo.facturacion.ec.modelo.DetAdicional;
 import com.rolandopalermo.facturacion.ec.modelo.Impuesto;
 import com.rolandopalermo.facturacion.ec.modelo.InfoTributaria;

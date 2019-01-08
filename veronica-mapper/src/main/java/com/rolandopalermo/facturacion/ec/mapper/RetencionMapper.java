@@ -2,9 +2,9 @@ package com.rolandopalermo.facturacion.ec.mapper;
 
 import com.rolandopalermo.facturacion.ec.common.sri.ClaveDeAcceso;
 import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
-import com.rolandopalermo.facturacion.ec.dto.comprobantes.ImpuestoDTO;
-import com.rolandopalermo.facturacion.ec.dto.comprobantes.InfoRetencionDTO;
-import com.rolandopalermo.facturacion.ec.dto.comprobantes.RetencionDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.ImpuestoDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.withholding.InfoRetencionDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.withholding.RetencionDTO;
 import com.rolandopalermo.facturacion.ec.modelo.InfoTributaria;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.ComprobanteRetencion;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.Impuesto;

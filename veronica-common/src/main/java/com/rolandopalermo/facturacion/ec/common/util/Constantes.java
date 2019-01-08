@@ -25,5 +25,7 @@ public class Constantes {
 			put("21", "ENDOSO DE TÍTULOS");
 		}
 	};
+	
+	public static final long CREATED = 1;
 
 }

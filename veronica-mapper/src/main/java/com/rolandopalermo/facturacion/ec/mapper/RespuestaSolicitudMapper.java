@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.rolandopalermo.facturacion.ec.dto.rest.ComprobanteRespuestaDTO;
-import com.rolandopalermo.facturacion.ec.dto.rest.MensajeDTO;
-import com.rolandopalermo.facturacion.ec.dto.rest.RespuestaSolicitudDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.ComprobanteRespuestaDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.MensajeDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaSolicitudDTO;
 
 import recepcion.ws.sri.gob.ec.RespuestaSolicitud;
 

@@ -1,7 +1,7 @@
 package com.rolandopalermo.facturacion.ec.mapper;
 
-import com.rolandopalermo.facturacion.ec.dto.comprobantes.CampoAdicionalDTO;
-import com.rolandopalermo.facturacion.ec.dto.comprobantes.ComprobanteDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.CampoAdicionalDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.ComprobanteDTO;
 import com.rolandopalermo.facturacion.ec.modelo.CampoAdicional;
 import com.rolandopalermo.facturacion.ec.modelo.Comprobante;
 import com.rolandopalermo.facturacion.ec.modelo.InfoTributaria;
