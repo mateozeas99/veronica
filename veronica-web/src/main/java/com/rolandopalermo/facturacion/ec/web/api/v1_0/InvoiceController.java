@@ -9,17 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rolandopalermo.facturacion.ec.bo.v1_0.InvoiceBO;
+import com.rolandopalermo.facturacion.ec.bo.v1_0.SriBO;
 import com.rolandopalermo.facturacion.ec.common.exception.InternalServerException;
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.VeronicaResponseDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.FacturaDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.FacturaIdDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaSolicitudDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,12 +33,15 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping(value = "/api/v1.0/facturas")
 @Api(description = "")
 public class InvoiceController {
-	
+
 	@Autowired
 	private InvoiceBO invoiceBO;
-	
+
+	@Autowired
+	private SriBO sriBO;
+
 	private static final Logger logger = Logger.getLogger(InvoiceController.class);
-	
+
 	@ApiOperation(value = "Crea una factura electrónica y la almacena en base de datos")
 	@PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> createInvoice(@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody FacturaDTO facturaDTO) {
@@ -49,7 +56,16 @@ public class InvoiceController {
 			logger.error("createInvoice", e);
 			throw new InternalServerException(e.getMessage());
 		}
-		
 	}
-	
+
+	@ApiOperation(value = "Envía una factura electrónica al SRI y actualiza su estado en base de datos")
+	@PutMapping(value = "{claveAcceso}/enviar", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> postInvoice(@PathVariable String claveAcceso) {
+		VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
+		RespuestaSolicitudDTO respuestaSolicitudDTO = sriBO.enviarComprobante(claveAcceso);
+		response.setSuccess(true);
+		response.setResult(respuestaSolicitudDTO);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
 }
