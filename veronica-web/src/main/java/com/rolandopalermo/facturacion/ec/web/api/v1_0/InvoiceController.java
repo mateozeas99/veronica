@@ -109,7 +109,7 @@ public class InvoiceController {
 	}
 
 	@ApiOperation(value = "Genera la representación PDF de una factura electrónica")
-	@GetMapping(value = "{claveAcceso}/ride")
+	@GetMapping(value = "{claveAcceso}/archivos/pdf")
 	public ResponseEntity<Object> generateRIDE(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable("claveAcceso") String claveAcceso) {
 		try {
 			VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
