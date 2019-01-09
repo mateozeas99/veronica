@@ -15,8 +15,7 @@ import static com.rolandopalermo.facturacion.ec.common.util.Constantes.FORMAS_PA
 
 public class RIDEGenerator {
 
-	public static JasperPrint convertirFacturaARide(String numeroAutorizacion, String fechaAutorizacion,
-			String xmlFilePath) throws JRException {
+	public static JasperPrint convertirFacturaARide(String numeroAutorizacion, String fechaAutorizacion, String xmlFilePath) throws JRException {
 		InputStream employeeReportStream = RIDEGenerator.class.getResourceAsStream("/com/rolandopalermo/facturacion/ec/ride/RIDE_factura.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(employeeReportStream);
 		Map<String, Object> parameters = new HashMap<String, Object>();

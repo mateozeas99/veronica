@@ -1,5 +1,6 @@
 package com.rolandopalermo.facturacion.ec.persistence.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -69,5 +70,11 @@ public class Invoice {
 	@Column
 	@Type(type = "XMLType")
 	private String xmlAuthorization;
+	
+	@Column
+	private boolean isDeleted;
+	
+	@Column
+	private Timestamp authorizationDate;
 
 }

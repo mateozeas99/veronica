@@ -10,6 +10,6 @@ import com.rolandopalermo.facturacion.ec.persistence.entity.Invoice;
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 	
-	public List<Invoice> findByAccessKey(String accessKey);
+	public List<Invoice> findByAccessKeyAndIsDeleted(String accessKey, boolean isDeleted);
 	
 }

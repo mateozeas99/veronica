@@ -40,7 +40,6 @@ public class RespuestaComprobanteMapper {
 					}
 					AutorizacionDTO autorizacionDTO = AutorizacionDTO.builder()
 							.ambiente(autorizacion.getAmbiente())
-							.comprobante(autorizacion.getComprobante())
 							.estado(autorizacion.getEstado())
 							.numeroAutorizacion(autorizacion.getNumeroAutorizacion())
 							.fechaAutorizacion(fechaAutorizacion)

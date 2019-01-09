@@ -1,5 +1,6 @@
 package com.rolandopalermo.facturacion.ec.common.util;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,7 +32,12 @@ public class DateUtils {
 			logger.error("convertirGreggorianToDDMMYYYY", e);
 			throw new VeronicaException(e.getMessage());
 		}
+	}
 
+	public static String convertirTimestampToDate(Timestamp timestamp) {
+		Date date = new Date(timestamp.getTime());
+		DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		return formatoFecha.format(date);
 	}
 
 	public static Date getFechaFromStringddMMyyyy(String fecha) throws VeronicaException {
@@ -43,7 +49,6 @@ public class DateUtils {
 			logger.error("getFechaFromStringddMMyyyy", e);
 			throw new VeronicaException(e.getMessage());
 		}
-
 	}
 
 }

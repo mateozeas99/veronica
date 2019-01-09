@@ -58,5 +58,15 @@ public class InvoiceBO {
 		facturaIdDTO.setNumeroFactura(invoice.getInvoiceNumber());
 		return facturaIdDTO;
 	}
+	
+	public void deleteInvoice(String claveAcceso) throws ResourceNotFoundException, VeronicaException {
+		List<Invoice> invoices = invoiceRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
+		if (invoices == null || invoices.isEmpty()) {
+			throw new ResourceNotFoundException(String.format("No se pudo encontrar la factura con clave de acceso %s", claveAcceso));
+		}
+		Invoice invoice = invoices.get(0);
+		invoice.setDeleted(true);
+		invoiceRepository.save(invoice);
+	}
 
 }
