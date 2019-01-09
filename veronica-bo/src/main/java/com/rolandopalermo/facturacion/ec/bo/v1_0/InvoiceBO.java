@@ -67,5 +67,14 @@ public class InvoiceBO {
 		invoice.setDeleted(true);
 		invoiceRepository.save(invoice);
 	}
+	
+	public String getXML(String claveAcceso) throws ResourceNotFoundException, VeronicaException {
+		List<Invoice> invoices = invoiceRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
+		if (invoices == null || invoices.isEmpty()) {
+			throw new ResourceNotFoundException(String.format("No se pudo encontrar la factura con clave de acceso %s", claveAcceso));
+		}
+		Invoice invoice = invoices.get(0);
+		return invoice.getXmlContent();
+	}
 
 }

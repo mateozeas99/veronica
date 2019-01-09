@@ -108,7 +108,7 @@ public class InvoiceController {
 		}
 	}
 
-	@ApiOperation(value = "Genera la representación PDF de una factura electrónica")
+	@ApiOperation(value = "Retorna la representación PDF de una factura electrónica")
 	@GetMapping(value = "{claveAcceso}/archivos/pdf")
 	public ResponseEntity<Object> generateRIDE(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable("claveAcceso") String claveAcceso) {
 		try {
@@ -120,11 +120,18 @@ public class InvoiceController {
 			headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
 			headers.add("Pragma", "no-cache");
 			headers.add("Expires", "0");
-			return ResponseEntity.ok()
-					.headers(headers)
-					.contentLength(pdfContent.length)
-					.contentType(MediaType.parseMediaType("application/octet-stream"))
-					.body(new InputStreamResource(new ByteArrayInputStream(pdfContent)));
+			return ResponseEntity.ok().headers(headers).contentLength(pdfContent.length).contentType(MediaType.parseMediaType("application/octet-stream")).body(new InputStreamResource(new ByteArrayInputStream(pdfContent)));
+		} catch (Exception e) {
+			logger.error("generateRIDE", e);
+			throw new InternalServerException(e.getMessage());
+		}
+	}
+
+	@ApiOperation(value = "Retorna la representación XML de una factura electrónica")
+	@GetMapping(value = "{claveAcceso}/archivos/xml", produces = { MediaType.APPLICATION_XML_VALUE }, headers = "Accept=application/xml")
+	public ResponseEntity<Object> getXML(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable("claveAcceso") String claveAcceso) {
+		try {
+			return ResponseEntity.ok(invoiceBO.getXML(claveAcceso));
 		} catch (Exception e) {
 			logger.error("generateRIDE", e);
 			throw new InternalServerException(e.getMessage());
