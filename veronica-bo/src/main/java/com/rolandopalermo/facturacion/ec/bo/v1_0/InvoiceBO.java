@@ -55,7 +55,6 @@ public class InvoiceBO {
 		invoiceRepository.save(invoice);
 		FacturaIdDTO facturaIdDTO = new FacturaIdDTO();
 		facturaIdDTO.setClaveAcceso(invoice.getAccessKey());
-		facturaIdDTO.setNumeroFactura(invoice.getInvoiceNumber());
 		return facturaIdDTO;
 	}
 	

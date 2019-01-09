@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class FacturaIdDTO {
 
-	private String numeroFactura;
 	private String claveAcceso;
 
 }
