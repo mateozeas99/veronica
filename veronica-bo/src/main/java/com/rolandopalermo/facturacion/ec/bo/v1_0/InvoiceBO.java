@@ -14,14 +14,14 @@ import com.rolandopalermo.facturacion.ec.common.util.FileUtils;
 import com.rolandopalermo.facturacion.ec.common.util.SignerUtils;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.FacturaDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.FacturaIdDTO;
-import com.rolandopalermo.facturacion.ec.mapper.FacturaMapper;
+import com.rolandopalermo.facturacion.ec.mapper.invoice.FacturaMapper;
 import com.rolandopalermo.facturacion.ec.modelo.factura.Factura;
 import com.rolandopalermo.facturacion.ec.persistence.entity.DigitalCert;
 import com.rolandopalermo.facturacion.ec.persistence.entity.Invoice;
 import com.rolandopalermo.facturacion.ec.persistence.repository.DigitalCertRepository;
 import com.rolandopalermo.facturacion.ec.persistence.repository.InvoiceRepository;
 
-@Service
+@Service("invoiceBO")
 public class InvoiceBO {
 
 	@Autowired

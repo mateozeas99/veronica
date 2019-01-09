@@ -1,4 +1,4 @@
-package com.rolandopalermo.facturacion.ec.mapper;
+package com.rolandopalermo.facturacion.ec.mapper.invoice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.PagoDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.TotalImpuestoDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.InfoFacturaDTO;
+import com.rolandopalermo.facturacion.ec.mapper.Mapper;
 import com.rolandopalermo.facturacion.ec.modelo.Pago;
 import com.rolandopalermo.facturacion.ec.modelo.factura.InfoFactura;
 import com.rolandopalermo.facturacion.ec.modelo.factura.TotalImpuesto;

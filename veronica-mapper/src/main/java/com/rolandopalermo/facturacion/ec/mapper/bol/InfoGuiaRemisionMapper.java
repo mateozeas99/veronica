@@ -1,8 +1,9 @@
-package com.rolandopalermo.facturacion.ec.mapper;
+package com.rolandopalermo.facturacion.ec.mapper.bol;
 
 import org.springframework.stereotype.Component;
 
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.InfoGuiaRemisionDTO;
+import com.rolandopalermo.facturacion.ec.mapper.Mapper;
 import com.rolandopalermo.facturacion.ec.modelo.guia.InfoGuiaRemision;
 
 @Component("infoGuiaRemisionMapper")

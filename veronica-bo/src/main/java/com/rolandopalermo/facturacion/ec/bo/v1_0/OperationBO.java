@@ -9,7 +9,7 @@ import com.rolandopalermo.facturacion.ec.dto.v1_0.CertificadoDigitalDTO;
 import com.rolandopalermo.facturacion.ec.persistence.entity.DigitalCert;
 import com.rolandopalermo.facturacion.ec.persistence.repository.DigitalCertRepository;
 
-@Service
+@Service("operationBO")
 public class OperationBO {
 
 	@Autowired

@@ -1,8 +1,9 @@
-package com.rolandopalermo.facturacion.ec.mapper;
+package com.rolandopalermo.facturacion.ec.mapper.withholding;
 
 import org.springframework.stereotype.Component;
 
 import com.rolandopalermo.facturacion.ec.dto.v1_0.withholding.InfoRetencionDTO;
+import com.rolandopalermo.facturacion.ec.mapper.Mapper;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.InfoCompRetencion;
 
 @Component("infoCompRetencionMapper")

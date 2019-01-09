@@ -65,5 +65,9 @@ public class Invoice {
 	@Column
 	@NotEmpty
 	private String invoiceNumber;
+	
+	@Column
+	@Type(type = "XMLType")
+	private String xmlAuthorization;
 
 }

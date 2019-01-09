@@ -23,6 +23,7 @@ import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.VeronicaResponseDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.FacturaDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.FacturaIdDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaComprobanteDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaSolicitudDTO;
 
 import io.swagger.annotations.Api;
@@ -60,12 +61,36 @@ public class InvoiceController {
 
 	@ApiOperation(value = "Envía una factura electrónica al SRI y actualiza su estado en base de datos")
 	@PutMapping(value = "{claveAcceso}/enviar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> postInvoice(@PathVariable String claveAcceso) {
+	public ResponseEntity<Object> postInvoice(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
 		VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
 		RespuestaSolicitudDTO respuestaSolicitudDTO = sriBO.enviarComprobante(claveAcceso);
 		response.setSuccess(true);
 		response.setResult(respuestaSolicitudDTO);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+
+	@ApiOperation(value = "Autoriza una factura electrónica y actualiza su estado en base de datos")
+	@PutMapping(value = "{claveAcceso}/autorizar", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> applyInvoice(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
+		try {
+			VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
+			RespuestaComprobanteDTO respuestaComprobanteDTO = sriBO.autorizarComprobante(claveAcceso);
+			response.setSuccess(true);
+			response.setResult(respuestaComprobanteDTO);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("applyInvoice", e);
+			throw new InternalServerException(e.getMessage());
+		}
+	}
+
+	// @ApiOperation(value = "Genera la representación PDF de una factura
+	// electrónica")
+	// @GetMapping(value = "{claveAcceso}/ride")
+	// public ResponseEntity generateRIDE(@Valid @ApiParam(value = "Clave de acceso
+	// del comprobante electrónico", required = true) @PathVariable("claveAcceso")
+	// String claveAcceso) {
+	//
+	// }
 
 }

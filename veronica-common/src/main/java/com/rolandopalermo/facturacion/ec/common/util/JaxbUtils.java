@@ -1,15 +1,17 @@
 package com.rolandopalermo.facturacion.ec.common.util;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
+import java.io.StringWriter;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 /**
  *
@@ -23,6 +25,17 @@ public class JaxbUtils {
 	private JaxbUtils() {
 	}
 
+	public static String marshallAsString(Object object) throws JAXBException, IOException {
+		JAXBContext context = JAXBContext.newInstance(new Class[] { object.getClass() });
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty("jaxb.encoding", "UTF-8");
+		marshaller.setProperty("jaxb.formatted.output", Boolean.valueOf(true));
+		StringWriter sw = new StringWriter();
+		marshaller.marshal(object, sw);
+		String objAsString = sw.toString();
+		return objAsString;
+	}
+	
 	public static void marshall(Object comprobante, String rutaArchivo) throws JAXBException, IOException {
 		JAXBContext context = JAXBContext.newInstance(new Class[] { comprobante.getClass() });
 		Marshaller marshaller = context.createMarshaller();

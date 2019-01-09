@@ -1,4 +1,4 @@
-package com.rolandopalermo.facturacion.ec.mapper;
+package com.rolandopalermo.facturacion.ec.mapper.bol;
 
 import java.util.Optional;
 
@@ -11,6 +11,8 @@ import com.rolandopalermo.facturacion.ec.dto.v1_0.InfoTributariaDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.DestinatarioDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaRemisionDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.InfoGuiaRemisionDTO;
+import com.rolandopalermo.facturacion.ec.mapper.AbstractComprobanteMapper;
+import com.rolandopalermo.facturacion.ec.mapper.Mapper;
 import com.rolandopalermo.facturacion.ec.modelo.CampoAdicional;
 import com.rolandopalermo.facturacion.ec.modelo.InfoTributaria;
 import com.rolandopalermo.facturacion.ec.modelo.guia.Destinatario;
