@@ -11,7 +11,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnTransformer;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +28,6 @@ public class DigitalCert {
 	private long digitalCertId;
 
 	@Column
-	@NotEmpty
 	@ColumnTransformer(
 			read = "pgp_sym_decrypt("
 					+ "password::bytea, "
@@ -43,19 +41,15 @@ public class DigitalCert {
 	private String password;
 
 	@Column
-	@NotEmpty
 	private byte[] digitalCert;
 
 	@Column
-	@NotEmpty
 	private String owner;
 	
 	@Column
-	@NotEmpty
 	private boolean active;
 	
 	@Column
-	@NotEmpty
 	private Date insertDate;
 
 }

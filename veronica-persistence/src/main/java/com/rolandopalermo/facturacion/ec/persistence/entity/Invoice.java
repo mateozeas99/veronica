@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import com.rolandopalermo.facturacion.ec.persistence.type.XMLType;
 
@@ -35,36 +34,28 @@ public class Invoice {
 	private long invoiceId;
 
 	@Column
-	@NotEmpty
 	private long internalStatusId;
 
 	@Column
-	@NotEmpty
 	private String accessKey;
 
 	@Column
-	@NotEmpty
 	private String sriVersion;
 
 	@Column
-	@NotEmpty
 	@Type(type = "XMLType")
 	private String xmlContent;
 
 	@Column
-	@NotEmpty
 	private String supplierId;
 
 	@Column
-	@NotEmpty
 	private String customerId;
 
 	@Column
-	@NotEmpty
 	private Date issueDate;
 	
 	@Column
-	@NotEmpty
 	private String invoiceNumber;
 	
 	@Column

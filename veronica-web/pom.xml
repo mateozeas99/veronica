@@ -13,6 +13,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.rolandopalermo.facturacion.ec</groupId>
 			<artifactId>veronica-dto</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -49,13 +54,6 @@
 			<version>2.7.0</version>
 			<scope>compile</scope>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId> -->
-<!-- 				com.rolandopalermo.facturacion.ec.persistence -->
-<!-- 			</groupId> -->
-<!-- 			<artifactId>veronica-persistence</artifactId> -->
-<!-- 			<version>0.0.1-SNAPSHOT</version> -->
-<!-- 		</dependency> -->
 	</dependencies>
 	<build>
 		<plugins>

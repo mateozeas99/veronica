@@ -1,6 +1,6 @@
 package com.rolandopalermo.facturacion.ec.dto.v1_0.withholding;
 
-import javax.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.rolandopalermo.facturacion.ec.dto.v1_0.InfoComprobanteDTO;
 
@@ -11,12 +11,12 @@ import lombok.Setter;
 @Setter
 public class InfoRetencionDTO extends InfoComprobanteDTO {
 
-    @NotEmpty
-    private String tipoIdentificacionSujetoRetenido;
-    @NotEmpty
-    private String razonSocialSujetoRetenido;
-    @NotEmpty
-    private String identificacionSujetoRetenido;
-    private String periodoFiscal;
+	@NotEmpty
+	private String tipoIdentificacionSujetoRetenido;
+	@NotEmpty
+	private String razonSocialSujetoRetenido;
+	@NotEmpty
+	private String identificacionSujetoRetenido;
+	private String periodoFiscal;
 
 }
