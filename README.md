@@ -42,8 +42,9 @@ mvn install:install-file -Dfile=MITyCLibTSA-1.0.4.jar -DgroupId=es.mityc.javasig
 mvn install:install-file -Dfile=MITyCLibXADES-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=xades -Dversion=1.0.4 -Dpackaging=jar
 mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache.xmlsec-adsi -DartifactId=xmlsec-adsi -Dversion=1.4.2 -Dpackaging=jar
 ```
-3.- Now move to the root directory and execute the following command:
+3.- Now move to the root directory and install Veronica Maven dependencies.
 ```bash
+$ cd veronica
 $ mvn install
 ```
  4.- This project provides two maven profiles. Using the next command, you will  be able the choose the correct profile according to your environment (DEV or PRD). 
@@ -51,7 +52,6 @@ $ mvn install
 $ cd veronica-web
 $ mvn spring-boot:run -Pdevelopment
 ```
-
 ```bash
 $ cd veronica-web
 $ mvn spring-boot:run -Pproduction
@@ -72,6 +72,7 @@ https://documenter.getpostman.com/view/1388083/RzZCDHct
 - V3: 2018-04-28, enable swagger2 for api documentation.
 - V4: 2018-11-10, Invoice RIDE generation.
 - V5: 2018-11-19, Postman collection.
+- V6: 2019-01-09, Postgresql integration.
 
 ## Authors
 
