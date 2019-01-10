@@ -31,7 +31,7 @@ Table of contents
 `Veronica REST API` is a set of RESTful web services that provide an abstraction layer which allows for easy issue of electronic invoicing, according with the Ecuadorian regulations imposed by the "Servicio de Rentas Internas".
 
 ## Startup Settings
-1. Restore the `Veronica` Postgres database using the /sql/veronica.sql script and the `pg_dump` utility.
+1. Restore the `Veronica` Postgres database using the **/sql/veronica.sq** script and the `pg_dump` utility.
 2. As second step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands.
 ```bash
 $ cd additional_libs
