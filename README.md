@@ -37,12 +37,12 @@ Table of contents
 postgres=# CREATE DATABASE "veronica-db";
 ```
 
-2. Import the database tables using the **/sql/veronica.sql** script.
+2. Import the database tables using the **veronica/sql/veronica.sql** script.
 ```bash
-$ psql -U postgres veronica-db < {veronica_path}\sql\veronica.sql
+$ psql -U postgres veronica-db < veronica/sql/veronica.sql
 ```
 
-3. Add the secret keystore at the end of the **postgresql.conf** file located in **{postgreSQL_path}\11\data\\**
+3. Add the secret keystore at the end of the **postgresql.conf** file located in **{postgreSQL_path}/11/data/**
 ```bash
 encrypt.key = 8qxBjzCdQkwdpu
 ```
