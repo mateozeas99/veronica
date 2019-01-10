@@ -32,17 +32,34 @@ Table of contents
 
 ## Startup Settings
 
-1. Create `Veronica` database using `psql` utility.
+1. Make sure you have installed Java & Maven.
+
+```bash
+$ java -version
+java version "1.8.0_121"
+Java(TM) SE Runtime Environment (build 1.8.0_121-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.121-b13, mixed mode)
+
+$ mvn -version
+Apache Maven 3.5.3 (3383c37e1f9e9b3bc3df5050c29c8aff9f295297; 2018-02-24T14:49:05-05:00)
+Maven home: C:\apache-maven-3.5.3\bin\..
+Java version: 1.8.0_121, vendor: Oracle Corporation
+Java home: C:\PROGRA~1\Java\JDK18~1.0_1\jre
+Default locale: es_PE, platform encoding: Cp1252
+OS name: "windows 10", version: "10.0", arch: "amd64", family: "windows"
+```
+
+2. Create `Veronica` database using `psql` utility.
 ```bash
 postgres=# CREATE DATABASE "veronica-db";
 ```
 
-2. Import the database tables using the **veronica/sql/veronica.sql** script.
+3. Import the database tables using the **veronica/sql/veronica.sql** script.
 ```bash
 $ psql -U postgres veronica-db < veronica/sql/veronica.sql
 ```
 
-3. Add the secret keystore at the end of the **postgresql.conf** file located in **{postgreSQL_path}/11/data/**
+4. Add the secret keystore at the end of the **postgresql.conf** file located in **{postgreSQL_path}/11/data/**
 ```bash
 encrypt.key = 8qxBjzCdQkwdpu
 ```
@@ -51,7 +68,7 @@ encrypt.key = 8qxBjzCdQkwdpu
 - And restart PostgreSQL Server
 ```
 
-4. As next step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands:
+5. As next step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands:
 ```bash
 $ cd additional_libs
 mvn install:install-file -Dfile=jss-4.2.5.jar -DgroupId=org.mozilla -DartifactId=jss -Dversion=4.2.5 -Dpackaging=jar
@@ -65,13 +82,13 @@ mvn install:install-file -Dfile=MITyCLibXADES-1.0.4.jar -DgroupId=es.mityc.javas
 mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache.xmlsec-adsi -DartifactId=xmlsec-adsi -Dversion=1.4.2 -Dpackaging=jar
 ```
 
-4.- Now move to the `Veronica` directory and install `Veronica` modules.
+6. Now move to the `Veronica` directory and install `Veronica` modules.
 ```bash
 $ cd veronica
 $ mvn install
 ```
 
-5.- This project provides two maven profiles. Using the next command, you will  be able the choose the correct profile according to your environment:
+7. This project provides two maven profiles. Using the next command, you will  be able the choose the correct profile according to your environment:
 
 `DEV`
 ```bash
