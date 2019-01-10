@@ -32,7 +32,11 @@ Table of contents
 
 ## Startup Settings
 1. Restore the `Veronica` Postgres database using the **/sql/veronica.sql** script and the `pg_dump` utility.
-2. As second step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands.
+2. Add the secret keystore at the end of the **postgresql.conf** file located in **{PostgreSQL_Directory_Path}\11\data\\**
+```bash
+encrypt.key = 8qxBjzCdQkwdpu
+```
+3. As second step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands.
 ```bash
 $ cd additional_libs
 mvn install:install-file -Dfile=jss-4.2.5.jar -DgroupId=org.mozilla -DartifactId=jss -Dversion=4.2.5 -Dpackaging=jar
@@ -45,12 +49,12 @@ mvn install:install-file -Dfile=MITyCLibTSA-1.0.4.jar -DgroupId=es.mityc.javasig
 mvn install:install-file -Dfile=MITyCLibXADES-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=xades -Dversion=1.0.4 -Dpackaging=jar
 mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache.xmlsec-adsi -DartifactId=xmlsec-adsi -Dversion=1.4.2 -Dpackaging=jar
 ```
-3.- Now move to the root directory and install `Veronica` Maven dependencies.
+4.- Now move to the root directory and install `Veronica` Maven dependencies.
 ```bash
 $ cd veronica
 $ mvn install
 ```
-4.- This project provides two maven profiles. Using the next command, you will  be able the choose the correct profile according to your environment (DEV or PRD). 
+5.- This project provides two maven profiles. Using the next command, you will  be able the choose the correct profile according to your environment (DEV or PRD). 
 ```bash
 $ cd veronica-web
 $ mvn spring-boot:run -Pdevelopment
