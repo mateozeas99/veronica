@@ -69,6 +69,7 @@ $ mvn install
 ```
 
 5.- This project provides two maven profiles. Using the next command, you will  be able the choose the correct profile according to your environment:
+
 `DEV`
 ```bash
 $ cd veronica-web
