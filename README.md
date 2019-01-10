@@ -12,6 +12,7 @@
 Table of contents
 =================
 - [Veronica REST API](#veronica-rest-api)
+	- [Software Stack](#software-stack)
 	- [Preamble](#preamble)
 	- [Startup Settings](#startup-settings)
 	- [Deployment](#deployment)
@@ -21,17 +22,19 @@ Table of contents
 	- [Authors](#authors)
 
 <!-- /TOC -->
+## Software Stack
+- JDK 1.8.0_121
+- Apache Maven 3.5.3
+- PostgreSQL 11.1-1
+
 ## Preamble
 `Veronica REST API` is a set of RESTful web services that provide an abstraction layer which allows for easy issue of electronic invoicing, according with the Ecuadorian regulations imposed by the "Servicio de Rentas Internas".
 
 ## Startup Settings
-If you want to make modifications to `Veronica`, you must configure your Maven repository appropriately, making sure to use the following instructions:
-1. You first need to go to the `Veronica`’s directory and after that, you have to move to additional_libs directory. For Linux, Windows or Mac use the command:
+1. Restore the `Veronica` Postgres database using the /sql/veronica.sql script and the `pg_dump` utility.
+2. As second step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands.
 ```bash
 $ cd additional_libs
-```
-2. As second step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands:
-```bash
 mvn install:install-file -Dfile=jss-4.2.5.jar -DgroupId=org.mozilla -DartifactId=jss -Dversion=4.2.5 -Dpackaging=jar
 mvn install:install-file -Dfile=MITyCLibAPI-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=api -Dversion=1.0.4 -Dpackaging=jar
 mvn install:install-file -Dfile=MITyCLibCert-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=cert -Dversion=1.0.4 -Dpackaging=jar
@@ -42,12 +45,12 @@ mvn install:install-file -Dfile=MITyCLibTSA-1.0.4.jar -DgroupId=es.mityc.javasig
 mvn install:install-file -Dfile=MITyCLibXADES-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=xades -Dversion=1.0.4 -Dpackaging=jar
 mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache.xmlsec-adsi -DartifactId=xmlsec-adsi -Dversion=1.4.2 -Dpackaging=jar
 ```
-3.- Now move to the root directory and install Veronica Maven dependencies.
+3.- Now move to the root directory and install `Veronica` Maven dependencies.
 ```bash
 $ cd veronica
 $ mvn install
 ```
- 4.- This project provides two maven profiles. Using the next command, you will  be able the choose the correct profile according to your environment (DEV or PRD). 
+4.- This project provides two maven profiles. Using the next command, you will  be able the choose the correct profile according to your environment (DEV or PRD). 
 ```bash
 $ cd veronica-web
 $ mvn spring-boot:run -Pdevelopment
