@@ -39,7 +39,7 @@ encrypt.key = 8qxBjzCdQkwdpu
 ```
 And restart PostgreSQL server.
 
-3. As second step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands.
+3. As next step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands.
 ```bash
 $ cd additional_libs
 mvn install:install-file -Dfile=jss-4.2.5.jar -DgroupId=org.mozilla -DartifactId=jss -Dversion=4.2.5 -Dpackaging=jar
