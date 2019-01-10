@@ -37,7 +37,7 @@ Table of contents
 postgres=# CREATE DATABASE "veronica-db";
 ```
 
-2. Restore `Veronica` database using the **/sql/veronica.sql** script.
+2. Import the database tables using the **/sql/veronica.sql** script.
 ```bash
 $ psql -U postgres veronica-db < {veronica_path}\sql\veronica.sql
 ```
