@@ -32,7 +32,7 @@ Table of contents
 
 ## Startup Settings
 
-1. Create veronica database using `psql` utility.
+1. Create `Veronica` database using `psql` utility.
 ```bash
 postgres=# CREATE DATABASE "veronica-db";
 ```
