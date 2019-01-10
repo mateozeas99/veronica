@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping(value = "/api/v1.0/operaciones")
-@Api(description = "Realiza operacines generales sobre Verónica")
+@Api(description = "Realiza operaciones generales sobre Verónica")
 public class OperationController {
 
 	@Autowired
