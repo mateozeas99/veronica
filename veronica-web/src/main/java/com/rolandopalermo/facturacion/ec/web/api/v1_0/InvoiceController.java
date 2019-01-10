@@ -40,7 +40,7 @@ import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping(value = "/api/v1.0/facturas")
-@Api(description = "")
+@Api(description = "Gestiona el ciclo de vida de una factura electrónica")
 public class InvoiceController {
 
 	@Autowired

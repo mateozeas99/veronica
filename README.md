@@ -46,7 +46,10 @@ $ psql -U postgres veronica-db < {veronica_path}\sql\veronica.sql
 ```bash
 encrypt.key = 8qxBjzCdQkwdpu
 ```
-**And restart PostgreSQL server**.
+
+```diff
+- And restart PostgreSQL Server
+```
 
 4. As next step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands:
 ```bash
@@ -79,6 +82,15 @@ $ mvn spring-boot:run -Pdevelopment
 ```bash
 $ cd veronica-web
 $ mvn spring-boot:run -Pproduction
+```
+
+To modify the database conection properties, edit the next file:
+
+```diff
++ veronica/veronica-web/src/main/resources/application.properties
++ spring.datasource.url=jdbc:postgresql://localhost:5432/veronica-db
++ spring.datasource.username=postgres
++ spring.datasource.password=#######
 ```
 
 ## Documentation
