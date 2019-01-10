@@ -30,7 +30,16 @@ public class DigitalCert {
 
 	@Column
 	@NotEmpty
-	@ColumnTransformer(read = "pgp_sym_decrypt(password::bytea, 'mySecretKey')", write = "pgp_sym_encrypt(?, 'mySecretKey')")
+	@ColumnTransformer(
+			read = "pgp_sym_decrypt("
+					+ "password::bytea, "
+					+ "current_setting('encrypt.key')"
+					+ ")", 
+			write = "pgp_sym_encrypt("
+					+ "?, "
+					+ "current_setting('encrypt.key')"
+					+ ")"
+			)
 	private String password;
 
 	@Column

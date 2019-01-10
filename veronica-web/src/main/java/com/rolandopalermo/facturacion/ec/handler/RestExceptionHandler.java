@@ -6,7 +6,8 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -34,7 +35,7 @@ import com.rolandopalermo.facturacion.ec.dto.v1_0.VeronicaResponseDTO;
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-	private static final Logger logger = Logger.getLogger(RestExceptionHandler.class);
+	private static final Logger logger = LogManager.getLogger(RestExceptionHandler.class);
 
 	/**
 	 * 

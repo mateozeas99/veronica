@@ -6,13 +6,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 
 public class DateUtils {
 
-	private static final Logger logger = Logger.getLogger(DateUtils.class);
+	private static final Logger logger = LogManager.getLogger(DateUtils.class);
 
 	/**
 	 * Utility classes should not have a public constructor.

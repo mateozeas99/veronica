@@ -1,9 +1,7 @@
 package com.rolandopalermo.facturacion.ec.common.util;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,13 +9,14 @@ import java.util.UUID;
 
 import javax.xml.bind.JAXBException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 
 public class FileUtils {
 
-	private static final Logger logger = Logger.getLogger(FileUtils.class);
+	private static final Logger logger = LogManager.getLogger(FileUtils.class);
 
 	/**
 	 * Utility classes should not have a public constructor.

@@ -8,14 +8,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+//import org.apache.log4j.Logger;
 
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.common.sri.Signer;
 
 public class SignerUtils {
 
-	private static final Logger logger = Logger.getLogger(DateUtils.class);
+	private static final Logger logger = LogManager.getLogger(SignerUtils.class);
 
 	public static byte[] signXML(byte[] cotenido, byte[] certificado, String passwordCertificado) throws VeronicaException {
 		try {

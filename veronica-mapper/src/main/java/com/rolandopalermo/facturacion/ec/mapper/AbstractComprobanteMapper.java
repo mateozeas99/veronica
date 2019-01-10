@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.common.sri.ClaveDeAcceso;
@@ -16,7 +17,7 @@ import com.rolandopalermo.facturacion.ec.modelo.InfoTributaria;
 
 public abstract class AbstractComprobanteMapper<DTO extends ComprobanteDTO> {
 
-	private Logger logger = Logger.getLogger(AbstractComprobanteMapper.class);
+	private static final Logger logger = LogManager.getLogger(AbstractComprobanteMapper.class);
 
 	protected InfoTributaria buildInfoTributaria(DTO dto) {
 		InfoTributaria InfoTributaria = new InfoTributaria();

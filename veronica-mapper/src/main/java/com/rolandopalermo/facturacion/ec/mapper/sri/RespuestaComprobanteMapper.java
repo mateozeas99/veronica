@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,7 @@ public class RespuestaComprobanteMapper {
 
 	private Mapper<Mensaje, MensajeDTO> mensajeRecepcionMapper;
 
-	private static final Logger logger = Logger.getLogger(RespuestaComprobanteMapper.class);
+	private static final Logger logger = LogManager.getLogger(RespuestaComprobanteMapper.class);
 
 	public RespuestaComprobanteDTO convert(RespuestaComprobante respuestaComprobante) {
 		RespuestaComprobanteDTO dto = null;
