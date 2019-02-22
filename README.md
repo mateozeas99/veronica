@@ -15,7 +15,7 @@ Table of contents
 	- [Software Stack](#software-stack)
 	- [Preamble](#preamble)
 	- [Startup Settings](#startup-settings)
-	- [Deployment](#deployment)
+	- [Important Notes](#important-notes)
 	- [Documentation](#documentation)
 	- [Postman API Reference](#postman-api-reference)
 	- [Documentation history](#documentation-history)
@@ -86,12 +86,13 @@ $ mvn spring-boot:run -Pproduction
 ```
 
 
-### Important Notes
-📌 Modify the database conection properties
-
-| File | veronica/veronica-web/src/main/resources/application.properties |
-|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commands | spring.datasource.url=jdbc:postgresql://localhost:5432/veronica-db<br>spring.datasource.username=postgres<br>spring.datasource.password=####### |
+## Important Notes
+📌 To modify the database conection properties, open **veronica/veronica-web/src/main/resources/application.properties** and change the next values:
+```bash
+spring.datasource.url=jdbc:postgresql://localhost:5432/veronica-db
+spring.datasource.username=postgres
+spring.datasource.password=#######
+```
 
 ## Documentation
 http://localhost:8080/veronica/swagger-ui.html
