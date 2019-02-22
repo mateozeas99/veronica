@@ -43,7 +43,7 @@ $ psql -U postgres veronica-db < veronica/sql/veronica_schema.sql
 ```
 3. And execute the veronica_data script located in:
 ```diff
-+  **veronica/sql/veronica_data.sql**
++  veronica/sql/veronica_data.sql
 ```
 4. Add the secret keystore at the end of the **postgresql.conf** file located in **{postgreSQL_path}/11/data/**
 ```bash
