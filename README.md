@@ -41,7 +41,7 @@ postgres=# CREATE DATABASE "veronica-db";
 ```bash
 $ psql -U postgres veronica-db < veronica/sql/veronica_schema.sql
 ```
-3. And execute the veronica_data script located in:
+3. Execute the veronica_data script located in:
 ```diff
 +  veronica/sql/veronica_data.sql
 ```
