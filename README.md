@@ -32,7 +32,7 @@ Table of contents
 
 ## Startup Settings
 
-1. Create `Veronica` database using `psql` utility.
+1. Create a database with the next command:
 ```bash
 postgres=# CREATE DATABASE "veronica-db";
 ```
@@ -42,14 +42,16 @@ postgres=# CREATE DATABASE "veronica-db";
 $ psql -U postgres veronica-db < veronica/sql/veronica_schema.sql
 ```
 
-3. Execute the veronica_data sql script located in: **veronica/sql/veronica_data.sql**
+3. Execute the veronica_data sql script located in **veronica/sql/veronica_data.sql**
 
-4. Add the secret keystore at the end of the **postgresql.conf** file located in **{postgreSQL_path}/11/data/**
+4. Add the following property at the end of the **postgresql.conf** file located in **{postgreSQL_path}/11/data/**
 ```bash
 encrypt.key = 8qxBjzCdQkwdpu
 ```
-5. Restart PostgreSQL Server
-6. As next step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands:
+
+5. Restart PostgreSQL Server.
+
+6. As next step, you must install all the JAR files localted in the **additional_libs** folder into your local Maven repository using the following commands:
 ```bash
 $ cd additional_libs
 mvn install:install-file -Dfile=jss-4.2.5.jar -DgroupId=org.mozilla -DartifactId=jss -Dversion=4.2.5 -Dpackaging=jar
@@ -63,7 +65,7 @@ mvn install:install-file -Dfile=MITyCLibXADES-1.0.4.jar -DgroupId=es.mityc.javas
 mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache.xmlsec-adsi -DartifactId=xmlsec-adsi -Dversion=1.4.2 -Dpackaging=jar
 ```
 
-7. Now move to `Veronica` directory and execute the next maven command:
+7. Now move to root project directory and execute the next maven command:
 ```bash
 $ cd veronica
 $ mvn install
@@ -76,6 +78,7 @@ $ mvn install
 $ cd veronica-web
 $ mvn spring-boot:run -Pdevelopment
 ```
+
 `PRD`
 ```bash
 $ cd veronica-web
