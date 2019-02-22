@@ -1,6 +1,6 @@
 package com.rolandopalermo.facturacion.ec.web.api.v1_0;
 
-import static com.rolandopalermo.facturacion.ec.common.util.Constantes.API_DOC_ANEXO_1;
+import static com.rolandopalermo.facturacion.ec.common.util.Constants.API_DOC_ANEXO_1;
 
 import javax.validation.Valid;
 

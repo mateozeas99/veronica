@@ -1,6 +1,6 @@
 package com.rolandopalermo.facturacion.ec.bo.v1_0;
 
-import static com.rolandopalermo.facturacion.ec.common.util.Constantes.CREATED;
+import static com.rolandopalermo.facturacion.ec.common.util.Constants.CREATED;
 
 import java.util.List;
 
@@ -40,9 +40,11 @@ public class InvoiceBO {
 		String rucNumber = factura.getInfoTributaria().getRuc();
 		List<DigitalCert> certificados = digitalCertRepository.findByOwner(rucNumber);
 		if (certificados == null || certificados.isEmpty()) {
-			throw new ResourceNotFoundException(String.format("No existe un certificado digital asociado al RUC %S", rucNumber));
+			throw new ResourceNotFoundException(
+					String.format("No existe un certificado digital asociado al RUC %S", rucNumber));
 		}
-		byte[] signedXMLContent = SignerUtils.signXML(xmlContent, certificados.get(0).getDigitalCert(), certificados.get(0).getPassword());
+		byte[] signedXMLContent = SignerUtils.signXML(xmlContent, certificados.get(0).getDigitalCert(),
+				certificados.get(0).getPassword());
 		Invoice invoice = new Invoice();
 		invoice.setAccessKey(factura.getInfoTributaria().getClaveAcceso());
 		invoice.setSriVersion(factura.getVersion());

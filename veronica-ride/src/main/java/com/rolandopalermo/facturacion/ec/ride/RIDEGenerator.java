@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.rolandopalermo.facturacion.ec.common.util.Constantes.FORMAS_PAGO_MAP;
+import static com.rolandopalermo.facturacion.ec.common.util.Constants.FORMAS_PAGO_MAP;
 
 public class RIDEGenerator {
 

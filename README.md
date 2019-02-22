@@ -32,43 +32,26 @@ Table of contents
 
 ## Startup Settings
 
-1. Make sure you have installed Java & Maven.
-
-```bash
-$ java -version
-java version "1.8.0_121"
-Java(TM) SE Runtime Environment (build 1.8.0_121-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.121-b13, mixed mode)
-
-$ mvn -version
-Apache Maven 3.5.3 (3383c37e1f9e9b3bc3df5050c29c8aff9f295297; 2018-02-24T14:49:05-05:00)
-Maven home: C:\apache-maven-3.5.3\bin\..
-Java version: 1.8.0_121, vendor: Oracle Corporation
-Java home: C:\PROGRA~1\Java\JDK18~1.0_1\jre
-Default locale: es_PE, platform encoding: Cp1252
-OS name: "windows 10", version: "10.0", arch: "amd64", family: "windows"
-```
-
-2. Create `Veronica` database using `psql` utility.
+1. Create a database with the next command:
 ```bash
 postgres=# CREATE DATABASE "veronica-db";
 ```
 
-3. Import the database tables using the **veronica/sql/veronica.sql** script.
+2. Import the database tables using the **veronica/sql/veronica_schema.sql** script.
 ```bash
-$ psql -U postgres veronica-db < veronica/sql/veronica.sql
+$ psql -U postgres veronica-db < veronica/sql/veronica_schema.sql
 ```
 
-4. Add the secret keystore at the end of the **postgresql.conf** file located in **{postgreSQL_path}/11/data/**
+3. Execute the veronica_data sql script located in **veronica/sql/veronica_data.sql**
+
+4. Add the following property at the end of the **postgresql.conf** file located in **{postgreSQL_path}/11/data/**
 ```bash
 encrypt.key = 8qxBjzCdQkwdpu
 ```
 
-```diff
-- And restart PostgreSQL Server
-```
+5. Restart PostgreSQL Server.
 
-5. As next step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands:
+6. As next step, you must install all the JAR files localted in the **additional_libs** folder into your local Maven repository using the following commands:
 ```bash
 $ cd additional_libs
 mvn install:install-file -Dfile=jss-4.2.5.jar -DgroupId=org.mozilla -DartifactId=jss -Dversion=4.2.5 -Dpackaging=jar
@@ -82,42 +65,40 @@ mvn install:install-file -Dfile=MITyCLibXADES-1.0.4.jar -DgroupId=es.mityc.javas
 mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache.xmlsec-adsi -DartifactId=xmlsec-adsi -Dversion=1.4.2 -Dpackaging=jar
 ```
 
-6. Now move to the `Veronica` directory and install `Veronica` modules.
+7. Now move to root project directory and execute the next maven command:
 ```bash
 $ cd veronica
 $ mvn install
 ```
 
-7. This project provides two maven profiles. Using the next command, you will  be able the choose the correct profile according to your environment:
+8. This project provides two maven profiles. Using the next command, you will  be able the choose the correct profile according to your environment:
 
 `DEV`
 ```bash
 $ cd veronica-web
 $ mvn spring-boot:run -Pdevelopment
 ```
+
 `PRD`
 ```bash
 $ cd veronica-web
 $ mvn spring-boot:run -Pproduction
 ```
 
-To modify the database conection properties, edit the next file:
 
-```diff
-+ veronica/veronica-web/src/main/resources/application.properties
-```
-
-```diff
-+ spring.datasource.url=jdbc:postgresql://localhost:5432/veronica-db
-+ spring.datasource.username=postgres
-+ spring.datasource.password=#######
+### :rotating_light: Important Notes
+To modify the database conection properties, open the file **veronica/veronica-web/src/main/resources/application.properties** and edit the next properties:
+```bash
+spring.datasource.url=jdbc:postgresql://localhost:5432/veronica-db
+spring.datasource.username=postgres
+spring.datasource.password=#######
 ```
 
 ## Documentation
 http://localhost:8080/veronica/swagger-ui.html
 
 ## Postman API Reference
-https://documenter.getpostman.com/view/1388083/RzZCDHct
+- Postman collection file: **veronica/Verónica API Reference.postman_collection.json**
 
 ## Documentation history
 
@@ -127,6 +108,7 @@ https://documenter.getpostman.com/view/1388083/RzZCDHct
 - V4: 2018-11-10, Invoice RIDE generation.
 - V5: 2018-11-19, Postman collection.
 - V6: 2019-01-09, Postgresql integration.
+- V7: 2019-02-21, Enable Withholding tax.
 
 ## Authors
 
