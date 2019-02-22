@@ -87,7 +87,10 @@ $ mvn spring-boot:run -Pproduction
 
 
 ### Important Notes
-📌 To modify the database conection properties, open the file **veronica/veronica-web/src/main/resources/application.properties** and edit the next properties:
+📌 Modify the database conection properties
+
+**veronica/veronica-web/src/main/resources/application.properties**
+
 ```bash
 spring.datasource.url=jdbc:postgresql://localhost:5432/veronica-db
 spring.datasource.username=postgres
