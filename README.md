@@ -108,7 +108,7 @@ http://localhost:8080/veronica/swagger-ui.html
 - V4: 2018-11-10, Invoice RIDE generation.
 - V5: 2018-11-19, Postman collection.
 - V6: 2019-01-09, Postgresql integration.
-- V7: 2019-02-21, Enable Withholding tax.
+- V7: 2019-02-21, Enable Withholding taxes and Bills of Lading.
 
 ## Authors
 

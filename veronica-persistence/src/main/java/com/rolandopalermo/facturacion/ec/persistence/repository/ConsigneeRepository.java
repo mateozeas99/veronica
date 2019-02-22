@@ -7,7 +7,5 @@ import com.rolandopalermo.facturacion.ec.persistence.entity.Consignee;
 
 
 public interface ConsigneeRepository extends JpaRepository<Consignee, Long> {
-	
-	
-	
+
 }

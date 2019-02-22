@@ -29,10 +29,10 @@ import lombok.Setter;
 @Table(name = "bol")
 @TypeDefs(value = { @TypeDef(name = "XMLType", typeClass = XMLType.class) })
 public class Bol {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bol_generator")
-	@SequenceGenerator(name="bol_generator", sequenceName = "bol_seq", allocationSize=50)
+	@SequenceGenerator(name = "bol_generator", sequenceName = "bol_seq", allocationSize = 50)
 	@Column(name = "bol_id", updatable = false, nullable = false)
 	private long bolId;
 
@@ -54,30 +54,27 @@ public class Bol {
 
 	@Column
 	private Date issueDate;
-	
+
 	@Column
 	private String bolNumber;
-	
+
 	@Column
 	@Type(type = "XMLType")
 	private String xmlAuthorization;
-	
+
 	@Column
 	private boolean isDeleted;
-	
+
 	@Column
 	private Timestamp authorizationDate;
-	
+
 	@Column
 	private String shipperRuc;
-	
+
 	@Column
 	private String registrationNumber;
-	
-	@OneToMany(mappedBy="bol",
-			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-						 CascadeType.DETACH, CascadeType.REFRESH})
+
+	@OneToMany(mappedBy = "bol", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
 	private List<Consignee> consignees;
-	
 
 }

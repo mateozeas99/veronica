@@ -1,6 +1,6 @@
 package com.rolandopalermo.facturacion.ec.bo.v1_0;
 
-import static com.rolandopalermo.facturacion.ec.common.util.Constantes.CREATED;
+import static com.rolandopalermo.facturacion.ec.common.util.Constants.CREATED;
 
 import java.util.List;
 
@@ -15,7 +15,6 @@ import com.rolandopalermo.facturacion.ec.common.util.SignerUtils;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaIdDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaRemisionDTO;
 import com.rolandopalermo.facturacion.ec.mapper.bol.GuiaRemisionMapper;
-import com.rolandopalermo.facturacion.ec.modelo.guia.Destinatario;
 import com.rolandopalermo.facturacion.ec.modelo.guia.GuiaRemision;
 import com.rolandopalermo.facturacion.ec.persistence.entity.Bol;
 import com.rolandopalermo.facturacion.ec.persistence.entity.Consignee;
@@ -26,6 +25,7 @@ import com.rolandopalermo.facturacion.ec.persistence.repository.DigitalCertRepos
 
 @Service("bolBO")
 public class BolBO {
+	
 	@Autowired
 	private GuiaRemisionMapper guiaMapper;
 
@@ -39,18 +39,15 @@ public class BolBO {
 	private ConsigneeRepository consigneeRepository;
 
 	public GuiaIdDTO createBol(GuiaRemisionDTO guiaRemisionDTO) throws ResourceNotFoundException, VeronicaException {
-
 		GuiaRemision guia = guiaMapper.convert(guiaRemisionDTO);
 		byte[] xmlContent;
 		xmlContent = FileUtils.convertirObjAXML(guia);
 		String rucNumber = guia.getInfoTributaria().getRuc();
 		List<DigitalCert> certificados = digitalCertRepository.findByOwner(rucNumber);
 		if (certificados == null || certificados.isEmpty()) {
-			throw new ResourceNotFoundException(
-					String.format("No existe un certificado digital asociado al RUC %S", rucNumber));
+			throw new ResourceNotFoundException(String.format("No existe un certificado digital asociado al RUC %S", rucNumber));
 		}
-		byte[] signedXMLContent = SignerUtils.signXML(xmlContent, certificados.get(0).getDigitalCert(),
-				certificados.get(0).getPassword());
+		byte[] signedXMLContent = SignerUtils.signXML(xmlContent, certificados.get(0).getDigitalCert(), certificados.get(0).getPassword());
 		Bol bol = new Bol();
 		bol.setAccessKey(guia.getInfoTributaria().getClaveAcceso());
 		bol.setSriVersion(guia.getVersion());
@@ -62,22 +59,19 @@ public class BolBO {
 		bol.setBolNumber(guia.getInfoTributaria().getSecuencial());
 		bol.setInternalStatusId(CREATED);
 		bolRepository.save(bol);
-		GuiaIdDTO guiaIdDTO = new GuiaIdDTO();
-		guiaIdDTO.setClaveAcceso(bol.getAccessKey());
-
-		for (Destinatario desti : guia.getDestinatario()) {
+		guia.getDestinatario().forEach(destinatario -> {
 			Consignee consignee = new Consignee();
-			consignee.setConsignneId(desti.getIdentificacionDestinatario());
-			consignee.setCustomDocNumber(desti.getDocAduaneroUnico());
-			consignee.setReferenceDocCod(desti.getCodDocSustento());
-			consignee.setReferenceDocNumber(desti.getNumDocSustento());
-			consignee.setReferenceDocAuthNumber(desti.getNumAutDocSustento());
+			consignee.setConsignneId(destinatario.getIdentificacionDestinatario());
+			consignee.setCustomDocNumber(destinatario.getDocAduaneroUnico());
+			consignee.setReferenceDocCod(destinatario.getCodDocSustento());
+			consignee.setReferenceDocNumber(destinatario.getNumDocSustento());
+			consignee.setReferenceDocAuthNumber(destinatario.getNumAutDocSustento());
 			consignee.setBol(bol);
 			consigneeRepository.save(consignee);
-
-		}
-
+		});
+		GuiaIdDTO guiaIdDTO = new GuiaIdDTO();
+		guiaIdDTO.setClaveAcceso(bol.getAccessKey());
 		return guiaIdDTO;
-
 	}
+	
 }
