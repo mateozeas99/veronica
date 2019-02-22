@@ -41,8 +41,9 @@ postgres=# CREATE DATABASE "veronica-db";
 ```bash
 $ psql -U postgres veronica-db < veronica/sql/veronica_schema.sql
 ```
-3. Execute the veronica_data script located in: **veronica/sql/veronica_data.sql**
-```
+
+3. Execute the veronica_data sql script located in: **veronica/sql/veronica_data.sql**
+
 4. Add the secret keystore at the end of the **postgresql.conf** file located in **{postgreSQL_path}/11/data/**
 ```bash
 encrypt.key = 8qxBjzCdQkwdpu
