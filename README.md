@@ -103,7 +103,7 @@ To modify the database conection properties, edit the next file:
 http://localhost:8080/veronica/swagger-ui.html
 
 ## Postman API Reference
-- Postman collection file: veronica/Verónica API Reference.postman_collection.json
+- Postman collection file: **veronica/Verónica API Reference.postman_collection.json**
 
 ## Documentation history
 
