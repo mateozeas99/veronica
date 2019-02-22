@@ -91,12 +91,7 @@ $ mvn spring-boot:run -Pproduction
 
 | File     | veronica/veronica-web/src/main/resources/application.properties                                                                                       |
 |----------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commands | 
-```bash 
-spring.datasource.url=jdbc:postgresql://localhost:5432/veronica-db 
-spring.datasource.username=postgres 
-spring.datasource.password=####### 
-``` |
+| Commands | ```bash spring.datasource.url=jdbc:postgresql://localhost:5432/veronica-db spring.datasource.username=postgres spring.datasource.password=####### ``` |
 
 ## Documentation
 http://localhost:8080/veronica/swagger-ui.html
