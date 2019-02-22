@@ -68,7 +68,7 @@ mvn install:install-file -Dfile=MITyCLibXADES-1.0.4.jar -DgroupId=es.mityc.javas
 mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache.xmlsec-adsi -DartifactId=xmlsec-adsi -Dversion=1.4.2 -Dpackaging=jar
 ```
 
-6. Now move to the `Veronica` directory and install `Veronica` modules.
+6. Now move to `Veronica` directory and execute the next maven command:
 ```bash
 $ cd veronica
 $ mvn install
