@@ -87,16 +87,15 @@ $ cd veronica-web
 $ mvn spring-boot:run -Pproduction
 ```
 
-To modify the database conection properties, edit the next file:
-
-```diff
-+ veronica/veronica-web/src/main/resources/application.properties
+To modify the database conection properties, open the next file:
+```bash
+veronica/veronica-web/src/main/resources/application.properties
 ```
-
-```diff
-+ spring.datasource.url=jdbc:postgresql://localhost:5432/veronica-db
-+ spring.datasource.username=postgres
-+ spring.datasource.password=#######
+And edit the next properties:
+```bash
+spring.datasource.url=jdbc:postgresql://localhost:5432/veronica-db
+spring.datasource.username=postgres
+spring.datasource.password=#######
 ```
 
 ## Documentation
