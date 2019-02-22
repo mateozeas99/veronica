@@ -41,9 +41,11 @@ postgres=# CREATE DATABASE "veronica-db";
 ```bash
 $ psql -U postgres veronica-db < veronica/sql/veronica_schema.sql
 ```
-And execute the veronica_data script located in **veronica/sql/veronica_data.sql**
-
-3. Add the secret keystore at the end of the **postgresql.conf** file located in **{postgreSQL_path}/11/data/**
+3. And execute the veronica_data script located in:
+```diff
++  **veronica/sql/veronica_data.sql**
+```
+4. Add the secret keystore at the end of the **postgresql.conf** file located in **{postgreSQL_path}/11/data/**
 ```bash
 encrypt.key = 8qxBjzCdQkwdpu
 ```
@@ -52,7 +54,7 @@ encrypt.key = 8qxBjzCdQkwdpu
 - And restart PostgreSQL Server
 ```
 
-4. As next step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands:
+5. As next step, you must install all the JAR files from additional_libs to the local Maven repository using the following commands:
 ```bash
 $ cd additional_libs
 mvn install:install-file -Dfile=jss-4.2.5.jar -DgroupId=org.mozilla -DartifactId=jss -Dversion=4.2.5 -Dpackaging=jar
@@ -66,13 +68,13 @@ mvn install:install-file -Dfile=MITyCLibXADES-1.0.4.jar -DgroupId=es.mityc.javas
 mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache.xmlsec-adsi -DartifactId=xmlsec-adsi -Dversion=1.4.2 -Dpackaging=jar
 ```
 
-5. Now move to the `Veronica` directory and install `Veronica` modules.
+6. Now move to the `Veronica` directory and install `Veronica` modules.
 ```bash
 $ cd veronica
 $ mvn install
 ```
 
-6. This project provides two maven profiles. Using the next command, you will  be able the choose the correct profile according to your environment:
+7. This project provides two maven profiles. Using the next command, you will  be able the choose the correct profile according to your environment:
 
 `DEV`
 ```bash
