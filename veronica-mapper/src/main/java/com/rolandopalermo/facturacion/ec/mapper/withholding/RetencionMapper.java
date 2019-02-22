@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.rolandopalermo.facturacion.ec.dto.v1_0.CampoAdicionalDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.ImpuestoDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.InfoTributariaDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.withholding.InfoRetencionDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.withholding.RetencionDTO;
@@ -15,6 +16,7 @@ import com.rolandopalermo.facturacion.ec.mapper.Mapper;
 import com.rolandopalermo.facturacion.ec.modelo.CampoAdicional;
 import com.rolandopalermo.facturacion.ec.modelo.InfoTributaria;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.ComprobanteRetencion;
+import com.rolandopalermo.facturacion.ec.modelo.retencion.Impuesto;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.InfoCompRetencion;
 
 @Component("retencionMapper")
@@ -23,6 +25,7 @@ public class RetencionMapper extends AbstractComprobanteMapper<RetencionDTO> imp
 	private Mapper<CampoAdicionalDTO, CampoAdicional> campoAdicionalMapper;
 	private Mapper<InfoTributariaDTO, InfoTributaria> infoTributariaMapper;
 	private Mapper<InfoRetencionDTO, InfoCompRetencion> infoCompRetencionMapper;
+	private Mapper<ImpuestoDTO, Impuesto> impuestoMapper;
 
 	@Override
 	public ComprobanteRetencion convert(final RetencionDTO retencionDTO) {
@@ -39,7 +42,7 @@ public class RetencionMapper extends AbstractComprobanteMapper<RetencionDTO> imp
 			infoTributaria.setClaveAcceso(getClaveAcceso(infoTributaria, getFechaEmision(retencionDTO)));
 			comprobanteRetencion.setInfoTributaria(infoTributaria);
 		}
-
+		comprobanteRetencion.setImpuesto(getImpuestoMapper().convertAll(retencionDTO.getImpuesto()));
 		return comprobanteRetencion;
 	}
 
@@ -50,6 +53,16 @@ public class RetencionMapper extends AbstractComprobanteMapper<RetencionDTO> imp
 
 	protected Mapper<CampoAdicionalDTO, CampoAdicional> getCampoAdicionalMapper() {
 		return campoAdicionalMapper;
+	}
+	
+	public Mapper<ImpuestoDTO, Impuesto> getImpuestoMapper() {
+		return impuestoMapper;
+	}
+	
+	@Autowired
+	@Qualifier("impuestoRetencionMapper")
+	public void setImpuestoMapper(Mapper<ImpuestoDTO, Impuesto> impuestoMapper) {
+		this.impuestoMapper = impuestoMapper;
 	}
 
 	@Autowired

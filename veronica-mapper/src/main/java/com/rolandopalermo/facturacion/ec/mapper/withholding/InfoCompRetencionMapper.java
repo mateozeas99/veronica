@@ -20,6 +20,7 @@ public class InfoCompRetencionMapper implements Mapper<InfoRetencionDTO, InfoCom
         infoCompRetencion.setContribuyenteEspecial(infoRetencionDTO.getContribuyenteEspecial());
         infoCompRetencion.setObligadoContabilidad(infoRetencionDTO.getObligadoContabilidad());
         infoCompRetencion.setTipoIdentificacionSujetoRetenido(infoRetencionDTO.getTipoIdentificacionSujetoRetenido());
+        infoCompRetencion.setIdentificacionSujetoRetenido(infoRetencionDTO.getIdentificacionSujetoRetenido());
         infoCompRetencion.setRazonSocialSujetoRetenido(infoRetencionDTO.getRazonSocialSujetoRetenido());
         infoCompRetencion.setPeriodoFiscal(infoRetencionDTO.getPeriodoFiscal());
         return infoCompRetencion;

@@ -1,0 +1,1 @@
+INSERT INTO PUBLIC.internal_status (internal_status_id, description) VALUES (1, 'CREATED'), (2, 'POSTED'), (3, 'APPLIED'), (4, 'REJECTED'), (5, 'INVALID');

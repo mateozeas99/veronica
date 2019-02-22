@@ -42,25 +42,4 @@ public class FileUtils {
 
 	}
 
-//	public static byte[] convertirArchivoAByteArray(File file) throws VeronicaException {
-//		byte[] buffer = new byte[(int) file.length()];
-//		InputStream ios = null;
-//		try {
-//			ios = new FileInputStream(file);
-//			if (ios.read(buffer) == -1) {
-//				throw new IOException("EOF reached while trying to read the whole file");
-//			}
-//		} catch (Exception ex) {
-//			buffer = null;
-//		} finally {
-//			try {
-//				if (ios != null) {
-//					ios.close();
-//				}
-//			} catch (IOException e) {
-//			}
-//		}
-//		return buffer;
-//	}
-
 }

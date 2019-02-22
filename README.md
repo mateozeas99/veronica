@@ -37,10 +37,11 @@ Table of contents
 postgres=# CREATE DATABASE "veronica-db";
 ```
 
-2. Import the database tables using the **veronica/sql/veronica.sql** script.
+2. Import the database tables using the **veronica/sql/veronica_schema.sql** script.
 ```bash
-$ psql -U postgres veronica-db < veronica/sql/veronica.sql
+$ psql -U postgres veronica-db < veronica/sql/veronica_schema.sql
 ```
+And execute the veronica_data script located in **veronica/sql/veronica_data.sql**
 
 3. Add the secret keystore at the end of the **postgresql.conf** file located in **{postgreSQL_path}/11/data/**
 ```bash
@@ -101,7 +102,6 @@ http://localhost:8080/veronica/swagger-ui.html
 
 ## Postman API Reference
 - Postman collection file: veronica/Verónica API Reference.postman_collection.json
-- Online: https://documenter.getpostman.com/view/1388083/RznHJd5r
 
 ## Documentation history
 
