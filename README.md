@@ -11,9 +11,17 @@ Todo comprobante electrónico gestionado a través de `Veronica` manejará un ci
 <img src="https://raw.githubusercontent.com/rolandopalermo/veronica/master/static/veronica_ciclo_vida.png" width="500">
 </p>
 
+## Software requerido
+- JDK 1.8.0_121
+- Apache Maven 3.5.3
+- PostgreSQL 11.1-1
+
+## Pasos previos
+- [Instalar y configurar Maven](https://www.mkyong.com/maven/how-to-install-maven-in-windows/)
+
 ## Bitácora
 
-- V1: 2018-04-12, primera versión.
+- V1: 2018-04-12, Primera versión.
 - V2: 2018-04-27, Perfiles de Mave.
 - V3: 2018-04-28, Habilitar Swagger2.
 - V4: 2018-11-10, Generación de RIDEs.
