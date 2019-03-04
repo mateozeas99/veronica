@@ -11,7 +11,6 @@ Todo comprobante gestionado a través de `Veronica` manejará un ciclo de vida b
 <img src="https://raw.githubusercontent.com/rolandopalermo/veronica/master/static/veronica_ciclo_vida.png" width="500">
 </p>
 
-
 ## Bitácora
 
 - V1: 2018-04-12, primera versión.
