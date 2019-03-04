@@ -8,6 +8,5 @@
 
 Todo comprobante gestionado a través de `Veronica` manejará un ciclo de vida basado en 4 etapas:
 <p align="center">
-![Lifecycle Veronica](https://raw.githubusercontent.com/rolandopalermo/veronica/master/static/veronica_ciclo_vida.png)
+<img src="https://raw.githubusercontent.com/rolandopalermo/veronica/master/static/veronica_ciclo_vida.png">
 </p>
-Si te interesa formar parte del proyecto, envíanos tus propuestas al correo rolando.roc@gmail.com con una breve descripción de tu trayectoria como desarrollador Java.
