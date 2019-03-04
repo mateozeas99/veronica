@@ -10,3 +10,19 @@ Todo comprobante gestionado a través de `Veronica` manejará un ciclo de vida b
 <p align="center">
 <img src="https://raw.githubusercontent.com/rolandopalermo/veronica/master/static/veronica_ciclo_vida.png" width="500">
 </p>
+
+## Documentation history
+
+- V1: 2018-04-12, first draft.
+- V2: 2018-04-27, enable maven profiles.
+- V3: 2018-04-28, enable swagger2 for api documentation.
+- V4: 2018-11-10, Invoice RIDE generation.
+- V5: 2018-11-19, Postman collection.
+- V6: 2019-01-09, Postgresql integration.
+- V7: 2019-02-21, Enable Withholding taxes and Bills of Lading.
+
+## Authors
+
+| [![](https://avatars1.githubusercontent.com/u/11875482?v=4&s=80)](https://github.com/rolandopalermo) | [![](https://avatars2.githubusercontent.com/u/24358710?s=80&v=4)](https://github.com/XaviMontero) | [![](https://avatars0.githubusercontent.com/u/3452663?s=80&v=4)](https://github.com/XaviMontero) |
+|-|-|-|
+| [@RolandoPalermo](https://github.com/rolandopalermo) | [@XaviMontero](https://github.com/XaviMontero) | [@Japstones](https://github.com/japstones) |
