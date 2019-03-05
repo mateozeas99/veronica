@@ -43,7 +43,7 @@ $ psql -U postgres veronica-db < veronica_data.sql
 
 ![Veronica PostgreSQL](https://raw.githubusercontent.com/rolandopalermo/Veronica/master/static/veronica_postgresql.gif)
 
-4. Agregar la siguiente propiedad al final del archivo **postgresql.conf** localizado en la carpeta o folder **{postgreSQL_path}/11/data/**
+4. Agregar la siguiente entrada al final del archivo **postgresql.conf**.
 ```bash
 encrypt.key = 8qxBjzCdQkwdpu
 ```
