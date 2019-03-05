@@ -39,6 +39,8 @@ $ cd /veronica/sql
 $ psql -U postgres veronica-db < veronica_data.sql
 ```
 
+![Veronica PostgreSQL](https://raw.githubusercontent.com/rolandopalermo/Veronica/master/static/veronica_postgresql.gif)
+
 ## Bitácora
 
 - V1: 2018-04-12, Primera versión.

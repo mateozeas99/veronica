@@ -1,0 +1,181 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: powershell.exe
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: D:\Proyectos_Públicos\veronica\sql
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 238
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 61
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: Terminalizer
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 1499
+    content: "\e[0m\e[0K"
+  - delay: 296
+    content: "Windows PowerShell\e[0K\e[?25l\r\nCopyright (C) Microsoft Corporation. Todos los derechos reservados.\e[0K\r\n\e[0K\r\n\e[0K\e[?25h"
+  - delay: 1055
+    content: "PS D:\\Proyectos_Públicos\\veronica\\sql>\e[0K\e[40G"
+  - delay: 2188
+    content: "\e[?25l\rPS D:\\Proyectos_Públicos\\veronica\\sql> \e[0;33;93mpsql\e[0m \e[0;37;90m-\e[0m\e[0K\e[41G\e[?25h"
+  - delay: 37
+    content: "\e[?25l\rPS D:\\Proyectos_Públicos\\veronica\\sql> \e[0;33;93mpsql\e[0m \e[0;37;90m-U\e[0m postgres\e[0K\e[?25h"
+  - delay: 2938
+    content: "\e[?25l\r\n\e[0K\e[?25h"
+  - delay: 123
+    content: "Contraseña para usuario postgres:\e[0K\e[35G"
+  - delay: 3278
+    content: "\e[?25l\r\n\e[0K\e[?25h"
+  - delay: 99
+    content: "psql (11.1)\e[0K\e[?25l\r\nADVERTENCIA: El código de página de la consola (850) difiere del código\e[0K\r\n            de página de Windows (1252).\e[0K\r\n            Los caracteres de 8 bits pueden funcionar incorrectamente.\e[0K\e[61G\e[?25h"
+  - delay: 29
+    content: "\e[?25l\r\n            Vea la página de referencia de psql «Notes for Windows users»\e[0K\r\n            para obtener más detalles.\e[0K\r\nDigite «help» para obtener ayuda.\e[0K\r\n\e[0K\r\npostgres=#\e[0K\e[12G\e[?25h"
+  - delay: 3439
+    content: "\e[?25l\rpostgres=# CREATE DATABASE \"veronica-db\";\e[0K\e[?25h"
+  - delay: 1276
+    content: "\e[?25l\r\n\e[0K\e[?25h"
+  - delay: 6565
+    content: "CREATE DATABASE\e[0K\e[?25l\r\npostgres=#\e[0K\e[12G\e[?25h"
+  - delay: 815
+    content: "\e[?25l\rpostgres=# \\q\e[0K\e[?25h"
+  - delay: 837
+    content: "\e[?25l\r\n\e[0K\e[?25h"
+  - delay: 37
+    content: "PS D:\\Proyectos_Públicos\\veronica\\sql>\e[0K\e[40G"
+  - delay: 1065
+    content: "\e[?25l\rPS D:\\Proyectos_Públicos\\veronica\\sql> \e[0;33;93mc\e[0m\e[0K\e[?25h"
+  - delay: 60
+    content: "\e[0;33;93md\e[0m\e[0K"
+  - delay: 502
+    content: "\e[43G"
+  - delay: 242
+    content: "\e[?25l\rPS D:\\Proyectos_Públicos\\veronica\\sql> \e[0;33;93mcd\e[0m s\e[0K\e[?25h"
+  - delay: 68
+    content: "q\e[0K"
+  - delay: 245
+    content: "l\e[0K"
+  - delay: 474
+    content: "\e[?25l\r\n\e[0K\e[?25h"
+  - delay: 315
+    content: "\e[0;31;91mcd : No se encuentra la ruta de acceso 'D:\\Proyectos_Públicos\\veronica\\sql\\sql' porque no existe.\e[0m\e[0K\e[?25l\r\n\e[0K\e[?25h"
+  - delay: 27
+    content: "\e[0;31;91mEn línea: 1 Carácter: 1\e[0m\e[0K\e[?25l\r\n\e[0;31;91m+ cd sql\e[0m\e[0K\r\n\e[0;31;91m+ ~~~~~~\e[0m\e[0K\r\n\e[0;31;91m    + CategoryInfo          : ObjectNotFound: (D:\\Proyectos_Públicos\\veronica\\sql\\sql:String) [Set-Location], ItemNotFoundException\e[0m\e[0K\r\n\e[0;31;91m    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SetLocationCommand\e[0m\e[0K\r\n\e[0;31;91m \e[0m\e[0K\r\nPS D:\\Proyectos_Públicos\\veronica\\sql>\e[0K\e[40G\e[?25h"
+  - delay: 7222
+    content: "\e[?25l\rPS D:\\Proyectos_Públicos\\veronica\\sql> \e[0;33;93m^C\e[0m\e[0K\e[?25h"
+  - delay: 841
+    content: "\e[?25l\r\n\e[0K\e[?25h"
+  - delay: 129
+    content: "\e[0;31;91m╚ : El término '╚' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e \e[0m\e[0K\e[?25l\r\n\e[0;31;91minténtelo de nuevo.\e[0m\e[0K\r\n\e[0;31;91mEn línea: 1 Carácter: 1\e[0m\e[0K\r\n\e[0;31;91m+ ╚\e[0m\e[0K\r\n\e[0;31;91m+ ~\e[0m\e[0K\r\n\e[0;31;91m    + CategoryInfo          : ObjectNotFound: (╚:String) [], CommandNotFoundException\e[0m\e[0K\r\n\e[0;31;91m    + FullyQualifiedErrorId : CommandNotFoundException\e[0m\e[0K\r\n\e[0;31;91m \e[0m\e[0K\r\n\e[0K\e[?25h"
+  - delay: 56
+    content: "PS D:\\Proyectos_Públicos\\veronica\\sql>\e[0K\e[40G"
+  - delay: 595
+    content: "\e[?25l\rPS D:\\Proyectos_Públicos\\veronica\\sql> \e[0;33;93me\e[0m\e[0K\e[?25h"
+  - delay: 190
+    content: "\e[0;33;93mx\e[0m\e[0K"
+  - delay: 88
+    content: "\e[0;33;93mi\e[0m\e[0K"
+  - delay: 160
+    content: "\e[?25l\rPS D:\\Proyectos_Públicos\\veronica\\sql> \e[0;32;92mexit\e[0m\e[0K\e[?25h"
+  - delay: 127
+    content: "\e[?25l\r\n\e[0K\e[?25h"
