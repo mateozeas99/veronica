@@ -20,7 +20,7 @@ Todo comprobante electrónico gestionado a través de `Veronica` manejará un ci
 - [Instalar y configurar Maven](https://www.mkyong.com/maven/how-to-install-maven-in-windows/)
 
 ## Instalación
-1. Luego de instalar PostgreSQL, abrir una consola o shell y crear la base de datos.
+1. Abrir una consola o shell y crear la base de datos.
 ```bash
 $ psql -U postgres
 # CREATE DATABASE "veronica-db";
@@ -31,6 +31,12 @@ $ psql -U postgres
 ```bash
 $ cd /veronica/sql
 $ psql -U postgres veronica-db < veronica_schema.sql
+```
+
+3. Ejecutar el script **veronica_data.sql** de carga inicial de datos.
+```bash
+$ cd /veronica/sql
+$ psql -U postgres veronica-db < veronica_data.sql
 ```
 
 ## Bitácora
