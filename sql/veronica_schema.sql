@@ -329,11 +329,6 @@ COPY public.digital_cert (digital_cert_id, digital_cert, owner, password, active
 --
 
 COPY public.internal_status (internal_status_id, description) FROM stdin;
-1	CREATED
-2	POSTED
-3	APPLIED
-4	REJECTED
-5	INVALID
 \.
 
 
@@ -524,4 +519,3 @@ ALTER TABLE ONLY public.with_holding
 --
 -- PostgreSQL database dump complete
 --
-
