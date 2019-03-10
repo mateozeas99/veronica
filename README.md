@@ -41,10 +41,6 @@ $ cd /veronica/sql
 $ psql -U postgres veronica-db < veronica_data.sql
 ```
 
-La siguiente imagen muestra, a modo de ejemplo, un resumen de los pasos anteriores.
-
-![Veronica PostgreSQL](https://raw.githubusercontent.com/rolandopalermo/Veronica/master/static/veronica_postgresql.gif)
-
 4. Agregar la siguiente entrada al final del archivo **postgresql.conf** y reiniciar el servidor de base de datos.
 ```bash
 encrypt.key = 8qxBjzCdQkwdpu
