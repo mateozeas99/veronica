@@ -41,6 +41,8 @@ $ cd /veronica/sql
 $ psql -U postgres veronica-db < veronica_data.sql
 ```
 
+La siguiente imagen muestra, a modo de ejemplo, un resumen de los pasos anteriores.
+
 ![Veronica PostgreSQL](https://raw.githubusercontent.com/rolandopalermo/Veronica/master/static/veronica_postgresql.gif)
 
 4. Agregar la siguiente entrada al final del archivo **postgresql.conf** y reiniciar el servidor de base de datos.
@@ -49,7 +51,7 @@ encrypt.key = 8qxBjzCdQkwdpu
 ```
 
 ### Instalación de dependencias
-1. `Veronica` posee una lista de dependencias que no se encuentran disponibles en el repositorio remoto de Maven por lo que se tendrá que hacer la instalación de forma manual. Para esto ejecutar los siguientes comandos.
+1. `Veronica` posee una lista de dependencias que no se encuentran disponibles en el repositorio remoto de Maven por lo que se tendrá que hacer la instalación de forma manual. Para esto, ejecutar los siguientes comandos.
 ```bash
 $ cd /veronica/additional_libs
 mvn install:install-file -Dfile=jss-4.2.5.jar -DgroupId=org.mozilla -DartifactId=jss -Dversion=4.2.5 -Dpackaging=jar
