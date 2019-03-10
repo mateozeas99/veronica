@@ -68,7 +68,7 @@ $ mvn clean install
 ```
 
 ### Despliegue
-`Veronica` proporciona dos perfiles de despliegue: Desarrollo y Producción. Cada uno de estos ambientes posee un archivo de configuración situado en **/veronica/src/filters**. Para desplegar el proyecto con el perfil adecuado, indicar el ambiente como argumento de ejecución.
+`Veronica` proporciona dos perfiles de despliegue: Desarrollo y Producción. Cada uno de estos perfiles posee un archivo de configuración situado en **/veronica/src/filters**. Para desplegar el proyecto con el perfil adecuado, indicar el ambiente como argumento de ejecución.
 
 `Desarrollo`
 ```bash
