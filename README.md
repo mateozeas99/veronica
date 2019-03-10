@@ -61,6 +61,21 @@ mvn install:install-file -Dfile=MITyCLibXADES-1.0.4.jar -DgroupId=es.mityc.javas
 mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache.xmlsec-adsi -DartifactId=xmlsec-adsi -Dversion=1.4.2 -Dpackaging=jar
 ```
 
+### Despliegue
+`Veronica` proporciona dos perfiles de despliegue: Desarrollo y Producción. Cada uno de estos ambientes posee un archivo de configuración situado en **/veronica/src/filters**. Para desplegar el proyecto con el perfil adecuado, indicar el ambiente como argumento de ejecución.
+
+`Desarrollo`
+```bash
+$ cd veronica-web
+$ mvn spring-boot:run -Pdevelopment
+```
+
+`Producción`
+```bash
+$ cd veronica-web
+$ mvn spring-boot:run -Pproduction
+```
+
 ## Bitácora
 
 - V1: 2018-04-12, Primera versión.
