@@ -17,6 +17,13 @@ Cotenidos
 - [Pasos previos](#pasos-previos)
 - [Instalación](#instalación)
 	- [Instalación de base de datos](#instalación-de-base-de-datos)
+	- [Instalación de dependencias](#instalación-de-dependencias)
+	- [Despliegue](#despliegue)
+- [Documentación](#documentación)
+	- [Swagger](#swagger)
+	- [Postman](#postman)
+- [Bitácora](#bitácora)
+- [Autores](#autores)
 
 ## Software requerido
 - JDK 1.8.0_121
@@ -91,10 +98,11 @@ $ cd /veronica/veronica-web
 $ mvn spring-boot:run -Pproduction
 ```
 
-## Swagger Documentation
+## Documentación
+## Swagger
 http://localhost:8080/veronica/swagger-ui.html
 
-## Postman API Reference
+## Postman
 - Postman collection file: **/veronica/Verónica API Reference.postman_collection.json**
 
 ## Bitácora
