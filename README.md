@@ -11,6 +11,13 @@ Todo comprobante electrónico gestionado a través de `Veronica` manejará un ci
 <img src="https://raw.githubusercontent.com/rolandopalermo/veronica/master/static/veronica_ciclo_vida.png" width="500">
 </p>
 
+Cotenidos
+=================
+- [Software requerido](#software-requerido)
+- [Pasos previos](#pasos-previos)
+- [Instalación](#instalación)
+	- [Instalación de base de datos](#instalación-de-base-de-datos)
+
 ## Software requerido
 - JDK 1.8.0_121
 - Apache Maven 3.5.3
