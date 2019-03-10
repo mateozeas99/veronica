@@ -84,6 +84,12 @@ $ cd /veronica/veronica-web
 $ mvn spring-boot:run -Pproduction
 ```
 
+## Swagger Documentation
+http://localhost:8080/veronica/swagger-ui.html
+
+## Postman API Reference
+- Postman collection file: **/veronica/Verónica API Reference.postman_collection.json**
+
 ## Bitácora
 
 - V1: 2018-04-12, Primera versión.
