@@ -103,7 +103,7 @@ $ mvn spring-boot:run -Pproduction
 http://localhost:8080/veronica/swagger-ui.html
 
 ## Postman
-Archivo Postman: **/veronica/Verónica API Reference.postman_collection.json**
+**/veronica/Verónica API Reference.postman_collection.json**
 
 ## Bitácora
 
