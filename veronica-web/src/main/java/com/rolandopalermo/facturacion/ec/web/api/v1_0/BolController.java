@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -105,7 +106,9 @@ public class BolController {
 	@GetMapping(value = "{claveAcceso}/archivos/xml", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<Object> getXML(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable("claveAcceso") String claveAcceso) {
 		try {
-			return ResponseEntity.ok(bollBO.getXML(claveAcceso));
+			HttpHeaders headers = new HttpHeaders();
+			headers.add(HttpHeaders.CONTENT_TYPE, "application/xml; charset=UTF-8");
+			return  (new ResponseEntity<Object>(bollBO.getXML(claveAcceso), headers, HttpStatus.OK));
 		} catch (VeronicaException e) {
 			logger.error("getXML", e);
 			throw new InternalServerException(e.getMessage());
