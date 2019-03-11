@@ -29,6 +29,33 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
 
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: bol; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.bol (
+    bol_id integer NOT NULL,
+    access_key character varying(50) NOT NULL,
+    internal_status_id integer,
+    sri_version character varying(5) NOT NULL,
+    xml_content xml,
+    supplier_id character varying(20) NOT NULL,
+    issue_date date,
+    bol_number character varying(20),
+    xml_authorization xml,
+    is_deleted boolean DEFAULT false,
+    authorization_date timestamp without time zone,
+    shipper_ruc character varying(20) NOT NULL,
+    registration_number character varying(20)
+);
+
+
+ALTER TABLE public.bol OWNER TO postgres;
+
 --
 -- Name: bol_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
@@ -43,31 +70,22 @@ CREATE SEQUENCE public.bol_seq
 
 ALTER TABLE public.bol_seq OWNER TO postgres;
 
-SET default_tablespace = '';
-
-SET default_with_oids = false;
-
 --
--- Name: bol; Type: TABLE; Schema: public; Owner: postgres
+-- Name: consignne; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.bol (
-    bol_id integer DEFAULT nextval('public.bol_seq'::regclass) NOT NULL,
+CREATE TABLE public.consignne (
+    consignne_id integer NOT NULL,
     access_key character varying(50) NOT NULL,
-    sri_version character varying(5) NOT NULL,
-    xml_content xml,
-    supplier_id character varying(20) NOT NULL,
-    customer_id character varying(20) NOT NULL,
-    issue_date date,
-    internal_status_id integer,
-    bol_number character varying(20),
-    xml_authorization xml,
-    is_deleted boolean DEFAULT false,
-    authorization_date timestamp without time zone
+    consignne_number character varying(20) NOT NULL,
+    custom_doc_number character varying(20) NOT NULL,
+    reference_doc_cod character varying(5) NOT NULL,
+    reference_doc_number character varying(20) NOT NULL,
+    reference_doc_auth_number character varying(50) NOT NULL
 );
 
 
-ALTER TABLE public.bol OWNER TO postgres;
+ALTER TABLE public.consignne OWNER TO postgres;
 
 --
 -- Name: consignne_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -82,23 +100,6 @@ CREATE SEQUENCE public.consignne_seq
 
 
 ALTER TABLE public.consignne_seq OWNER TO postgres;
-
---
--- Name: consignne; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.consignne (
-    id integer DEFAULT nextval('public.consignne_seq'::regclass) NOT NULL,
-    consignne_id character varying(20) NOT NULL,
-    custom_doc_number character varying(20) NOT NULL,
-    reference_doc_cod character varying(30) NOT NULL,
-    reference_doc_number character varying(50) NOT NULL,
-    reference_doc_auth_number character varying(50) NOT NULL,
-    access_key character varying(50) NOT NULL
-);
-
-
-ALTER TABLE public.consignne OWNER TO postgres;
 
 --
 -- Name: digital_cert; Type: TABLE; Schema: public; Owner: postgres
@@ -301,110 +302,6 @@ ALTER TABLE ONLY public.invoice ALTER COLUMN invoice_id SET DEFAULT nextval('pub
 
 
 --
--- Data for Name: bol; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.bol (bol_id, access_key, sri_version, xml_content, supplier_id, customer_id, issue_date, internal_status_id, bol_number, xml_authorization, is_deleted, authorization_date) FROM stdin;
-\.
-
-
---
--- Data for Name: consignne; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.consignne (id, consignne_id, custom_doc_number, reference_doc_cod, reference_doc_number, reference_doc_auth_number, access_key) FROM stdin;
-\.
-
-
---
--- Data for Name: digital_cert; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.digital_cert (digital_cert_id, digital_cert, owner, password, active, insert_date) FROM stdin;
-\.
-
-
---
--- Data for Name: internal_status; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.internal_status (internal_status_id, description) FROM stdin;
-\.
-
-
---
--- Data for Name: invoice; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.invoice (invoice_id, access_key, sri_version, xml_content, supplier_id, customer_id, issue_date, internal_status_id, invoice_number, xml_authorization, is_deleted, authorization_date) FROM stdin;
-\.
-
-
---
--- Data for Name: with_holding; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.with_holding (with_holding_id, access_key, sri_version, xml_content, supplier_id, customer_id, issue_date, internal_status_id, xml_authorization, is_deleted, authorization_date) FROM stdin;
-\.
-
-
---
--- Name: bol_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.bol_seq', 1, false);
-
-
---
--- Name: consignne_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.consignne_seq', 1, false);
-
-
---
--- Name: digital_cert_digital_cert_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.digital_cert_digital_cert_id_seq', 1, false);
-
-
---
--- Name: digital_cert_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.digital_cert_seq', 1, false);
-
-
---
--- Name: internal_status_internal_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.internal_status_internal_status_id_seq', 1, false);
-
-
---
--- Name: invoice_invoice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.invoice_invoice_id_seq', 1, false);
-
-
---
--- Name: invoice_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.invoice_seq', 1, false);
-
-
---
--- Name: with_holding_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.with_holding_seq', 1, false);
-
-
---
 -- Name: bol bol_access_key_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -425,7 +322,7 @@ ALTER TABLE ONLY public.bol
 --
 
 ALTER TABLE ONLY public.consignne
-    ADD CONSTRAINT consignne_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT consignne_pkey PRIMARY KEY (consignne_id);
 
 
 --
@@ -485,19 +382,19 @@ ALTER TABLE ONLY public.with_holding
 
 
 --
+-- Name: consignne bol_consignne_access_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.consignne
+    ADD CONSTRAINT bol_consignne_access_key_fkey FOREIGN KEY (access_key) REFERENCES public.bol(access_key);
+
+
+--
 -- Name: bol bol_internal_status_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.bol
     ADD CONSTRAINT bol_internal_status_id_fkey FOREIGN KEY (internal_status_id) REFERENCES public.internal_status(internal_status_id);
-
-
---
--- Name: consignne consignne_internal_status_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.consignne
-    ADD CONSTRAINT consignne_internal_status_id_fkey FOREIGN KEY (access_key) REFERENCES public.bol(access_key);
 
 
 --
@@ -519,3 +416,4 @@ ALTER TABLE ONLY public.with_holding
 --
 -- PostgreSQL database dump complete
 --
+

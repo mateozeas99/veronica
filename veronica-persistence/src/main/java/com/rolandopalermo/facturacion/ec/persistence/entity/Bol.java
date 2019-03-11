@@ -1,6 +1,8 @@
 package com.rolandopalermo.facturacion.ec.persistence.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -28,7 +31,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "bol")
 @TypeDefs(value = { @TypeDef(name = "XMLType", typeClass = XMLType.class) })
-public class Bol {
+public class Bol implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bol_generator")
@@ -40,6 +45,7 @@ public class Bol {
 	private long internalStatusId;
 
 	@Column
+	@NaturalId
 	private String accessKey;
 
 	@Column
@@ -74,7 +80,17 @@ public class Bol {
 	@Column
 	private String registrationNumber;
 
-	@OneToMany(mappedBy = "bol", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-	private List<Consignee> consignees;
+	@OneToMany(mappedBy = "bol", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Consignee> consignees = new ArrayList<>();
+	
+	public void addConsignee(Consignee consignee) {
+		consignees.add(consignee);
+		consignee.setBol(this);
+	}
+
+	public void removeConsignee(Consignee consignee) {
+		consignees.remove(consignee);
+		consignee.setBol(null);
+	}
 
 }

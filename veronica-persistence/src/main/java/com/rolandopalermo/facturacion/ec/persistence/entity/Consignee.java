@@ -1,8 +1,8 @@
 package com.rolandopalermo.facturacion.ec.persistence.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,11 +23,11 @@ public class Consignee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consignne_generator")
 	@SequenceGenerator(name = "consignne_generator", sequenceName = "consignne_seq", allocationSize = 50)
-	@Column(name = "id", updatable = false, nullable = false)
-	private long id;
+	@Column(name = "consignneId", updatable = false, nullable = false)
+	private long consignneId;
 
 	@Column
-	private String consignneId;
+	private String consignneNumber;
 
 	@Column
 	private String customDocNumber;
@@ -41,8 +41,22 @@ public class Consignee {
 	@Column
 	private String referenceDocAuthNumber;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-	@JoinColumn(name = "access_key", referencedColumnName = "accessKey")
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "access_key", referencedColumnName = "accessKey")
 	private Bol bol;
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof Consignee))
+			return false;
+		return consignneId == (((Consignee) o).consignneId);
+	}
+	
+    @Override
+    public int hashCode() {
+        return 31;
+    }
 
 }

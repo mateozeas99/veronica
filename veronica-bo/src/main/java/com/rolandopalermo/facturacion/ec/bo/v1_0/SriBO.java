@@ -28,8 +28,10 @@ import com.rolandopalermo.facturacion.ec.mapper.sri.RespuestaComprobanteMapper;
 import com.rolandopalermo.facturacion.ec.mapper.sri.RespuestaSolicitudMapper;
 import com.rolandopalermo.facturacion.ec.modelo.factura.Factura;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.ComprobanteRetencion;
+import com.rolandopalermo.facturacion.ec.persistence.entity.Bol;
 import com.rolandopalermo.facturacion.ec.persistence.entity.Invoice;
 import com.rolandopalermo.facturacion.ec.persistence.entity.WithHolding;
+import com.rolandopalermo.facturacion.ec.persistence.repository.BolRepository;
 import com.rolandopalermo.facturacion.ec.persistence.repository.InvoiceRepository;
 import com.rolandopalermo.facturacion.ec.persistence.repository.WithHoldingRepository;
 import com.rolandopalermo.facturacion.ec.soap.client.AutorizacionComprobanteProxy;
@@ -54,6 +56,9 @@ public class SriBO {
 	
 	@Autowired
 	private WithHoldingRepository withHoldingRepository;
+	
+	@Autowired
+	private BolRepository bolRepository;
 
 	private static final Logger logger = LogManager.getLogger(SriBO.class);
 
@@ -101,6 +106,28 @@ public class SriBO {
 			withHolding.setInternalStatusId(POSTED);
 		}
 		withHoldingRepository.save(withHolding);
+		return respuestaSolicitudDTO;
+	}
+	
+	public RespuestaSolicitudDTO postBillOFLanding(String claveAcceso) throws ResourceNotFoundException {
+		List<Bol> bols = bolRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
+		if (bols == null || bols.isEmpty()) {
+			throw new ResourceNotFoundException(
+					String.format("No se pudo encontrar la guia de remisión electrónica con clave de acceso %s", claveAcceso));
+		}
+		Bol bol = bols.get(0);
+		byte[] xmlContent = bol.getXmlContent().getBytes();
+		if (xmlContent == null) {
+			throw new ResourceNotFoundException(
+					String.format("El contenido de la guia de remisión electrónica con clave de acceso %s es nulo", claveAcceso));
+		}
+		RespuestaSolicitudDTO respuestaSolicitudDTO = post(xmlContent);
+		if (respuestaSolicitudDTO.getEstado().compareTo(SRI_REJECTED) == 0) {
+			bol.setInternalStatusId(REJECTED);
+		} else {
+			bol.setInternalStatusId(POSTED);
+		}
+		bolRepository.save(bol);
 		return respuestaSolicitudDTO;
 	}
 

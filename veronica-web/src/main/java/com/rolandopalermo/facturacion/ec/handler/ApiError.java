@@ -1,6 +1,7 @@
 package com.rolandopalermo.facturacion.ec.handler;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase;
@@ -26,15 +26,15 @@ import lombok.EqualsAndHashCode;
 @JsonTypeIdResolver(LowerCaseClassNameResolver.class)
 class ApiError {
 
+	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	private HttpStatus status;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-	private LocalDateTime timestamp;
+	private String timestamp;
 	private String message;
 	private String debugMessage;
 	private List<ApiSubError> subErrors;
 
 	private ApiError() {
-		timestamp = LocalDateTime.now();
+		timestamp = LocalDateTime.now().format(formatter);
 	}
 
 	ApiError(HttpStatus status) {
@@ -72,8 +72,7 @@ class ApiError {
 	}
 
 	private void addValidationError(FieldError fieldError) {
-		this.addValidationError(fieldError.getObjectName(), fieldError.getField(), fieldError.getRejectedValue(),
-				fieldError.getDefaultMessage());
+		this.addValidationError(fieldError.getObjectName(), fieldError.getField(), fieldError.getRejectedValue(), fieldError.getDefaultMessage());
 	}
 
 	void addValidationErrors(List<FieldError> fieldErrors) {
@@ -96,8 +95,7 @@ class ApiError {
 	 *            the ConstraintViolation
 	 */
 	private void addValidationError(ConstraintViolation<?> cv) {
-		this.addValidationError(cv.getRootBeanClass().getSimpleName(),
-				((PathImpl) cv.getPropertyPath()).getLeafNode().asString(), cv.getInvalidValue(), cv.getMessage());
+		this.addValidationError(cv.getRootBeanClass().getSimpleName(), ((PathImpl) cv.getPropertyPath()).getLeafNode().asString(), cv.getInvalidValue(), cv.getMessage());
 	}
 
 	void addValidationErrors(Set<ConstraintViolation<?>> constraintViolations) {

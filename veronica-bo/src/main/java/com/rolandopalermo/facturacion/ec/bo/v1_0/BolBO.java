@@ -58,17 +58,20 @@ public class BolBO {
 		bol.setIssueDate(DateUtils.getFechaFromStringddMMyyyy(guia.getInfoGuiaRemision().getFechaIniTransporte()));
 		bol.setBolNumber(guia.getInfoTributaria().getSecuencial());
 		bol.setInternalStatusId(CREATED);
-		bolRepository.save(bol);
+		
 		guia.getDestinatario().forEach(destinatario -> {
 			Consignee consignee = new Consignee();
-			consignee.setConsignneId(destinatario.getIdentificacionDestinatario());
+			consignee.setConsignneNumber(destinatario.getIdentificacionDestinatario());
 			consignee.setCustomDocNumber(destinatario.getDocAduaneroUnico());
 			consignee.setReferenceDocCod(destinatario.getCodDocSustento());
 			consignee.setReferenceDocNumber(destinatario.getNumDocSustento());
 			consignee.setReferenceDocAuthNumber(destinatario.getNumAutDocSustento());
-			consignee.setBol(bol);
-			consigneeRepository.save(consignee);
+			bol.addConsignee(consignee);
+//			bol.getConsignees().add(consignee);
+//			consignee.setBol(bol);
+//			consigneeRepository.save(consignee);
 		});
+		bolRepository.save(bol);
 		GuiaIdDTO guiaIdDTO = new GuiaIdDTO();
 		guiaIdDTO.setClaveAcceso(bol.getAccessKey());
 		return guiaIdDTO;

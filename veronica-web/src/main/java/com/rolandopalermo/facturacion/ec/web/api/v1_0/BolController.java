@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,18 +24,22 @@ import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.VeronicaResponseDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaIdDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaRemisionDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaSolicitudDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @RestController
-@RequestMapping(value = "/api/v1.0/guia-remision")
+@RequestMapping(value = "/api/v1.0/guias-remision")
 @Api(description = "Gestiona el ciclo de vida de una guia de remisión electrónica")
 public class BolController {
 	
 	@Autowired
 	private BolBO bollBO;
+	
+	@Autowired
+	private SriBO sriBO;
 
 	private static final Logger logger = LogManager.getLogger(SriBO.class);
 
@@ -51,6 +57,16 @@ public class BolController {
 			logger.error("createBol", e);
 			throw new InternalServerException(e.getMessage());
 		}
+	}
+	
+	@ApiOperation(value = "Envía una guia de remisión electrónica al SRI y actualiza su estado en base de datos")
+	@PutMapping(value = "{claveAcceso}/enviar", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> postBillOFLanding(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
+		VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
+		RespuestaSolicitudDTO respuestaSolicitudDTO = sriBO.postBillOFLanding(claveAcceso);
+		response.setSuccess(true);
+		response.setResult(respuestaSolicitudDTO);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 }

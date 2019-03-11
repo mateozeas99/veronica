@@ -7,10 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import com.rolandopalermo.facturacion.ec.persistence.entity.Bol;
 
-
 @Repository
 public interface BolRepository extends JpaRepository<Bol, Long> {
-	
+
 	public List<Bol> findByAccessKeyAndIsDeleted(String accessKey, boolean isDeleted);
-	
+
 }
