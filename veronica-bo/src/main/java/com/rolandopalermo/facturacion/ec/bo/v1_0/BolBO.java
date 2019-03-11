@@ -51,6 +51,25 @@ public class BolBO {
 		return guiaIdDTO;
 	}
 	
+	public void deleteBol(String claveAcceso) throws ResourceNotFoundException, VeronicaException {
+		List<Bol> bols = bolRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
+		if (bols == null || bols.isEmpty()) {
+			throw new ResourceNotFoundException(String.format("No se pudo encontrar la guía de remisión con clave de acceso %s", claveAcceso));
+		}
+		Bol bol = bols.get(0);
+		bol.setDeleted(true);
+		bolRepository.save(bol);
+	}
+	
+	public String getXML(String claveAcceso) throws ResourceNotFoundException, VeronicaException {
+		List<Bol> bols = bolRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
+		if (bols == null || bols.isEmpty()) {
+			throw new ResourceNotFoundException(String.format("No se pudo encontrar la guía de remisión con clave de acceso %s", claveAcceso));
+		}
+		Bol bol = bols.get(0);
+		return bol.getXmlContent();
+	}
+	
 	public Bol toEntity(GuiaRemision guia, String asXML) throws VeronicaException {
 		Bol bol = new Bol();
 		bol.setAccessKey(guia.getInfoTributaria().getClaveAcceso());

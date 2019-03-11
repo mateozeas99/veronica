@@ -129,7 +129,7 @@ public class InvoiceController {
 	}
 
 	@ApiOperation(value = "Retorna la representación XML de una factura electrónica")
-	@GetMapping(value = "{claveAcceso}/archivos/xml", produces = { MediaType.APPLICATION_XML_VALUE }, headers = "Accept=application/xml")
+	@GetMapping(value = "{claveAcceso}/archivos/xml", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<Object> getXML(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable("claveAcceso") String claveAcceso) {
 		try {
 			return ResponseEntity.ok(invoiceBO.getXML(claveAcceso));
