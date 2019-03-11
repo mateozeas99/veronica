@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import com.rolandopalermo.facturacion.ec.common.exception.ResourceNotFoundException;
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
-import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
 import com.rolandopalermo.facturacion.ec.common.util.JaxbUtils;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.AutorizacionDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaComprobanteDTO;
@@ -27,6 +26,7 @@ import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaSolicitudDTO;
 import com.rolandopalermo.facturacion.ec.mapper.sri.RespuestaComprobanteMapper;
 import com.rolandopalermo.facturacion.ec.mapper.sri.RespuestaSolicitudMapper;
 import com.rolandopalermo.facturacion.ec.modelo.factura.Factura;
+import com.rolandopalermo.facturacion.ec.modelo.guia.GuiaRemision;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.ComprobanteRetencion;
 import com.rolandopalermo.facturacion.ec.persistence.entity.Bol;
 import com.rolandopalermo.facturacion.ec.persistence.entity.Invoice;
@@ -59,6 +59,15 @@ public class SriBO {
 	
 	@Autowired
 	private BolRepository bolRepository;
+	
+	@Autowired
+	private BolBO bolBO;
+	
+	@Autowired
+	private InvoiceBO invoiceBO;
+	
+	@Autowired
+	private WithHoldingBO withHoldingBO;
 
 	private static final Logger logger = LogManager.getLogger(SriBO.class);
 
@@ -146,14 +155,7 @@ public class SriBO {
 		Timestamp timestamp = new Timestamp(respuestaComprobanteDTO.getTimestamp());
 		List<Invoice> invoices = invoiceRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
 		if (invoices == null || invoices.isEmpty()) {
-			invoice = new Invoice();
-			invoice.setAccessKey(claveAcceso);
-			invoice.setSupplierId(factura.getInfoTributaria().getRuc());
-			invoice.setCustomerId(factura.getInfoFactura().getIdentificacionComprador());
-			invoice.setInvoiceNumber(factura.getInfoTributaria().getSecuencial());
-			invoice.setIssueDate(DateUtils.getFechaFromStringddMMyyyy(factura.getInfoFactura().getFechaEmision()));
-			invoice.setSriVersion(factura.getVersion());
-			invoice.setXmlContent(autorizacion.getComprobante());
+			invoice = invoiceBO.toEntity(factura, autorizacion.getComprobante());
 		} else {
 			invoice = invoices.get(0);
 		}
@@ -179,13 +181,7 @@ public class SriBO {
 		Timestamp timestamp = new Timestamp(respuestaComprobanteDTO.getTimestamp());
 		List<WithHolding> withHoldings = withHoldingRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
 		if (withHoldings == null || withHoldings.isEmpty()) {
-			withHolding = new WithHolding();
-			withHolding.setAccessKey(claveAcceso);
-			withHolding.setSupplierId(comprobanteRetencion.getInfoTributaria().getRuc());
-			withHolding.setCustomerId(comprobanteRetencion.getInfoCompRetencion().getIdentificacionSujetoRetenido());
-			withHolding.setIssueDate(DateUtils.getFechaFromStringddMMyyyy(comprobanteRetencion.getInfoCompRetencion().getFechaEmision()));
-			withHolding.setSriVersion(comprobanteRetencion.getVersion());
-			withHolding.setXmlContent(autorizacion.getComprobante());
+			withHolding = withHoldingBO.toEntity(comprobanteRetencion, autorizacion.getComprobante());
 		} else {
 			withHolding = withHoldings.get(0);
 		}
@@ -193,6 +189,32 @@ public class SriBO {
 		withHolding.setInternalStatusId(autorizacion.getEstado().compareTo(SRI_APPLIED) == 0 ? APPLIED : INVALID);
 		withHolding.setAuthorizationDate(timestamp);
 		withHoldingRepository.save(withHolding);
+		return respuestaComprobanteDTO;
+	}
+	
+	public RespuestaComprobanteDTO applyBillOFLanding(String claveAcceso) throws ResourceNotFoundException, VeronicaException {
+		GuiaRemision guiaRemision;
+		Bol bol;
+		RespuestaComprobanteDTO respuestaComprobanteDTO = apply(claveAcceso);
+		AutorizacionDTO autorizacion = respuestaComprobanteDTO.getAutorizaciones().get(0);
+		try {
+			guiaRemision = JaxbUtils.unmarshall(autorizacion.getComprobante(), GuiaRemision.class);
+		} catch (Exception e) {
+			logger.error("applyBillOFLanding", e);
+			throw new ResourceNotFoundException(
+					String.format("No se puede procesar la guía de remisión %s", autorizacion.getComprobante()));
+		}
+		Timestamp timestamp = new Timestamp(respuestaComprobanteDTO.getTimestamp());
+		List<Bol> bols = bolRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
+		if (bols == null || bols.isEmpty()) {
+			bol = bolBO.toEntity(guiaRemision, autorizacion.getComprobante());
+		} else {
+			bol = bols.get(0);
+		}
+		bol.setXmlAuthorization(respuestaComprobanteDTO.getContentAsXML());
+		bol.setInternalStatusId(autorizacion.getEstado().compareTo(SRI_APPLIED) == 0 ? APPLIED : INVALID);
+		bol.setAuthorizationDate(timestamp);
+		bolRepository.save(bol);
 		return respuestaComprobanteDTO;
 	}
 	

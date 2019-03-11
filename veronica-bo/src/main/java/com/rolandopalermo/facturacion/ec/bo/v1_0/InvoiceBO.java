@@ -45,15 +45,7 @@ public class InvoiceBO {
 		}
 		byte[] signedXMLContent = SignerUtils.signXML(xmlContent, certificados.get(0).getDigitalCert(),
 				certificados.get(0).getPassword());
-		Invoice invoice = new Invoice();
-		invoice.setAccessKey(factura.getInfoTributaria().getClaveAcceso());
-		invoice.setSriVersion(factura.getVersion());
-		invoice.setXmlContent(new String(signedXMLContent));
-		invoice.setSupplierId(factura.getInfoTributaria().getRuc());
-		invoice.setCustomerId(factura.getInfoFactura().getIdentificacionComprador());
-		invoice.setIssueDate(DateUtils.getFechaFromStringddMMyyyy(factura.getInfoFactura().getFechaEmision()));
-		invoice.setInvoiceNumber(factura.getInfoTributaria().getSecuencial());
-		invoice.setInternalStatusId(CREATED);
+		Invoice invoice = toEntity(factura, new String(signedXMLContent));
 		invoiceRepository.save(invoice);
 		FacturaIdDTO facturaIdDTO = new FacturaIdDTO();
 		facturaIdDTO.setClaveAcceso(invoice.getAccessKey());
@@ -77,6 +69,19 @@ public class InvoiceBO {
 		}
 		Invoice invoice = invoices.get(0);
 		return invoice.getXmlContent();
+	}
+	
+	public Invoice toEntity(Factura factura, String asXML) throws VeronicaException {
+		Invoice invoice = new Invoice();
+		invoice.setAccessKey(factura.getInfoTributaria().getClaveAcceso());
+		invoice.setSriVersion(factura.getVersion());
+		invoice.setXmlContent(asXML);
+		invoice.setSupplierId(factura.getInfoTributaria().getRuc());
+		invoice.setCustomerId(factura.getInfoFactura().getIdentificacionComprador());
+		invoice.setIssueDate(DateUtils.getFechaFromStringddMMyyyy(factura.getInfoFactura().getFechaEmision()));
+		invoice.setInvoiceNumber(factura.getInfoTributaria().getSecuencial());
+		invoice.setInternalStatusId(CREATED);
+		return invoice;
 	}
 
 }

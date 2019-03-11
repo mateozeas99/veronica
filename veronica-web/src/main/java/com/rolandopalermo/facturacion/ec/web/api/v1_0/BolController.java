@@ -24,6 +24,7 @@ import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.VeronicaResponseDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaIdDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaRemisionDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaComprobanteDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaSolicitudDTO;
 
 import io.swagger.annotations.Api;
@@ -67,6 +68,21 @@ public class BolController {
 		response.setSuccess(true);
 		response.setResult(respuestaSolicitudDTO);
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "Autoriza una guia de remisión electrónica y actualiza su estado en base de datos")
+	@PutMapping(value = "{claveAcceso}/autorizar", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> applyBillOFLanding(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
+		try {
+			VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
+			RespuestaComprobanteDTO respuestaComprobanteDTO = sriBO.applyInvoice(claveAcceso);
+			response.setSuccess(true);
+			response.setResult(respuestaComprobanteDTO);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (VeronicaException e) {
+			logger.error("applyBillOFLanding", e);
+			throw new InternalServerException(e.getMessage());
+		}
 	}
 	
 }

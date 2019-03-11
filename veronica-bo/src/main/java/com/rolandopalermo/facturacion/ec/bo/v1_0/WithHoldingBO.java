@@ -45,15 +45,7 @@ public class WithHoldingBO {
 		}
 		byte[] signedXMLContent = SignerUtils.signXML(xmlContent, certificados.get(0).getDigitalCert(),
 				certificados.get(0).getPassword());
-		WithHolding withHolding = new WithHolding();
-		withHolding.setAccessKey(comprobanteRetencion.getInfoTributaria().getClaveAcceso());
-		withHolding.setSriVersion(comprobanteRetencion.getVersion());
-		withHolding.setXmlContent(new String(signedXMLContent));
-		withHolding.setSupplierId(comprobanteRetencion.getInfoTributaria().getRuc());
-		withHolding.setCustomerId(comprobanteRetencion.getInfoCompRetencion().getIdentificacionSujetoRetenido());
-		withHolding.setIssueDate(
-				DateUtils.getFechaFromStringddMMyyyy(comprobanteRetencion.getInfoCompRetencion().getFechaEmision()));
-		withHolding.setInternalStatusId(CREATED);
+		WithHolding withHolding = toEntity(comprobanteRetencion, new String(signedXMLContent));
 		withHoldingRepository.save(withHolding);
 		RetencionIdDTO retencionIdDTO = new RetencionIdDTO();
 		retencionIdDTO.setClaveAcceso(withHolding.getAccessKey());
@@ -77,6 +69,18 @@ public class WithHoldingBO {
 		}
 		WithHolding withHolding = WithHoldings.get(0);
 		return withHolding.getXmlContent();
+	}
+	
+	public WithHolding toEntity(ComprobanteRetencion comprobanteRetencion, String asXML) throws VeronicaException {
+		WithHolding withHolding = new WithHolding();
+		withHolding.setAccessKey(comprobanteRetencion.getInfoTributaria().getClaveAcceso());
+		withHolding.setSriVersion(comprobanteRetencion.getVersion());
+		withHolding.setXmlContent(new String(asXML));
+		withHolding.setSupplierId(comprobanteRetencion.getInfoTributaria().getRuc());
+		withHolding.setCustomerId(comprobanteRetencion.getInfoCompRetencion().getIdentificacionSujetoRetenido());
+		withHolding.setIssueDate(DateUtils.getFechaFromStringddMMyyyy(comprobanteRetencion.getInfoCompRetencion().getFechaEmision()));
+		withHolding.setInternalStatusId(CREATED);
+		return withHolding;
 	}
 	
 }
