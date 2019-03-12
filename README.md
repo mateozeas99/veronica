@@ -112,34 +112,34 @@ Estos documentos pueden ser gestionados a través de los siguientes recursos:
 
 | Recurso                                       | Método | Descripción                                                                 |
 |-----------------------------------------------|:------:|-----------------------------------------------------------------------------|
-| /facturas                            |  POST  | Crea una factura electrónica y la almacena en base de datos                 |
-| /facturas/{clave_acceso}/enviar      |   PUT  | Envía una factura electrónica al SRI y actualiza su estado en base de datos |
-| /facturas/ {clave_acceso}/autorizar  |   PUT  | Autoriza una factura electrónica y actualiza su estado en base de datos     |
+| /facturas                            |  POST  | Crea una factura y la almacena en base de datos                 |
+| /facturas/{clave_acceso}/enviar      |   PUT  | Envía una factura al SRI y actualiza su estado en base de datos |
+| /facturas/ {clave_acceso}/autorizar  |   PUT  | Autoriza una factura y actualiza su estado en base de datos     |
 | /facturas/{clave_acceso}             | DELETE | Elimina una factura de la base de datos                                     |
-| /facturas/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una factura electrónica                    |
-| /facturas/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una factura electrónica                    |
+| /facturas/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una factura                    |
+| /facturas/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una factura                    |
 
 #### Retenciones
 
 | Recurso                                       | Método | Descripción                                                                 |
 |-----------------------------------------------|:------:|-----------------------------------------------------------------------------|
-| /retenciones                            |  POST  | Crea una retención electrónica y la almacena en base de datos                 |
-| /retenciones/{clave_acceso}/enviar      |   PUT  | Envía una retención electrónica al SRI y actualiza su estado en base de datos |
-| /retenciones/ {clave_acceso}/autorizar  |   PUT  | Autoriza una retención electrónica y actualiza su estado en base de datos     |
+| /retenciones                            |  POST  | Crea una retención y la almacena en base de datos                 |
+| /retenciones/{clave_acceso}/enviar      |   PUT  | Envía una retención al SRI y actualiza su estado en base de datos |
+| /retenciones/{clave_acceso}/autorizar  |   PUT  | Autoriza una retención y actualiza su estado en base de datos     |
 | /retenciones/{clave_acceso}             | DELETE | Elimina una retención de la base de datos                                     |
-| /retenciones/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una retención electrónica                    |
-| /retenciones/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una retención electrónica                    |
+| /retenciones/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una retención                    |
+| /retenciones/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una retención                    |
 
 #### Guías de remisión
 
 | Recurso                                       | Método | Descripción                                                                 |
 |-----------------------------------------------|:------:|-----------------------------------------------------------------------------|
-| /guias-remision                            |  POST  | Crea una guía de remision electrónica y la almacena en base de datos                 |
-| /guias-remision/{clave_acceso}/enviar      |   PUT  | Envía una guía de remision electrónica al SRI y actualiza su estado en base de datos |
-| /guias-remision/ {clave_acceso}/autorizar  |   PUT  | Autoriza una guía de remision electrónica y actualiza su estado en base de datos     |
+| /guias-remision                            |  POST  | Crea una guía de remision y la almacena en base de datos                 |
+| /guias-remision/{clave_acceso}/enviar      |   PUT  | Envía una guía de remision al SRI y actualiza su estado en base de datos |
+| /guias-remision/{clave_acceso}/autorizar  |   PUT  | Autoriza una guía de remision y actualiza su estado en base de datos     |
 | /guias-remision/{clave_acceso}             | DELETE | Elimina una guía de remision de la base de datos                                     |
-| /guias-remision/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una guía de remision electrónica                    |
-| /guias-remision/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una guía de remision electrónica                    |
+| /guias-remision/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una guía de remision                    |
+| /guias-remision/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una guía de remision                    |
 
 ## Documentación
 ### Swagger
