@@ -89,7 +89,7 @@ public class BolController {
 	}
 	
 	@ApiOperation(value = "Elimina una guía de remisión electrónica de la base de datos")
-	@DeleteMapping(value = "{claveAcceso}/eliminar", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = "{claveAcceso}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> deleteillOFLanding(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
 		try {
 			VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();

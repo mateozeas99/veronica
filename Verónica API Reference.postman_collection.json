@@ -106,7 +106,7 @@
 					"name": "Eliminar factura electrónica",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/veronica/api/v1.0/facturas/:clave-acceso/eliminar",
+							"raw": "http://localhost:8080/veronica/api/v1.0/facturas/:clave-acceso",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -117,8 +117,7 @@
 								"api",
 								"v1.0",
 								"facturas",
-								":clave-acceso",
-								"eliminar"
+								":clave-acceso"
 							],
 							"query": [],
 							"variable": [
