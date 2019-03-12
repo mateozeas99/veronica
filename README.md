@@ -122,10 +122,10 @@ Estos documentos pueden ser gestionados a través de los siguientes recursos:
 ### Swagger
 http://localhost:8080/veronica/swagger-ui.html
 
-## Postman
+### Postman
 `Veronica` también pone a disposición de los usuarios una colección de llamadas y ejemplos que se encuentra en la ruta **/veronica/Verónica API Reference.postman_collection.json**.
 
-### Bitácora
+## Bitácora
 
 - V1: 2018-04-12, Primera versión.
 - V2: 2018-04-27, Perfiles de Mave.
