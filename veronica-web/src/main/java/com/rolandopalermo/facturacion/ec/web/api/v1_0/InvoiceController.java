@@ -96,7 +96,7 @@ public class InvoiceController {
 	}
 
 	@ApiOperation(value = "Elimina una factura de la base de datos")
-	@DeleteMapping(value = "{claveAcceso}/eliminar", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = "{claveAcceso}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> deleteInvoice(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
 		try {
 			VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();

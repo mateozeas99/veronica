@@ -98,12 +98,32 @@ $ cd /veronica/veronica-web
 $ mvn spring-boot:run -Pproduction
 ```
 
+# Lista de recursos
+Los tipos de documentos soportados por la API de `Veronica` son:
+
+- Facturas
+- Retenciones
+- Guías de remisión
+
+Estos documentos pueden ser gestionados a través de los siguientes recursos:
+
+# Facturas
+
+| Recurso | Método | Descripción |
+|:---------------------------------------------:|:------:|:---------------------------------------------------------------------------:|
+| /api/v1.0/facturas | POST | Crea una factura electrónica y la almacena en base de datos |
+| /api/v1.0/facturas/{clave_acceso}/enviar | PUT | Envía una factura electrónica al SRI y actualiza su estado en base de datos |
+| /api/v1.0/facturas/ {clave_acceso}/autorizar | PUT | Autoriza una factura electrónica y actualiza su estado en base de datos |
+| /api/v1.0/facturas/{clave_acceso} | DELETE | Elimina una factura de la base de datos |
+| /api/v1.0/facturas/{claveAcceso}/archivos/pdf | GET | Retorna la representación PDF de una factura electrónica |
+| /api/v1.0/facturas/{claveAcceso}/archivos/pdf | GET | Retorna la representación XML de una factura electrónica |
+
 ## Documentación
 ## Swagger
 http://localhost:8080/veronica/swagger-ui.html
 
 ## Postman
-**/veronica/Verónica API Reference.postman_collection.json**
+`Veronica` también pone a disposición de los usuarios una colección de llamadas y ejemplos que se encuentra en la ruta **/veronica/Verónica API Reference.postman_collection.json**.
 
 ## Bitácora
 
