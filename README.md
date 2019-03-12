@@ -119,7 +119,7 @@ Estos documentos pueden ser gestionados a través de los siguientes recursos:
 | /facturas/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una factura electrónica                    |
 | /facturas/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una factura electrónica                    |
 
-### Retenciones
+#### Retenciones
 
 | Recurso                                       | Método | Descripción                                                                 |
 |-----------------------------------------------|:------:|-----------------------------------------------------------------------------|
@@ -130,7 +130,7 @@ Estos documentos pueden ser gestionados a través de los siguientes recursos:
 | /retenciones/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una retención electrónica                    |
 | /retenciones/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una retención electrónica                    |
 
-### Guías de remisión
+#### Guías de remisión
 
 | Recurso                                       | Método | Descripción                                                                 |
 |-----------------------------------------------|:------:|-----------------------------------------------------------------------------|
