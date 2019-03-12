@@ -101,44 +101,45 @@ $ mvn spring-boot:run -Pproduction
 ## Lista de recursos
 Los tipos de documentos soportados por la API de `Veronica` son:
 
+### Versión 1.0 (/api/v1.0)
 - Facturas
 - Retenciones
 - Guías de remisión
 
 Estos documentos pueden ser gestionados a través de los siguientes recursos:
 
-### Facturas
+#### Facturas
 
 | Recurso                                       | Método | Descripción                                                                 |
 |-----------------------------------------------|:------:|-----------------------------------------------------------------------------|
-| /api/v1.0/facturas                            |  POST  | Crea una factura electrónica y la almacena en base de datos                 |
-| /api/v1.0/facturas/{clave_acceso}/enviar      |   PUT  | Envía una factura electrónica al SRI y actualiza su estado en base de datos |
-| /api/v1.0/facturas/ {clave_acceso}/autorizar  |   PUT  | Autoriza una factura electrónica y actualiza su estado en base de datos     |
-| /api/v1.0/facturas/{clave_acceso}             | DELETE | Elimina una factura de la base de datos                                     |
-| /api/v1.0/facturas/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una factura electrónica                    |
-| /api/v1.0/facturas/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una factura electrónica                    |
+| /facturas                            |  POST  | Crea una factura electrónica y la almacena en base de datos                 |
+| /facturas/{clave_acceso}/enviar      |   PUT  | Envía una factura electrónica al SRI y actualiza su estado en base de datos |
+| /facturas/ {clave_acceso}/autorizar  |   PUT  | Autoriza una factura electrónica y actualiza su estado en base de datos     |
+| /facturas/{clave_acceso}             | DELETE | Elimina una factura de la base de datos                                     |
+| /facturas/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una factura electrónica                    |
+| /facturas/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una factura electrónica                    |
 
 ### Retenciones
 
 | Recurso                                       | Método | Descripción                                                                 |
 |-----------------------------------------------|:------:|-----------------------------------------------------------------------------|
-| /api/v1.0/retenciones                            |  POST  | Crea una retención electrónica y la almacena en base de datos                 |
-| /api/v1.0/retenciones/{clave_acceso}/enviar      |   PUT  | Envía una retención electrónica al SRI y actualiza su estado en base de datos |
-| /api/v1.0/retenciones/ {clave_acceso}/autorizar  |   PUT  | Autoriza una retención electrónica y actualiza su estado en base de datos     |
-| /api/v1.0/retenciones/{clave_acceso}             | DELETE | Elimina una retención de la base de datos                                     |
-| /api/v1.0/retenciones/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una retención electrónica                    |
-| /api/v1.0/retenciones/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una retención electrónica                    |
+| /retenciones                            |  POST  | Crea una retención electrónica y la almacena en base de datos                 |
+| /retenciones/{clave_acceso}/enviar      |   PUT  | Envía una retención electrónica al SRI y actualiza su estado en base de datos |
+| /retenciones/ {clave_acceso}/autorizar  |   PUT  | Autoriza una retención electrónica y actualiza su estado en base de datos     |
+| /retenciones/{clave_acceso}             | DELETE | Elimina una retención de la base de datos                                     |
+| /retenciones/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una retención electrónica                    |
+| /retenciones/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una retención electrónica                    |
 
 ### Guías de remisión
 
 | Recurso                                       | Método | Descripción                                                                 |
 |-----------------------------------------------|:------:|-----------------------------------------------------------------------------|
-| /api/v1.0/guias-remision                            |  POST  | Crea una guía de remision electrónica y la almacena en base de datos                 |
-| /api/v1.0/guias-remision/{clave_acceso}/enviar      |   PUT  | Envía una guía de remision electrónica al SRI y actualiza su estado en base de datos |
-| /api/v1.0/guias-remision/ {clave_acceso}/autorizar  |   PUT  | Autoriza una guía de remision electrónica y actualiza su estado en base de datos     |
-| /api/v1.0/guias-remision/{clave_acceso}             | DELETE | Elimina una guía de remision de la base de datos                                     |
-| /api/v1.0/guias-remision/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una guía de remision electrónica                    |
-| /api/v1.0/guias-remision/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una guía de remision electrónica                    |
+| /guias-remision                            |  POST  | Crea una guía de remision electrónica y la almacena en base de datos                 |
+| /guias-remision/{clave_acceso}/enviar      |   PUT  | Envía una guía de remision electrónica al SRI y actualiza su estado en base de datos |
+| /guias-remision/ {clave_acceso}/autorizar  |   PUT  | Autoriza una guía de remision electrónica y actualiza su estado en base de datos     |
+| /guias-remision/{clave_acceso}             | DELETE | Elimina una guía de remision de la base de datos                                     |
+| /guias-remision/{claveAcceso}/archivos/pdf |   GET  | Retorna la representación PDF de una guía de remision electrónica                    |
+| /guias-remision/{claveAcceso}/archivos/xml |   GET  | Retorna la representación XML de una guía de remision electrónica                    |
 
 ## Documentación
 ### Swagger
