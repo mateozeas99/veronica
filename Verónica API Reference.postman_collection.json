@@ -314,7 +314,7 @@
 					"name": "Eliminar comprobante de retencion",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/veronica/api/v1.0/retenciones/:clave-acceso/eliminar",
+							"raw": "http://localhost:8080/veronica/api/v1.0/retenciones/:clave-acceso",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -325,8 +325,7 @@
 								"api",
 								"v1.0",
 								"retenciones",
-								":clave-acceso",
-								"eliminar"
+								":clave-acceso"
 							],
 							"query": [],
 							"variable": [
@@ -382,6 +381,43 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "Obtener archivo PDF de comprobante de retencion",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/veronica/api/v1.0/retenciones/:clave-acceso/archivos/pdf",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"veronica",
+								"api",
+								"v1.0",
+								"retenciones",
+								":clave-acceso",
+								"archivos",
+								"pdf"
+							],
+							"query": [],
+							"variable": [
+								{
+									"key": "clave-acceso",
+									"value": "{{clave-acceso}}"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -403,6 +439,66 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"archivo\": \"\",\r\n  \"password\": \"\",\r\n  \"rucPropietario\": \"\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nuevo método de pago",
+					"request": {
+						"url": "http://localhost:8080/veronica/api/v1.0/operaciones/metodo-pago",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"codigo\": \"\",\r\n  \"descripcion\": \"\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nuevo tipo de impuesto",
+					"request": {
+						"url": "http://localhost:8080/veronica/api/v1.0/operaciones/tipo-impuesto",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"codigo\": \"\",\r\n  \"descripcion\": \"\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nuevo tipo de documento retenido",
+					"request": {
+						"url": "http://localhost:8080/veronica/api/v1.0/operaciones/tipo-documento-retenido",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"codigo\": \"\",\r\n  \"descripcion\": \"\"\r\n}"
 						},
 						"description": ""
 					},
@@ -510,7 +606,7 @@
 					"name": "Eliminar guía de remisión",
 					"request": {
 						"url": {
-							"raw": "http://localhost:8080/veronica/api/v1.0/guias-remision/:clave-acceso/eliminar",
+							"raw": "http://localhost:8080/veronica/api/v1.0/guias-remision/:clave-acceso",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -521,8 +617,7 @@
 								"api",
 								"v1.0",
 								"guias-remision",
-								":clave-acceso",
-								"eliminar"
+								":clave-acceso"
 							],
 							"query": [],
 							"variable": [

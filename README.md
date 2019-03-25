@@ -151,7 +151,7 @@ http://localhost:8080/veronica/swagger-ui.html
 ## Bitácora
 
 - V1: 2018-04-12, Primera versión.
-- V2: 2018-04-27, Perfiles de Mave.
+- V2: 2018-04-27, Perfiles de Maven.
 - V3: 2018-04-28, Habilitar Swagger2.
 - V4: 2018-11-10, Generación de RIDEs.
 - V5: 2018-11-19, Integración con Postman.

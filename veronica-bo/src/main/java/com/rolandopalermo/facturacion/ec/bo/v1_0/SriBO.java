@@ -30,10 +30,10 @@ import com.rolandopalermo.facturacion.ec.modelo.guia.GuiaRemision;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.ComprobanteRetencion;
 import com.rolandopalermo.facturacion.ec.persistence.entity.Bol;
 import com.rolandopalermo.facturacion.ec.persistence.entity.Invoice;
-import com.rolandopalermo.facturacion.ec.persistence.entity.WithHolding;
+import com.rolandopalermo.facturacion.ec.persistence.entity.Withholding;
 import com.rolandopalermo.facturacion.ec.persistence.repository.BolRepository;
 import com.rolandopalermo.facturacion.ec.persistence.repository.InvoiceRepository;
-import com.rolandopalermo.facturacion.ec.persistence.repository.WithHoldingRepository;
+import com.rolandopalermo.facturacion.ec.persistence.repository.WithholdingRepository;
 import com.rolandopalermo.facturacion.ec.soap.client.AutorizacionComprobanteProxy;
 import com.rolandopalermo.facturacion.ec.soap.client.EnvioComprobantesProxy;
 
@@ -55,7 +55,7 @@ public class SriBO {
 	private InvoiceRepository invoiceRepository;
 	
 	@Autowired
-	private WithHoldingRepository withHoldingRepository;
+	private WithholdingRepository withHoldingRepository;
 	
 	@Autowired
 	private BolRepository bolRepository;
@@ -97,12 +97,12 @@ public class SriBO {
 	}
 	
 	public RespuestaSolicitudDTO postWithHolding(String claveAcceso) throws ResourceNotFoundException {
-		List<WithHolding> withHoldings = withHoldingRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
+		List<Withholding> withHoldings = withHoldingRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
 		if (withHoldings == null || withHoldings.isEmpty()) {
 			throw new ResourceNotFoundException(
 					String.format("No se pudo encontrar el comprobante de retención con clave de acceso %s", claveAcceso));
 		}
-		WithHolding withHolding = withHoldings.get(0);
+		Withholding withHolding = withHoldings.get(0);
 		byte[] xmlContent = withHolding.getXmlContent().getBytes();
 		if (xmlContent == null) {
 			throw new ResourceNotFoundException(
@@ -168,7 +168,7 @@ public class SriBO {
 	
 	public RespuestaComprobanteDTO applyWithHolding(String claveAcceso) throws ResourceNotFoundException, VeronicaException {
 		ComprobanteRetencion comprobanteRetencion;
-		WithHolding withHolding;
+		Withholding withHolding;
 		RespuestaComprobanteDTO respuestaComprobanteDTO = apply(claveAcceso);
 		AutorizacionDTO autorizacion = respuestaComprobanteDTO.getAutorizaciones().get(0);
 		try {
@@ -179,7 +179,7 @@ public class SriBO {
 					String.format("No se puede procesar el comprobante de retención %s", autorizacion.getComprobante()));
 		}
 		Timestamp timestamp = new Timestamp(respuestaComprobanteDTO.getTimestamp());
-		List<WithHolding> withHoldings = withHoldingRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
+		List<Withholding> withHoldings = withHoldingRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
 		if (withHoldings == null || withHoldings.isEmpty()) {
 			withHolding = withHoldingBO.toEntity(comprobanteRetencion, autorizacion.getComprobante());
 		} else {

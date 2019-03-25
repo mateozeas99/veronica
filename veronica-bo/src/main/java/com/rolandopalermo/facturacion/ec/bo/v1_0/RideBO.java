@@ -20,7 +20,9 @@ import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
 import com.rolandopalermo.facturacion.ec.common.util.DocumentType;
 import com.rolandopalermo.facturacion.ec.persistence.entity.Invoice;
+import com.rolandopalermo.facturacion.ec.persistence.entity.Withholding;
 import com.rolandopalermo.facturacion.ec.persistence.repository.InvoiceRepository;
+import com.rolandopalermo.facturacion.ec.persistence.repository.WithholdingRepository;
 import com.rolandopalermo.facturacion.ec.ride.RIDEGenerator;
 
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -34,6 +36,12 @@ public class RideBO {
 
 	@Autowired
 	private InvoiceRepository invoiceRepository;
+	
+	@Autowired
+	private WithholdingRepository withHoldingRepository;
+	
+	@Autowired
+	private RIDEGenerator rideGenerator;
 	
 	private static final Logger logger = LogManager.getLogger(RideBO.class);
 
@@ -59,6 +67,25 @@ public class RideBO {
 				DocumentType.FACTURA);
 	}
 	
+	public byte[] generateWithHoldingRIDE(String accessKey) throws ResourceNotFoundException, VeronicaException {
+		List<Withholding> withholdings = withHoldingRepository.findByAccessKeyAndIsDeleted(accessKey, false);
+		if (withholdings == null || withholdings.isEmpty()) {
+			sriBO.applyInvoice(accessKey);
+			withholdings = withHoldingRepository.findByAccessKeyAndIsDeleted(accessKey, false);
+			if (withholdings == null || withholdings.isEmpty()) {
+				throw new ResourceNotFoundException(
+						String.format("No se pudo encontrar el comprobante de retención con clave de acceso %s", accessKey));
+			}
+		}
+		final Withholding withholding = withholdings.get(0);
+		return generatePDF(
+				accessKey, 
+				withholding.getXmlContent(), 
+				withholding.getInternalStatusId(),
+				withholding.getAuthorizationDate(),
+				DocumentType.COMPROBANTE_RETENCION);
+	}
+	
 	private byte[] generatePDF(String accessKey, String xmlContent, long internalStatusId, Timestamp authorizationDate, DocumentType documentType) throws ResourceNotFoundException, VeronicaException {
 		File comprobante;
 		try {
@@ -75,9 +102,12 @@ public class RideBO {
 			try {
 				JasperPrint jasperPrint = null;
 				switch (documentType) {
-				case FACTURA:
-					jasperPrint = RIDEGenerator.convertirFacturaARide(accessKey, DateUtils.convertirTimestampToDate(authorizationDate), comprobante.getAbsolutePath());
-					break;
+					case FACTURA:
+						jasperPrint = rideGenerator.convertirFacturaARide(accessKey, DateUtils.convertirTimestampToDate(authorizationDate), comprobante.getAbsolutePath());
+						break;
+					case COMPROBANTE_RETENCION:
+						jasperPrint = rideGenerator.convertirRetencionARide(accessKey, DateUtils.convertirTimestampToDate(authorizationDate), comprobante.getAbsolutePath());
+						break;
 				}
 				if (jasperPrint == null) {
 					new VeronicaException(String.format("No se pudo generar el PDF para el comprobante con clave de acceso %s", accessKey));

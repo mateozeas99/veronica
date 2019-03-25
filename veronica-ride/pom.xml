@@ -36,5 +36,12 @@
 			<artifactId>veronica-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>
+				com.rolandopalermo.facturacion.ec.persistence
+			</groupId>
+			<artifactId>veronica-persistence</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

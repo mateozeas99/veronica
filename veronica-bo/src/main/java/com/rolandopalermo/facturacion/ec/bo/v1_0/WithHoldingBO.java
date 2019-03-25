@@ -17,9 +17,9 @@ import com.rolandopalermo.facturacion.ec.dto.v1_0.withholding.RetencionIdDTO;
 import com.rolandopalermo.facturacion.ec.mapper.withholding.RetencionMapper;
 import com.rolandopalermo.facturacion.ec.modelo.retencion.ComprobanteRetencion;
 import com.rolandopalermo.facturacion.ec.persistence.entity.DigitalCert;
-import com.rolandopalermo.facturacion.ec.persistence.entity.WithHolding;
+import com.rolandopalermo.facturacion.ec.persistence.entity.Withholding;
 import com.rolandopalermo.facturacion.ec.persistence.repository.DigitalCertRepository;
-import com.rolandopalermo.facturacion.ec.persistence.repository.WithHoldingRepository;
+import com.rolandopalermo.facturacion.ec.persistence.repository.WithholdingRepository;
 
 @Service("withHoldingBO")
 public class WithHoldingBO {
@@ -31,7 +31,7 @@ public class WithHoldingBO {
 	private DigitalCertRepository digitalCertRepository;
 	
 	@Autowired
-	private WithHoldingRepository withHoldingRepository;
+	private WithholdingRepository withHoldingRepository;
 	
 	public RetencionIdDTO createWithHolding(RetencionDTO retencionDTO) throws ResourceNotFoundException, VeronicaException {
 		ComprobanteRetencion comprobanteRetencion = retencionMapper.convert(retencionDTO);
@@ -45,7 +45,7 @@ public class WithHoldingBO {
 		}
 		byte[] signedXMLContent = SignerUtils.signXML(xmlContent, certificados.get(0).getDigitalCert(),
 				certificados.get(0).getPassword());
-		WithHolding withHolding = toEntity(comprobanteRetencion, new String(signedXMLContent));
+		Withholding withHolding = toEntity(comprobanteRetencion, new String(signedXMLContent));
 		withHoldingRepository.save(withHolding);
 		RetencionIdDTO retencionIdDTO = new RetencionIdDTO();
 		retencionIdDTO.setClaveAcceso(withHolding.getAccessKey());
@@ -53,26 +53,26 @@ public class WithHoldingBO {
 	}
 	
 	public void deleteWithHolding(String claveAcceso) throws ResourceNotFoundException, VeronicaException {
-		List<WithHolding> WithHoldings = withHoldingRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
+		List<Withholding> WithHoldings = withHoldingRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
 		if (WithHoldings == null || WithHoldings.isEmpty()) {
 			throw new ResourceNotFoundException(String.format("No se pudo encontrar la retención con clave de acceso %s", claveAcceso));
 		}
-		WithHolding withHolding = WithHoldings.get(0);
+		Withholding withHolding = WithHoldings.get(0);
 		withHolding.setDeleted(true);
 		withHoldingRepository.save(withHolding);
 	}
 	
 	public String getXML(String claveAcceso) throws ResourceNotFoundException, VeronicaException {
-		List<WithHolding> WithHoldings = withHoldingRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
+		List<Withholding> WithHoldings = withHoldingRepository.findByAccessKeyAndIsDeleted(claveAcceso, false);
 		if (WithHoldings == null || WithHoldings.isEmpty()) {
 			throw new ResourceNotFoundException(String.format("No se pudo encontrar la retención con clave de acceso %s", claveAcceso));
 		}
-		WithHolding withHolding = WithHoldings.get(0);
+		Withholding withHolding = WithHoldings.get(0);
 		return withHolding.getXmlContent();
 	}
 	
-	public WithHolding toEntity(ComprobanteRetencion comprobanteRetencion, String asXML) throws VeronicaException {
-		WithHolding withHolding = new WithHolding();
+	public Withholding toEntity(ComprobanteRetencion comprobanteRetencion, String asXML) throws VeronicaException {
+		Withholding withHolding = new Withholding();
 		withHolding.setAccessKey(comprobanteRetencion.getInfoTributaria().getClaveAcceso());
 		withHolding.setSriVersion(comprobanteRetencion.getVersion());
 		withHolding.setXmlContent(new String(asXML));
