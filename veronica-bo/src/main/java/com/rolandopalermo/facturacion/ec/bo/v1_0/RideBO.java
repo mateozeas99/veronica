@@ -107,7 +107,7 @@ public class RideBO {
 				bol.getXmlContent(), 
 				bol.getInternalStatusId(),
 				bol.getAuthorizationDate(),
-				DocumentType.COMPROBANTE_RETENCION);
+				DocumentType.GUITA_REMISION);
 	}
 	
 	private byte[] generatePDF(String accessKey, String xmlContent, long internalStatusId, Timestamp authorizationDate, DocumentType documentType) throws ResourceNotFoundException, VeronicaException {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RIDE_retencion" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23078fe1-b005-44ae-8dc0-7a1396cac66c">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RIDE_retencion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23078fe1-b005-44ae-8dc0-7a1396cac66c">
 	<property name="ireport.zoom" value="1.6500000000000052"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="583"/>
 	<style name="etiqueta-texto" hAlign="Left" vAlign="Middle" isBlankWhenNull="true">
 		<paragraph leftIndent="2"/>
 	</style>
@@ -20,6 +20,7 @@
 		<parameter name="SUBREPORT_DIR" class="java.lang.String">
 			<defaultValueExpression><![CDATA[$P{SUBREPORT_DIR}]]></defaultValueExpression>
 		</parameter>
+		<parameter name="hmapTiposDocumentos" class="java.util.HashMap"/>
 		<queryString language="xPath">
 			<![CDATA[/guiaRemision/destinatarios/destinatario]]>
 		</queryString>
@@ -62,6 +63,7 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["D:\\Proyectos_Públicos\\veronica\\veronica-ride\\src\\main\\resources\\com\\rolandopalermo\\facturacion\\ec\\ride\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="hmapTiposDocumentos" class="java.util.HashMap"/>
 	<queryString language="xPath">
 		<![CDATA[/guiaRemision]]>
 	</queryString>
@@ -465,9 +467,12 @@
 			<componentElement>
 				<reportElement x="0" y="0" width="555" height="228" uuid="90cd9c1d-1559-4c63-b3c8-705037ab7cfa"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
-					<datasetRun subDataset="destinatariosDS" uuid="a8180584-5130-404a-b178-f9a2dd44948e">
+					<datasetRun subDataset="destinatariosDS" uuid="384b921c-04e4-4767-a077-4945f827f798">
 						<datasetParameter name="SUBREPORT_DIR">
 							<datasetParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="hmapTiposDocumentos">
+							<datasetParameterExpression><![CDATA[$P{hmapTiposDocumentos}]]></datasetParameterExpression>
 						</datasetParameter>
 						<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JRXmlDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("/guiaRemision/destinatarios/destinatario")]]></dataSourceExpression>
 					</datasetRun>
@@ -571,7 +576,7 @@
 							<textElement>
 								<paragraph leftIndent="2"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{codDocSustento}.concat("   ").concat($F{numDocSustento})]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$P{hmapTiposDocumentos}.get($F{codDocSustento})]]></textFieldExpression>
 						</textField>
 						<staticText>
 							<reportElement style="etiqueta-texto" x="342" y="0" width="94" height="20" uuid="4d3cf2c4-6a51-4709-855e-8e16378a699c"/>
