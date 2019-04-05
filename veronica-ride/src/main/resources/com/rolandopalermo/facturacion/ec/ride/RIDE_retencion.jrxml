@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RIDE_retencion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23078fe1-b005-44ae-8dc0-7a1396cac66c">
 	<property name="ireport.zoom" value="1.6500000000000052"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="138"/>
+	<property name="ireport.y" value="272"/>
 	<style name="etiqueta-texto" hAlign="Left" vAlign="Middle" isBlankWhenNull="true">
 		<paragraph leftIndent="2"/>
 	</style>
@@ -18,7 +18,7 @@
 	</style>
 	<subDataset name="impuestosDS" uuid="933f5b64-3caf-4cb5-807d-1c380a8c0890">
 		<parameter name="periodoFiscal" class="java.lang.String"/>
-		<parameter name="hmapTiposDocumentosRetenidos" class="java.util.HashMap"/>
+		<parameter name="hmapTiposDocumentos" class="java.util.HashMap"/>
 		<parameter name="hmapTiposImpuestos" class="java.util.HashMap"/>
 		<queryString language="SQL">
 			<![CDATA[]]>
@@ -56,9 +56,38 @@
 			<fieldDescription><![CDATA[@nombre]]></fieldDescription>
 		</field>
 	</subDataset>
+	<subDataset name="comprobanteDS" uuid="08fa7223-1850-48d4-ba18-f3224b239a47">
+		<parameter name="periodoFiscal" class="java.lang.String"/>
+		<parameter name="hmapTiposDocumentos" class="java.util.HashMap"/>
+		<parameter name="hmapTiposImpuestos" class="java.util.HashMap"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT description FROM public.withheld_receipt_type WHERE code='01';]]>
+		</queryString>
+		<field name="codDocSustento" class="java.lang.String">
+			<fieldDescription><![CDATA[codDocSustento]]></fieldDescription>
+		</field>
+		<field name="numDocSustento" class="java.lang.String">
+			<fieldDescription><![CDATA[numDocSustento]]></fieldDescription>
+		</field>
+		<field name="fechaEmisionDocSustento" class="java.lang.String">
+			<fieldDescription><![CDATA[fechaEmisionDocSustento]]></fieldDescription>
+		</field>
+		<field name="baseImponible" class="java.lang.String">
+			<fieldDescription><![CDATA[baseImponible]]></fieldDescription>
+		</field>
+		<field name="codigo" class="java.lang.String">
+			<fieldDescription><![CDATA[codigo]]></fieldDescription>
+		</field>
+		<field name="porcentajeRetener" class="java.lang.String">
+			<fieldDescription><![CDATA[porcentajeRetener]]></fieldDescription>
+		</field>
+		<field name="valorRetenido" class="java.lang.String">
+			<fieldDescription><![CDATA[valorRetenido]]></fieldDescription>
+		</field>
+	</subDataset>
 	<parameter name="numeroAutorizacion" class="java.lang.String"/>
 	<parameter name="fechaAutorizacion" class="java.lang.String"/>
-	<parameter name="hmapTiposDocumentosRetenidos" class="java.util.HashMap"/>
+	<parameter name="hmapTiposDocumentos" class="java.util.HashMap"/>
 	<parameter name="hmapTiposImpuestos" class="java.util.HashMap"/>
 	<queryString language="xPath">
 		<![CDATA[/comprobanteRetencion]]>
@@ -444,22 +473,22 @@
 			<componentElement>
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" uuid="6e8702e3-c4c9-4d7a-a8c5-6ce0f58ab498"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical" ignoreWidth="true">
-					<datasetRun subDataset="impuestosDS" uuid="190cb406-182a-432b-a2a2-52d7779eb8cd">
+					<datasetRun subDataset="impuestosDS" uuid="0112f33f-ecec-4cdb-a482-4b4517cb792c">
 						<datasetParameter name="periodoFiscal">
 							<datasetParameterExpression><![CDATA[$F{periodoFiscal}]]></datasetParameterExpression>
 						</datasetParameter>
-						<datasetParameter name="hmapTiposDocumentosRetenidos">
-							<datasetParameterExpression><![CDATA[$P{hmapTiposDocumentosRetenidos}]]></datasetParameterExpression>
-						</datasetParameter>
 						<datasetParameter name="hmapTiposImpuestos">
 							<datasetParameterExpression><![CDATA[$P{hmapTiposImpuestos}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="hmapTiposDocumentos">
+							<datasetParameterExpression><![CDATA[$P{hmapTiposDocumentos}]]></datasetParameterExpression>
 						</datasetParameter>
 						<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JRXmlDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("/comprobanteRetencion/impuestos/impuesto")]]></dataSourceExpression>
 					</datasetRun>
 					<jr:listContents height="20" width="555">
 						<textField isStretchWithOverflow="true">
 							<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="54" height="20" uuid="e2e25909-2a52-4feb-9e83-b7a1bece714f"/>
-							<textFieldExpression><![CDATA[$P{hmapTiposDocumentosRetenidos}.get($F{codDocSustento})]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$P{hmapTiposDocumentos}.get($F{codDocSustento})]]></textFieldExpression>
 						</textField>
 						<textField isStretchWithOverflow="true">
 							<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="54" y="0" width="96" height="20" uuid="be676765-cba0-4d7a-b19b-3659c8b97587"/>

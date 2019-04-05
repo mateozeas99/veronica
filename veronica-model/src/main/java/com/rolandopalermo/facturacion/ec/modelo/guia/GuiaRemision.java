@@ -22,25 +22,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @XmlRootElement(name = "guiaRemision")
-@XmlType(propOrder = {
-		"id",
-		"version",
-		"infoTributaria",
-		"infoGuiaRemision",
-		"destinatario",
-		"campoAdicional"
-})
+@XmlType(propOrder = { "id", "version", "infoTributaria", "infoGuiaRemision", "destinatario", "campoAdicional" })
 public class GuiaRemision extends Comprobante {
 
-	private  InfoGuiaRemision infoGuiaRemision;
-	private  List < Destinatario > destinatario;
+	private InfoGuiaRemision infoGuiaRemision;
+	private List<Destinatario> destinatario;
+
 	@XmlElementWrapper(name = "destinatarios")
-	public List < Destinatario > getDestinatario() {
+	public List<Destinatario> getDestinatario() {
 		return destinatario;
 	}
-
-	
-
-
 
 }

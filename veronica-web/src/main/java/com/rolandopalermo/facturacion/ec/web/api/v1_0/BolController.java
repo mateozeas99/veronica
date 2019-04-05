@@ -2,11 +2,14 @@ package com.rolandopalermo.facturacion.ec.web.api.v1_0;
 
 import static com.rolandopalermo.facturacion.ec.common.util.Constants.API_DOC_ANEXO_1;
 
+import java.io.ByteArrayInputStream;
+
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rolandopalermo.facturacion.ec.bo.v1_0.BolBO;
+import com.rolandopalermo.facturacion.ec.bo.v1_0.RideBO;
 import com.rolandopalermo.facturacion.ec.bo.v1_0.SriBO;
 import com.rolandopalermo.facturacion.ec.common.exception.InternalServerException;
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
@@ -44,6 +48,9 @@ public class BolController {
 	
 	@Autowired
 	private SriBO sriBO;
+	
+	@Autowired
+	private RideBO rideBO;
 
 	private static final Logger logger = LogManager.getLogger(SriBO.class);
 
@@ -78,7 +85,7 @@ public class BolController {
 	public ResponseEntity<Object> applyBillOFLanding(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
 		try {
 			VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
-			RespuestaComprobanteDTO respuestaComprobanteDTO = sriBO.applyInvoice(claveAcceso);
+			RespuestaComprobanteDTO respuestaComprobanteDTO = sriBO.applyBillOFLanding(claveAcceso);
 			response.setSuccess(true);
 			response.setResult(respuestaComprobanteDTO);
 			return new ResponseEntity<>(response, HttpStatus.OK);
@@ -98,6 +105,25 @@ public class BolController {
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (VeronicaException e) {
 			logger.error("deleteInvoice", e);
+			throw new InternalServerException(e.getMessage());
+		}
+	}
+	
+	@ApiOperation(value = "Retorna la representación PDF de una guía de remisión electrónica")
+	@GetMapping(value = "{claveAcceso}/archivos/pdf")
+	public ResponseEntity<Object> generateRIDE(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable("claveAcceso") String claveAcceso) {
+		try {
+			VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
+			byte[] pdfContent = rideBO.generateBolRIDE(claveAcceso);
+			response.setSuccess(true);
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("content-disposition", "inline; filename=" + claveAcceso + ".pdf");
+			headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+			headers.add("Pragma", "no-cache");
+			headers.add("Expires", "0");
+			return ResponseEntity.ok().headers(headers).contentLength(pdfContent.length).contentType(MediaType.parseMediaType("application/octet-stream")).body(new InputStreamResource(new ByteArrayInputStream(pdfContent)));
+		} catch (VeronicaException e) {
+			logger.error("generateRIDE", e);
 			throw new InternalServerException(e.getMessage());
 		}
 	}

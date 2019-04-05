@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.rolandopalermo.facturacion.ec.persistence.entity.PaymentMethod;
 import com.rolandopalermo.facturacion.ec.persistence.entity.TaxType;
-import com.rolandopalermo.facturacion.ec.persistence.entity.WithheldReceiptType;
+import com.rolandopalermo.facturacion.ec.persistence.entity.ReceiptType;
 import com.rolandopalermo.facturacion.ec.persistence.repository.PaymentMethodRepository;
 import com.rolandopalermo.facturacion.ec.persistence.repository.TaxTypeRepository;
 import com.rolandopalermo.facturacion.ec.persistence.repository.WithheldReceiptTypeRepository;
@@ -32,26 +32,26 @@ public class RIDEGenerator {
 	private PaymentMethodRepository paymentMethodRepository;
 	
 	@Autowired
-	private WithheldReceiptTypeRepository withheldReceiptTypeRepository;
+	private WithheldReceiptTypeRepository receiptTypeRepository;
 	
 	@Autowired
 	private TaxTypeRepository taxTypeRepository;
 	
 	private HashMap<String, String> hmapFormasPago;
-	private HashMap<String, String> hmapTiposDocumentosRetenidos;
+	private HashMap<String, String> hmapTiposDocumentos;
 	private HashMap<String, String> hmapTiposImpuestos;
 	
 	@PostConstruct
 	public void init() {
 		List<PaymentMethod> lstPaymentMethods = paymentMethodRepository.findAll();
-		List<WithheldReceiptType> lstWithheldReceiptTypes = withheldReceiptTypeRepository.findAll();
+		List<ReceiptType> lstReceiptTypes = receiptTypeRepository.findAll();
 		List<TaxType> lstTaxTypes = taxTypeRepository.findAll();
 		hmapFormasPago = (HashMap<String, String>) lstPaymentMethods
 				.stream()
 				.collect(Collectors.toMap(PaymentMethod::getCode, PaymentMethod::getDescription));
-		hmapTiposDocumentosRetenidos = (HashMap<String, String>) lstWithheldReceiptTypes
+		hmapTiposDocumentos = (HashMap<String, String>) lstReceiptTypes
 				.stream()
-				.collect(Collectors.toMap(WithheldReceiptType::getCode, WithheldReceiptType::getDescription));
+				.collect(Collectors.toMap(ReceiptType::getCode, ReceiptType::getDescription));
 		hmapTiposImpuestos = (HashMap<String, String>) lstTaxTypes
 				.stream()
 				.collect(Collectors.toMap(TaxType::getCode, TaxType::getDescription));
@@ -75,9 +75,21 @@ public class RIDEGenerator {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("numeroAutorizacion", numeroAutorizacion);
 		parameters.put("fechaAutorizacion", fechaAutorizacion);
-		parameters.put("hmapTiposDocumentosRetenidos", hmapTiposDocumentosRetenidos);
+		parameters.put("hmapTiposDocumentos", hmapTiposDocumentos);
 		parameters.put("hmapTiposImpuestos", hmapTiposImpuestos);
 		JRXmlDataSource xmlDataSource = new JRXmlDataSource(xmlFilePath, "/comprobanteRetencion");
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, xmlDataSource);
+		return jasperPrint;
+	}
+	
+	public JasperPrint convertirGuiaRemisionARide(String numeroAutorizacion, String fechaAutorizacion, String xmlFilePath) throws JRException {
+		InputStream employeeReportStream = RIDEGenerator.class.getResourceAsStream("/com/rolandopalermo/facturacion/ec/ride/RIDE_guia_remision.jrxml");
+		JasperReport jasperReport = JasperCompileManager.compileReport(employeeReportStream);
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("numeroAutorizacion", numeroAutorizacion);
+		parameters.put("fechaAutorizacion", fechaAutorizacion);
+		parameters.put("hmapTiposDocumentos", hmapTiposDocumentos);
+		JRXmlDataSource xmlDataSource = new JRXmlDataSource(xmlFilePath, "/guiaRemision");
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, xmlDataSource);
 		return jasperPrint;
 	}

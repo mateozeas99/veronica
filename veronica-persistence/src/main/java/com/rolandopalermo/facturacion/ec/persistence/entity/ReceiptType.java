@@ -15,13 +15,13 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "withheld_receipt_type")
-public class WithheldReceiptType {
+@Table(name = "receipt_type")
+public class ReceiptType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "withheld_receipt_type_id", updatable = false, nullable = false)
-	private long withheldReceiptTypeId;
+	@Column(name = "receipt_type_id", updatable = false, nullable = false)
+	private long receiptTypeId;
 
 	@Column
 	private String code;

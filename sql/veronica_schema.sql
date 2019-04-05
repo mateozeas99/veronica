@@ -78,10 +78,10 @@ CREATE TABLE public.consignne (
     consignne_id integer NOT NULL,
     access_key character varying(50) NOT NULL,
     consignne_number character varying(20) NOT NULL,
-    custom_doc_number character varying(20) NOT NULL,
-    reference_doc_cod character varying(5) NOT NULL,
-    reference_doc_number character varying(20) NOT NULL,
-    reference_doc_auth_number character varying(50) NOT NULL
+    custom_doc_number character varying(20),
+    reference_doc_cod character varying(5),
+    reference_doc_number character varying(20),
+    reference_doc_auth_number character varying(50)
 );
 
 
@@ -316,23 +316,23 @@ ALTER SEQUENCE public.tax_type_tax_type_id_seq OWNED BY public.tax_type.tax_type
 
 
 --
--- Name: withheld_receipt_type; Type: TABLE; Schema: public; Owner: postgres
+-- Name: receipt_type; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.withheld_receipt_type (
-    withheld_receipt_type_id integer NOT NULL,
+CREATE TABLE public.receipt_type (
+    receipt_type_id integer NOT NULL,
     code character varying(3) NOT NULL,
     description character varying(80) NOT NULL
 );
 
 
-ALTER TABLE public.withheld_receipt_type OWNER TO postgres;
+ALTER TABLE public.receipt_type OWNER TO postgres;
 
 --
--- Name: withheld_receipt_type_withheld_receipt_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: receipt_type_receipt_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.withheld_receipt_type_withheld_receipt_type_id_seq
+CREATE SEQUENCE public.receipt_type_receipt_type_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -341,13 +341,13 @@ CREATE SEQUENCE public.withheld_receipt_type_withheld_receipt_type_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.withheld_receipt_type_withheld_receipt_type_id_seq OWNER TO postgres;
+ALTER TABLE public.receipt_type_receipt_type_id_seq OWNER TO postgres;
 
 --
--- Name: withheld_receipt_type_withheld_receipt_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: receipt_type_receipt_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.withheld_receipt_type_withheld_receipt_type_id_seq OWNED BY public.withheld_receipt_type.withheld_receipt_type_id;
+ALTER SEQUENCE public.receipt_type_receipt_type_id_seq OWNED BY public.receipt_type.receipt_type_id;
 
 
 --
@@ -421,10 +421,10 @@ ALTER TABLE ONLY public.tax_type ALTER COLUMN tax_type_id SET DEFAULT nextval('p
 
 
 --
--- Name: withheld_receipt_type withheld_receipt_type_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: receipt_type receipt_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.withheld_receipt_type ALTER COLUMN withheld_receipt_type_id SET DEFAULT nextval('public.withheld_receipt_type_withheld_receipt_type_id_seq'::regclass);
+ALTER TABLE ONLY public.receipt_type ALTER COLUMN receipt_type_id SET DEFAULT nextval('public.receipt_type_receipt_type_id_seq'::regclass);
 
 --
 -- Name: bol_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
@@ -490,10 +490,10 @@ SELECT pg_catalog.setval('public.tax_type_tax_type_id_seq', 5, true);
 
 
 --
--- Name: withheld_receipt_type_withheld_receipt_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: receipt_type_receipt_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.withheld_receipt_type_withheld_receipt_type_id_seq', 13, true);
+SELECT pg_catalog.setval('public.receipt_type_receipt_type_id_seq', 13, true);
 
 
 --
@@ -584,11 +584,11 @@ ALTER TABLE ONLY public.tax_type
 
 
 --
--- Name: withheld_receipt_type withheld_receipt_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: receipt_type receipt_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.withheld_receipt_type
-    ADD CONSTRAINT withheld_receipt_type_pkey PRIMARY KEY (withheld_receipt_type_id);
+ALTER TABLE ONLY public.receipt_type
+    ADD CONSTRAINT receipt_type_pkey PRIMARY KEY (receipt_type_id);
 
 
 --

@@ -19,8 +19,10 @@ import com.rolandopalermo.facturacion.ec.common.exception.ResourceNotFoundExcept
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
 import com.rolandopalermo.facturacion.ec.common.util.DocumentType;
+import com.rolandopalermo.facturacion.ec.persistence.entity.Bol;
 import com.rolandopalermo.facturacion.ec.persistence.entity.Invoice;
 import com.rolandopalermo.facturacion.ec.persistence.entity.Withholding;
+import com.rolandopalermo.facturacion.ec.persistence.repository.BolRepository;
 import com.rolandopalermo.facturacion.ec.persistence.repository.InvoiceRepository;
 import com.rolandopalermo.facturacion.ec.persistence.repository.WithholdingRepository;
 import com.rolandopalermo.facturacion.ec.ride.RIDEGenerator;
@@ -39,6 +41,9 @@ public class RideBO {
 	
 	@Autowired
 	private WithholdingRepository withHoldingRepository;
+	
+	@Autowired
+	private BolRepository bolRepository;
 	
 	@Autowired
 	private RIDEGenerator rideGenerator;
@@ -70,7 +75,7 @@ public class RideBO {
 	public byte[] generateWithHoldingRIDE(String accessKey) throws ResourceNotFoundException, VeronicaException {
 		List<Withholding> withholdings = withHoldingRepository.findByAccessKeyAndIsDeleted(accessKey, false);
 		if (withholdings == null || withholdings.isEmpty()) {
-			sriBO.applyInvoice(accessKey);
+			sriBO.applyWithHolding(accessKey);
 			withholdings = withHoldingRepository.findByAccessKeyAndIsDeleted(accessKey, false);
 			if (withholdings == null || withholdings.isEmpty()) {
 				throw new ResourceNotFoundException(
@@ -83,6 +88,25 @@ public class RideBO {
 				withholding.getXmlContent(), 
 				withholding.getInternalStatusId(),
 				withholding.getAuthorizationDate(),
+				DocumentType.COMPROBANTE_RETENCION);
+	}
+	
+	public byte[] generateBolRIDE(String accessKey) throws ResourceNotFoundException, VeronicaException {
+		List<Bol> bols = bolRepository.findByAccessKeyAndIsDeleted(accessKey, false);
+		if (bols == null || bols.isEmpty()) {
+			sriBO.applyBillOFLanding(accessKey);
+			bols = bolRepository.findByAccessKeyAndIsDeleted(accessKey, false);
+			if (bols == null || bols.isEmpty()) {
+				throw new ResourceNotFoundException(
+						String.format("No se pudo encontrar la guía de remisión con clave de acceso %s", accessKey));
+			}
+		}
+		final Bol bol = bols.get(0);
+		return generatePDF(
+				accessKey, 
+				bol.getXmlContent(), 
+				bol.getInternalStatusId(),
+				bol.getAuthorizationDate(),
 				DocumentType.COMPROBANTE_RETENCION);
 	}
 	
@@ -107,6 +131,9 @@ public class RideBO {
 						break;
 					case COMPROBANTE_RETENCION:
 						jasperPrint = rideGenerator.convertirRetencionARide(accessKey, DateUtils.convertirTimestampToDate(authorizationDate), comprobante.getAbsolutePath());
+						break;
+					case GUITA_REMISION:
+						jasperPrint = rideGenerator.convertirGuiaRemisionARide(accessKey, DateUtils.convertirTimestampToDate(authorizationDate), comprobante.getAbsolutePath());
 						break;
 				}
 				if (jasperPrint == null) {

@@ -15,7 +15,7 @@ INSERT INTO PUBLIC.payment_method (code, description) VALUES
 ('20', 'OTROS CON UTILIZACION DEL SISTEMA FINANCIERO'),
 ('21', 'ENDOSO DE TÍTULOS');
 
-INSERT INTO PUBLIC.withheld_receipt_type (code, description) VALUES 
+INSERT INTO PUBLIC.receipt_type (code, description) VALUES 
 ('01', 'FACTURA'),
 ('02', 'NOTA VENTA'),
 ('03', 'LIQ. DE COMPRA'),

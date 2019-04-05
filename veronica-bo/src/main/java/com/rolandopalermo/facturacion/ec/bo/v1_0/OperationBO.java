@@ -12,7 +12,7 @@ import com.rolandopalermo.facturacion.ec.dto.v1_0.TipoImpuestoDTO;
 import com.rolandopalermo.facturacion.ec.persistence.entity.DigitalCert;
 import com.rolandopalermo.facturacion.ec.persistence.entity.PaymentMethod;
 import com.rolandopalermo.facturacion.ec.persistence.entity.TaxType;
-import com.rolandopalermo.facturacion.ec.persistence.entity.WithheldReceiptType;
+import com.rolandopalermo.facturacion.ec.persistence.entity.ReceiptType;
 import com.rolandopalermo.facturacion.ec.persistence.repository.DigitalCertRepository;
 import com.rolandopalermo.facturacion.ec.persistence.repository.PaymentMethodRepository;
 import com.rolandopalermo.facturacion.ec.persistence.repository.TaxTypeRepository;
@@ -28,7 +28,7 @@ public class OperationBO {
 	private PaymentMethodRepository paymentMethodRepository;
 
 	@Autowired
-	private WithheldReceiptTypeRepository withheldReceiptTypeRepository;
+	private WithheldReceiptTypeRepository receiptTypeRepository;
 
 	@Autowired
 	private TaxTypeRepository taxTypeRepository;
@@ -50,11 +50,11 @@ public class OperationBO {
 		paymentMethodRepository.save(paymentMethod);
 	}
 
-	public void saveWithheldReceiptType(TipoDocumentoRetenidoDTO tipoDocumentoRetenidoDTO) {
-		WithheldReceiptType withheldReceiptType = new WithheldReceiptType();
-		withheldReceiptType.setCode(tipoDocumentoRetenidoDTO.getCodigo());
-		withheldReceiptType.setDescription(tipoDocumentoRetenidoDTO.getDescripcion());
-		withheldReceiptTypeRepository.save(withheldReceiptType);
+	public void saveReceiptType(TipoDocumentoRetenidoDTO tipoDocumentoRetenidoDTO) {
+		ReceiptType receiptType = new ReceiptType();
+		receiptType.setCode(tipoDocumentoRetenidoDTO.getCodigo());
+		receiptType.setDescription(tipoDocumentoRetenidoDTO.getDescripcion());
+		receiptTypeRepository.save(receiptType);
 	}
 
 	public void saveTaxType(TipoImpuestoDTO tipoImpuestoDTO) {

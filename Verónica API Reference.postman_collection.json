@@ -594,6 +594,43 @@
 								"description": ""
 							},
 							"response": []
+						},
+						{
+							"name": "Obtener archivo PDF de guía de remisión",
+							"request": {
+								"url": {
+									"raw": "http://localhost:8080/veronica/api/v1.0/guias-remision/:clave-acceso/archivos/pdf",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"veronica",
+										"api",
+										"v1.0",
+										"guias-remision",
+										":clave-acceso",
+										"archivos",
+										"pdf"
+									],
+									"query": [],
+									"variable": [
+										{
+											"key": "clave-acceso",
+											"value": "{{clave-acceso}}"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
@@ -665,9 +702,9 @@
 					"response": []
 				},
 				{
-					"name": "Crear nuevo tipo de documento retenido",
+					"name": "Crear nuevo tipo de documento",
 					"request": {
-						"url": "http://localhost:8080/veronica/api/v1.0/operaciones/tipos-documento-retenido",
+						"url": "http://localhost:8080/veronica/api/v1.0/operaciones/tipos-documento",
 						"method": "POST",
 						"header": [
 							{

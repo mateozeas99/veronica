@@ -50,11 +50,11 @@ public class OperationController {
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	
-	@ApiOperation(value = "Crea un nuevo tipo de documento retenido")
-	@PostMapping(value = "tipos-documento-retenido", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> insertWithheldReceiptType(@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody TipoDocumentoRetenidoDTO tipoDocumentoRetenidoDTO) {
+	@ApiOperation(value = "Crea un nuevo tipo de documento")
+	@PostMapping(value = "tipos-documento", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> insertReceiptType(@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody TipoDocumentoRetenidoDTO tipoDocumentoRetenidoDTO) {
 		VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
-		operationBO.saveWithheldReceiptType(tipoDocumentoRetenidoDTO);
+		operationBO.saveReceiptType(tipoDocumentoRetenidoDTO);
 		response.setSuccess(true);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
