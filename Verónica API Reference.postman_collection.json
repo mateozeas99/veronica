@@ -631,6 +631,39 @@
 								"description": ""
 							},
 							"response": []
+						},
+						{
+							"name": "Retorna las guías de remisión asociadas a un emisor",
+							"request": {
+								"url": {
+									"raw": "http://localhost:8080/veronica/api/v1.0/guias-remision/emisores/:identificador-emisor",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"veronica",
+										"api",
+										"v1.0",
+										"guias-remision",
+										"emisores",
+										":identificador-emisor"
+									],
+									"query": [],
+									"variable": [
+										{
+											"key": "identificador-emisor",
+											"value": "{{identificador-emisor}}"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true

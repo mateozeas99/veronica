@@ -3,6 +3,9 @@ package com.rolandopalermo.facturacion.ec.bo.v1_0;
 import static com.rolandopalermo.facturacion.ec.common.util.Constants.CREATED;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,7 @@ import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
 import com.rolandopalermo.facturacion.ec.common.util.FileUtils;
 import com.rolandopalermo.facturacion.ec.common.util.SignerUtils;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.ListaComprobantesDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaIdDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaRemisionDTO;
 import com.rolandopalermo.facturacion.ec.mapper.bol.GuiaRemisionMapper;
@@ -68,6 +72,17 @@ public class BolBO {
 		}
 		Bol bol = bols.get(0);
 		return bol.getXmlContent();
+	}
+	
+	public ListaComprobantesDTO getBolsBySupplier(String supplierId) {
+		ListaComprobantesDTO response = new ListaComprobantesDTO();
+		List<String> bols = bolRepository.findBySupplierIdAndIsDeleted(supplierId, false);
+		List<String> lstAccessKey = Optional.ofNullable(bols)
+				.map(List::stream)
+				.orElseGet(Stream::empty)
+				.collect(Collectors.toList());
+		response.setComprobantes(lstAccessKey);
+		return response;
 	}
 	
 	public Bol toEntity(GuiaRemision guia, String asXML) throws VeronicaException {

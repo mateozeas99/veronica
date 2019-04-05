@@ -28,6 +28,7 @@ import com.rolandopalermo.facturacion.ec.bo.v1_0.RideBO;
 import com.rolandopalermo.facturacion.ec.bo.v1_0.SriBO;
 import com.rolandopalermo.facturacion.ec.common.exception.InternalServerException;
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.ListaComprobantesDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.VeronicaResponseDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaIdDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.bol.GuiaRemisionDTO;
@@ -139,6 +140,15 @@ public class BolController {
 			logger.error("getXML", e);
 			throw new InternalServerException(e.getMessage());
 		}
+	}
+	
+	@ApiOperation(value = "Retorna las guías de remisión asociadas a un emisor")
+	@GetMapping(value = "emisores/{identificadorEmisor}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Object> getBolsBySupplier(@Valid @ApiParam(value = "Identificador del emisor", required = true) @PathVariable("identificadorEmisor") String identificadorEmisor) {
+		VeronicaResponseDTO<ListaComprobantesDTO> response = new VeronicaResponseDTO<>();
+		response.setResult(bollBO.getBolsBySupplier(identificadorEmisor));
+		response.setSuccess(true);
+		return (new ResponseEntity<Object>(response, HttpStatus.OK));
 	}
 	
 }
