@@ -46,8 +46,8 @@ public abstract class AbstractComprobanteMapper<DTO extends ComprobanteDTO> {
 	}
 
 	protected String getClaveAcceso(final InfoTributaria infoTributaria, final String fechaEmision) {
-		final StringBuilder sb = new StringBuilder(infoTributaria.getPtoEmi());
-		sb.append(infoTributaria.getEstab());
+		final StringBuilder sb = new StringBuilder(infoTributaria.getEstab());
+		sb.append(infoTributaria.getPtoEmi());
 		final String serie = sb.toString();
 		final String codigoNumerico = RandomStringUtils.randomNumeric(8);
 		try {
