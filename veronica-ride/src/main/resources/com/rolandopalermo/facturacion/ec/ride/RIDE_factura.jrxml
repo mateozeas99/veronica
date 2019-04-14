@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RIDE_factura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23078fe1-b005-44ae-8dc0-7a1396cac66c">
 	<property name="ireport.zoom" value="1.6500000000000052"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="610"/>
+	<property name="ireport.y" value="409"/>
 	<style name="etiqueta-texto" hAlign="Left" vAlign="Middle" isBlankWhenNull="true">
 		<paragraph leftIndent="2"/>
 	</style>
@@ -221,67 +221,66 @@
 			</rectangle>
 			<staticText>
 				<reportElement style="etiqueta-celda" mode="Opaque" x="455" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="d506a528-71b5-444f-9923-aba044a862e4"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Descuento]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="etiqueta-celda" mode="Opaque" x="405" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="091aa67b-3a64-406f-aff0-d9ef1dea8792"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Precio sin Sub.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="etiqueta-celda" mode="Opaque" x="42" y="374" width="48" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="4d85d81a-c674-4389-914e-a096177ca9a9"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Cod.
-Auxiliar]]></text>
+				<text><![CDATA[Código Auxiliar]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="etiqueta-celda" mode="Opaque" x="355" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="bc99f70e-89a8-4fd9-ae4b-4ad4849fa153"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Subsidio]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="etiqueta-celda" mode="Opaque" x="505" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="b816178e-4334-4c9c-b01c-2612a1fb36ac"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Precio Total]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="etiqueta-celda" mode="Opaque" x="140" y="374" width="165" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="df34f1ef-df8a-4103-9bb8-807eaa68352d"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Descripción]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="etiqueta-celda" mode="Opaque" x="305" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="f85cdc53-3d44-4d03-951b-5eefa0850169"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Precio Unitario]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="etiqueta-celda" mode="Opaque" x="90" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="352a0315-a51f-4e7b-bdbe-cd374f3c2429"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="etiqueta-celda" mode="Opaque" x="0" y="374" width="42" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="a0e1fbde-b262-4106-bd4a-83daf2b9e8f4"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Cod. Principal]]></text>
+				<text><![CDATA[Código Principal]]></text>
 			</staticText>
 			<rectangle>
 				<reportElement x="0" y="286" width="555" height="80" uuid="b8e9113f-d322-4963-9f25-6392ffe2f9c8"/>
@@ -382,7 +381,8 @@ Auxiliar]]></text>
 			</componentElement>
 			<textField>
 				<reportElement style="etiqueta-texto" x="283" y="253" width="268" height="20" uuid="7cdbe480-ab86-4c87-9785-8d957aac7617"/>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{claveAcceso}]]></textFieldExpression>
@@ -531,7 +531,7 @@ Auxiliar]]></text>
 				<text><![CDATA[N°:]]></text>
 			</staticText>
 		</band>
-		<band height="27" splitType="Immediate">
+		<band height="29" splitType="Immediate">
 			<componentElement>
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" uuid="6e8702e3-c4c9-4d7a-a8c5-6ce0f58ab498"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical" ignoreWidth="true">

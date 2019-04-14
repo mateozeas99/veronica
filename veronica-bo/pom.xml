@@ -26,10 +26,20 @@
 			<artifactId>veronica-dto</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-        <dependency>
-            <groupId>com.rolandopalermo.facturacion.ec</groupId>
-            <artifactId>veronica-mapper</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>com.rolandopalermo.facturacion.ec</groupId>
+			<artifactId>veronica-mapper</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.rolandopalermo.facturacion.ec.persistence</groupId>
+			<artifactId>veronica-persistence</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.rolandopalermo.facturacion.ec</groupId>
+			<artifactId>veronica-ride</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>
