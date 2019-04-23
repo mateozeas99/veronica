@@ -46,4 +46,5 @@ public class InfoNotaCredito {
     public List<TotalImpuesto> getTotalImpuesto() {
         return totalImpuesto;
     }
+    
 }

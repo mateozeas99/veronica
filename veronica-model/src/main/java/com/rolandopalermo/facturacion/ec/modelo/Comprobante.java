@@ -17,7 +17,7 @@ public class Comprobante {
     protected String id;
     protected String version;
     protected InfoTributaria infoTributaria;
-    private List<CampoAdicional> campoAdicional;
+    protected List<CampoAdicional> campoAdicional;
 
     @XmlAttribute(name = "id")
     public String getId() {

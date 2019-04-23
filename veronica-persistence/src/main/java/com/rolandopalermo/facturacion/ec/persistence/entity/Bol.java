@@ -1,9 +1,7 @@
 package com.rolandopalermo.facturacion.ec.persistence.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,8 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
@@ -31,7 +27,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "bol")
 @TypeDefs(value = { @TypeDef(name = "XMLType", typeClass = XMLType.class) })
-public class Bol implements Serializable {
+public class Bol extends BaseSRIEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,37 +38,10 @@ public class Bol implements Serializable {
 	private long bolId;
 
 	@Column
-	private long internalStatusId;
-
-	@Column
-	@NaturalId
-	private String accessKey;
-
-	@Column
-	private String sriVersion;
-
-	@Column
-	@Type(type = "XMLType")
-	private String xmlContent;
-
-	@Column
 	private String supplierId;
 
 	@Column
-	private Date issueDate;
-
-	@Column
 	private String bolNumber;
-
-	@Column
-	@Type(type = "XMLType")
-	private String xmlAuthorization;
-
-	@Column
-	private boolean isDeleted;
-
-	@Column
-	private Timestamp authorizationDate;
 
 	@Column
 	private String shipperRuc;

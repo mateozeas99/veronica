@@ -31,7 +31,7 @@ public class ComprobanteRetencion extends Comprobante {
 
     private InfoCompRetencion infoCompRetencion;
     private List<Impuesto> impuesto;
-
+    
     @XmlElementWrapper(name = "impuestos")
     public List<Impuesto> getImpuesto() {
         return impuesto;

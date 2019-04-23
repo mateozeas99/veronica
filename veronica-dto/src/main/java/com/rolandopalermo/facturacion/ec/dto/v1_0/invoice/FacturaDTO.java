@@ -14,6 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FacturaDTO extends ComprobanteDTO {
+	
 	@Valid
 	private InfoFacturaDTO infoFactura;
 	@NotNull

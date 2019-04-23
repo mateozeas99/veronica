@@ -27,10 +27,10 @@ public class GuiaRemision extends Comprobante {
 
 	private InfoGuiaRemision infoGuiaRemision;
 	private List<Destinatario> destinatario;
-
+	
 	@XmlElementWrapper(name = "destinatarios")
 	public List<Destinatario> getDestinatario() {
 		return destinatario;
 	}
-
+	
 }

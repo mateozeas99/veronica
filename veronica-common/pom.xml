@@ -12,6 +12,10 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.rolandopalermo.facturacion.ec</groupId>
 			<artifactId>veronica-model</artifactId>
 			<version>0.0.1-SNAPSHOT</version>

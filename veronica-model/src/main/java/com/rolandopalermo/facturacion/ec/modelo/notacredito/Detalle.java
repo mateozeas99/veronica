@@ -23,8 +23,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @XmlType(propOrder = {
-    "codigoInterno", "codigoAdicional", "descripcion", "cantidad", "precioUnitario",
-    "descuento", "precioTotalSinImpuesto", "detAdicional", "impuesto"})
+    "codigoInterno", 
+    "codigoAdicional", 
+    "descripcion", 
+    "cantidad", 
+    "precioUnitario",
+    "descuento", 
+    "precioTotalSinImpuesto", 
+    "detAdicional", 
+    "impuesto"})
 public class Detalle {
 
     protected String codigoInterno;

@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rolandopalermo.facturacion.ec.bo.v1_0.OperationBO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.CertificadoDigitalDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.MetodoPagoDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.TipoDocumentoRetenidoDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.TipoImpuestoDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.VeronicaResponseDTO;
+import com.rolandopalermo.facturacion.ec.persistence.entity.DigitalCert;
+import com.rolandopalermo.facturacion.ec.persistence.entity.PaymentMethod;
+import com.rolandopalermo.facturacion.ec.persistence.entity.ReceiptType;
+import com.rolandopalermo.facturacion.ec.persistence.entity.TaxType;
+import com.rolandopalermo.facturacion.ec.service.v1_0.GenericOperationService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,40 +34,53 @@ import io.swagger.annotations.ApiParam;
 public class OperationController {
 
 	@Autowired
-	private OperationBO operationBO;
-	
+	private GenericOperationService<DigitalCert, CertificadoDigitalDTO> digitalCertService;
+
+	@Autowired
+	private GenericOperationService<PaymentMethod, MetodoPagoDTO> paymentMethodService;
+
+	@Autowired
+	private GenericOperationService<TaxType, TipoImpuestoDTO> taxTypeService;
+
+	@Autowired
+	private GenericOperationService<ReceiptType, TipoDocumentoRetenidoDTO> receiptTypeService;
+
 	@ApiOperation(value = "Almacena un certificado digital asociado a número de RUC")
 	@PostMapping(value = "certificados-digitales", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> insertDigitalCert(@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody CertificadoDigitalDTO certificadoDigital) {
+	public ResponseEntity<Object> insertDigitalCert(
+			@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody CertificadoDigitalDTO certificadoDigital) {
 		VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
-		operationBO.saveDigitalCert(certificadoDigital);
+		digitalCertService.saveOrUpdate(certificadoDigital);
 		response.setSuccess(true);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
-	
+
 	@ApiOperation(value = "Crea un nuevo tipo de impuesto")
 	@PostMapping(value = "tipos-impuesto", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> insertTaxType(@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody TipoImpuestoDTO tipoImpuestoDTO) {
+	public ResponseEntity<Object> insertTaxType(
+			@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody TipoImpuestoDTO tipoImpuestoDTO) {
 		VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
-		operationBO.saveTaxType(tipoImpuestoDTO);
+		taxTypeService.saveOrUpdate(tipoImpuestoDTO);
 		response.setSuccess(true);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
-	
+
 	@ApiOperation(value = "Crea un nuevo tipo de documento")
 	@PostMapping(value = "tipos-documento", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> insertReceiptType(@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody TipoDocumentoRetenidoDTO tipoDocumentoRetenidoDTO) {
+	public ResponseEntity<Object> insertReceiptType(
+			@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody TipoDocumentoRetenidoDTO tipoDocumentoRetenidoDTO) {
 		VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
-		operationBO.saveReceiptType(tipoDocumentoRetenidoDTO);
+		receiptTypeService.saveOrUpdate(tipoDocumentoRetenidoDTO);
 		response.setSuccess(true);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
-	
+
 	@ApiOperation(value = "Crea un nuevo método de pago")
 	@PostMapping(value = "metodos-pago", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> insertPaymentMethod(@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody MetodoPagoDTO metodoPagoDTO) {
+	public ResponseEntity<Object> insertPaymentMethod(
+			@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody MetodoPagoDTO metodoPagoDTO) {
 		VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
-		operationBO.savePaymentMethod(metodoPagoDTO);
+		paymentMethodService.saveOrUpdate(metodoPagoDTO);
 		response.setSuccess(true);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}

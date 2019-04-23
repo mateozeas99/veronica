@@ -40,6 +40,5 @@ public class InfoTributaria {
     private String ptoEmi;
     private String secuencial;
     private String dirMatriz;
-   
 
 }

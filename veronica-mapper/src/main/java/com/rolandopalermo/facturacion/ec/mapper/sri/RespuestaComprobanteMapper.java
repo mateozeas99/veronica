@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import com.rolandopalermo.facturacion.ec.common.converter.JaxbConverter;
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
-import com.rolandopalermo.facturacion.ec.common.util.JaxbUtils;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.AutorizacionDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.MensajeDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaComprobanteDTO;
@@ -25,6 +25,10 @@ import autorizacion.ws.sri.gob.ec.RespuestaComprobante;
 public class RespuestaComprobanteMapper {
 
 	private Mapper<Mensaje, MensajeDTO> mensajeRecepcionMapper;
+	
+	@Autowired
+	@Qualifier("respuestaComprobanteJaxbConverter")
+	protected JaxbConverter jaxbConverter;
 
 	private static final Logger logger = LogManager.getLogger(RespuestaComprobanteMapper.class);
 
@@ -56,7 +60,7 @@ public class RespuestaComprobanteMapper {
 			dto.setNumeroComprobantes(respuestaComprobante.getNumeroComprobantes());
 			dto.setAutorizaciones(autorizaciones);
 			try {
-				dto.setContentAsXML(JaxbUtils.marshallAsString(respuestaComprobante));
+				dto.setContentAsXML(jaxbConverter.convertFromObjectToString(respuestaComprobante));
 			} catch (Exception e) {
 				logger.error("RespuestaComprobanteMapper", e);
 			}

@@ -22,7 +22,7 @@ import com.rolandopalermo.facturacion.ec.modelo.factura.InfoFactura;
 @Component("facturaMapper")
 public class FacturaMapper extends AbstractComprobanteMapper<FacturaDTO> implements Mapper<FacturaDTO, Factura> {
 
-    private Mapper<InfoTributariaDTO, InfoTributaria> InfoTributariaMapper;
+    private Mapper<InfoTributariaDTO, InfoTributaria> infoTributariaMapper;
     private Mapper<CampoAdicionalDTO, CampoAdicional> campoAdicionalMapper;
     private Mapper<InfoFacturaDTO, InfoFactura> infoFacturaMapper;
     private Mapper<FacturaDetalleDTO, FacturaDetalle> facturaDetalleMapper;
@@ -55,13 +55,13 @@ public class FacturaMapper extends AbstractComprobanteMapper<FacturaDTO> impleme
     }
 
     protected Mapper<InfoTributariaDTO, InfoTributaria> getInfoTributariaMapper() {
-        return InfoTributariaMapper;
+        return infoTributariaMapper;
     }
 
     @Autowired
     @Qualifier("infoTributariaMapper")
     public void setInfoTributariaMapper(Mapper<InfoTributariaDTO, InfoTributaria> infoTributariaMapper) {
-        InfoTributariaMapper = infoTributariaMapper;
+    	this.infoTributariaMapper = infoTributariaMapper;
     }
 
     protected Mapper<CampoAdicionalDTO, CampoAdicional> getCampoAdicionalMapper() {
