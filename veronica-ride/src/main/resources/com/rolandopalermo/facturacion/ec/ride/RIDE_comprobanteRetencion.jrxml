@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RIDE_retencion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23078fe1-b005-44ae-8dc0-7a1396cac66c">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RIDE_comprobanteRetencion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23078fe1-b005-44ae-8dc0-7a1396cac66c">
 	<property name="ireport.zoom" value="1.6500000000000052"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="271"/>
+	<property name="ireport.y" value="150"/>
 	<style name="etiqueta-texto" hAlign="Left" vAlign="Middle" isBlankWhenNull="true">
 		<paragraph leftIndent="2"/>
 	</style>
@@ -166,6 +166,9 @@
 	</field>
 	<field name="codDocSustento" class="java.lang.String">
 		<fieldDescription><![CDATA[impuestos/impuesto/codDocSustento]]></fieldDescription>
+	</field>
+	<field name="totalRetenido" class="java.lang.String">
+		<fieldDescription><![CDATA[sum(/comprobanteRetencion/impuestos/impuesto/valorRetenido)]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -542,7 +545,7 @@
 		</band>
 		<band height="40" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="0" y="0" width="555" height="40" isRemoveLineWhenBlank="true" uuid="87f78d47-038b-43c5-8b81-cc461f087fcb"/>
+				<reportElement mode="Opaque" x="0" y="0" width="305" height="40" isRemoveLineWhenBlank="true" uuid="87f78d47-038b-43c5-8b81-cc461f087fcb"/>
 				<frame>
 					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="305" height="40" isRemoveLineWhenBlank="true" uuid="b065232e-ea96-4c67-b195-5807c1d9ebf0"/>
 					<componentElement>
@@ -569,6 +572,28 @@
 					</staticText>
 				</frame>
 			</frame>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="etiqueta-celda" positionType="Float" x="490" y="0" width="65" height="20" uuid="ed3720a5-0d9e-4dbd-832b-98d25adb310f"/>
+				<textElement textAlignment="Right">
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalRetenido}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="etiqueta-texto" x="422" y="0" width="68" height="20" uuid="75dd1c37-2f9f-4b21-84b8-14973daf157f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Total Retenido:]]></text>
+			</staticText>
 		</band>
 	</detail>
 </jasperReport>
