@@ -1,4 +1,4 @@
-package com.rolandopalermo.facturacion.ec.web.api.v1_0;
+package com.rolandopalermo.facturacion.ec.app.api.v1_0;
 
 import static com.rolandopalermo.facturacion.ec.common.util.Constants.API_DOC_ANEXO_1;
 
@@ -28,7 +28,7 @@ import com.rolandopalermo.facturacion.ec.common.exception.InternalServerExceptio
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.ComprobanteIdDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.VeronicaResponseDTO;
-import com.rolandopalermo.facturacion.ec.dto.v1_0.cm.NotaCreditoDTO;
+import com.rolandopalermo.facturacion.ec.dto.v1_0.invoice.FacturaDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaComprobanteDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaSolicitudDTO;
 import com.rolandopalermo.facturacion.ec.service.v1_0.GenericSRIService;
@@ -38,36 +38,36 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @RestController
-@RequestMapping(value = "/api/v1.0/notas-credito")
-@Api(description = "Gestiona el ciclo de vida de una nota de crédito electrónica")
-public class CreditMemoController {
+@RequestMapping(value = "/api/v1.0/facturas")
+@Api(description = "Gestiona el ciclo de vida de una factura electrónica")
+public class InvoiceController {
 
 	@Autowired(required = true)
-	@Qualifier("creditMemoServiceImpl")
+	@Qualifier("invoiceServiceImpl")
 	private GenericSRIService service;
 
-	private static final Logger logger = LogManager.getLogger(CreditMemoController.class);
+	private static final Logger logger = LogManager.getLogger(InvoiceController.class);
 
-	@ApiOperation(value = "Crea una nota de crédito electrónica y la almacena en base de datos")
+	@ApiOperation(value = "Crea una factura electrónica y la almacena en base de datos")
 	@PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> createCm(
-			@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody NotaCreditoDTO notaCreditoDTO) {
+	public ResponseEntity<Object> createInvoice(
+			@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody FacturaDTO facturaDTO) {
 		try {
 			VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
-			ComprobanteIdDTO guiaIdDTO;
-			guiaIdDTO = service.create(notaCreditoDTO);
+			ComprobanteIdDTO facturaIdDTO;
+			facturaIdDTO = service.create(facturaDTO);
 			response.setSuccess(true);
-			response.setResult(guiaIdDTO);
+			response.setResult(facturaIdDTO);
 			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (VeronicaException e) {
-			logger.error("createCm", e);
+			logger.error("createInvoice", e);
 			throw new InternalServerException(e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "Envía una nota de crédito electrónica al SRI y actualiza su estado en base de datos")
+	@ApiOperation(value = "Envía una factura electrónica al SRI y actualiza su estado en base de datos")
 	@PutMapping(value = "{claveAcceso}/enviar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> postCm(
+	public ResponseEntity<Object> postInvoice(
 			@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
 		VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
 		RespuestaSolicitudDTO respuestaSolicitudDTO = service.post(claveAcceso);
@@ -76,9 +76,9 @@ public class CreditMemoController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "Autoriza una nota de crédito electrónica y actualiza su estado en base de datos")
+	@ApiOperation(value = "Autoriza una factura electrónica y actualiza su estado en base de datos")
 	@PutMapping(value = "{claveAcceso}/autorizar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> applyCm(
+	public ResponseEntity<Object> applyInvoice(
 			@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
 		try {
 			VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
@@ -87,12 +87,12 @@ public class CreditMemoController {
 			response.setResult(respuestaComprobanteDTO);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (VeronicaException e) {
-			logger.error("applyCm", e);
+			logger.error("applyInvoice", e);
 			throw new InternalServerException(e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "Elimina una nota de crédito de la base de datos")
+	@ApiOperation(value = "Elimina una factura de la base de datos")
 	@DeleteMapping(value = "{claveAcceso}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> deleteInvoice(
 			@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
@@ -102,7 +102,7 @@ public class CreditMemoController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "Retorna la representación PDF de una nota de crédito electrónica")
+	@ApiOperation(value = "Retorna la representación PDF de una factura electrónica")
 	@GetMapping(value = "{claveAcceso}/archivos/pdf")
 	public ResponseEntity<Object> generateRIDE(
 			@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable("claveAcceso") String claveAcceso) {
@@ -124,7 +124,7 @@ public class CreditMemoController {
 		}
 	}
 
-	@ApiOperation(value = "Retorna la representación XML de una nota de crédito electrónica")
+	@ApiOperation(value = "Retorna la representación XML de una factura electrónica")
 	@GetMapping(value = "{claveAcceso}/archivos/xml", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<Object> getXML(

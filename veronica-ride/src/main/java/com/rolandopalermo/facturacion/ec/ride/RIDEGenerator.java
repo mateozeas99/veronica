@@ -2,11 +2,11 @@ package com.rolandopalermo.facturacion.ec.ride;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,17 +18,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
 
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.common.util.XmlUtils;
 import com.rolandopalermo.facturacion.ec.persistence.entity.PaymentMethod;
 import com.rolandopalermo.facturacion.ec.persistence.entity.ReceiptType;
+import com.rolandopalermo.facturacion.ec.persistence.entity.Supplier;
 import com.rolandopalermo.facturacion.ec.persistence.entity.TaxType;
 import com.rolandopalermo.facturacion.ec.persistence.repository.PaymentMethodRepository;
+import com.rolandopalermo.facturacion.ec.persistence.repository.SupplierRepository;
 import com.rolandopalermo.facturacion.ec.persistence.repository.TaxTypeRepository;
 import com.rolandopalermo.facturacion.ec.persistence.repository.WithheldReceiptTypeRepository;
 
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -39,6 +41,8 @@ import net.sf.jasperreports.engine.data.JRXmlDataSource;
 @Service("rideGenerator")
 public class RIDEGenerator {
 
+	private static final String RUC_IDENTIFICACION_EMISOR = "//infoTributaria/ruc";
+	
 	@Autowired
 	private PaymentMethodRepository paymentMethodRepository;
 
@@ -47,6 +51,9 @@ public class RIDEGenerator {
 
 	@Autowired
 	private TaxTypeRepository taxTypeRepository;
+	
+	@Autowired
+	private SupplierRepository supplierRepository;
 
 	private HashMap<String, String> hmapFormasPago;
 	private HashMap<String, String> hmapTiposDocumentos;
@@ -71,20 +78,31 @@ public class RIDEGenerator {
 			throws VeronicaException {
 		File comprobante;
 		try {
+			//Create temp XML file
 			comprobante = File.createTempFile(numeroAutorizacion, ".xml");
 			Path path = Paths.get(comprobante.getAbsolutePath());
 			try (BufferedWriter writer = Files.newBufferedWriter(path)) {
 				writer.write(xmlContent);
 			}
-		} catch (IOException e) {
-			logger.error("buildPDF", e);
-			throw new VeronicaException("Ocurrió un error interno al generar el PDF");
-		}
-		try {
-			String xmlRootElement = XmlUtils.getXmlRootElement(xmlContent);
-			String rootElement = "/".concat(xmlRootElement);
+			//Read XML DOM
+			Document doc = XmlUtils.convertStringToDocument(xmlContent);
+			String rootElement = XmlUtils.getXmlRootElement(doc);
+			String numeroIdentificacion = XmlUtils.xPath(doc, RUC_IDENTIFICACION_EMISOR);
+			if (numeroIdentificacion == null || numeroIdentificacion.isEmpty()) {
+				throw new VeronicaException(
+						String.format("No se pudo obtener el número de R.U.C. del comprobante %s",
+								xmlContent));
+			}
+			//Get Logo
+			List<Supplier> empresas = supplierRepository.findByIdNumber(numeroIdentificacion);
+			if (empresas == null || empresas.isEmpty()) {
+				throw new VeronicaException(
+						String.format("No se pudo obtener el logo del número de R.U.C. %s", numeroIdentificacion));
+			}
+			byte[] encodedLogo = Base64.getEncoder().encode(empresas.get(0).getLogo());
+			//Select template
 			StringBuilder sbTemplate = new StringBuilder("/com/rolandopalermo/facturacion/ec/ride/RIDE_");
-			sbTemplate.append(xmlRootElement);
+			sbTemplate.append(rootElement);
 			sbTemplate.append(".jrxml");
 			String template = sbTemplate.toString();
 			InputStream employeeReportStream = RIDEGenerator.class.getResourceAsStream(template);
@@ -96,19 +114,20 @@ public class RIDEGenerator {
 			parameters.put("hmapTiposDocumentos", hmapTiposDocumentos);
 			parameters.put("hmapTiposImpuestos", hmapTiposImpuestos);
 			parameters.put("hmapFormasPago", hmapFormasPago);
+			parameters.put("logo", new String(encodedLogo));
 			JRXmlDataSource xmlDataSource = new JRXmlDataSource(comprobante.getAbsolutePath(), rootElement);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, xmlDataSource);
 			if (jasperPrint == null) {
-				new VeronicaException(String.format(
+				throw new VeronicaException(String.format(
 						"No se pudo generar el PDF para el comprobante con clave de acceso %s", numeroAutorizacion));
 			}
 			if (!comprobante.delete()) {
-				new VeronicaException(
+				throw new VeronicaException(
 						String.format("No se puede eliminar el archivo temporal en %s", comprobante.getAbsolutePath()));
 			}
 			return JasperExportManager.exportReportToPdf(jasperPrint);
-		} catch (JRException e) {
-			logger.error("buildPDF", e);
+		} catch (Exception e) {
+			logger.error("Error building the PDF...", e);
 			throw new VeronicaException("Ocurrió un error interno al generar el PDF");
 		}
 	}

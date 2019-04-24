@@ -1,4 +1,4 @@
-package com.rolandopalermo.facturacion.ec.web.api.v1_0;
+package com.rolandopalermo.facturacion.ec.app.api.v1_0;
 
 import static com.rolandopalermo.facturacion.ec.common.util.Constants.API_DOC_ANEXO_1;
 

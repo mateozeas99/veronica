@@ -235,8 +235,7 @@ public abstract class GenericSRIServiceImpl<DTO extends ComprobanteDTO, MODEL ex
 		return respuestaSolicitudDTO;
 	}
 
-	private RespuestaComprobanteDTO applyReceipt(String claveAcceso)
-			throws ResourceNotFoundException, VeronicaException {
+	private RespuestaComprobanteDTO applyReceipt(String claveAcceso) throws ResourceNotFoundException, VeronicaException {
 		AutorizacionComprobanteProxy proxy;
 		try {
 			proxy = new AutorizacionComprobanteProxy(wsdlAutorizacion);
