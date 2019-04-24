@@ -2,6 +2,8 @@ package com.rolandopalermo.facturacion.ec.service.v1_0.impl;
 
 import static com.rolandopalermo.facturacion.ec.common.util.Constants.CREATED;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -29,16 +31,20 @@ public class BolServiceImpl extends GenericSRIServiceImpl<GuiaRemisionDTO, GuiaR
 		bol.setIssueDate(DateUtils.getFechaFromStringddMMyyyy(guia.getInfoGuiaRemision().getFechaIniTransporte()));
 		bol.setBolNumber(guia.getInfoTributaria().getSecuencial());
 		bol.setInternalStatusId(CREATED);
-		guia.getDestinatario().forEach(destinatario -> {
-			Consignee consignee = new Consignee();
-			consignee.setConsignneNumber(destinatario.getIdentificacionDestinatario());
-			consignee.setCustomDocNumber(destinatario.getDocAduaneroUnico());
-			consignee.setReferenceDocCod(destinatario.getCodDocSustento());
-			consignee.setReferenceDocNumber(destinatario.getNumDocSustento());
-			consignee.setReferenceDocAuthNumber(destinatario.getNumAutDocSustento());
-			bol.addConsignee(consignee);
-		});
-		return bol;
+		bol.setConsignees(guia.getDestinatario()
+				.stream()
+				.map(destinatario -> {
+					Consignee consignee = new Consignee();
+					consignee.setConsignneNumber(destinatario.getIdentificacionDestinatario());
+					consignee.setCustomDocNumber(destinatario.getDocAduaneroUnico());
+					consignee.setReferenceDocCod(destinatario.getCodDocSustento());
+					consignee.setReferenceDocNumber(destinatario.getNumDocSustento());
+					consignee.setReferenceDocAuthNumber(destinatario.getNumAutDocSustento());
+					consignee.setBol(bol);
+					return consignee;
+				})
+				.collect(Collectors.toList()));
+		 return bol;
 	}
 
 	@Override

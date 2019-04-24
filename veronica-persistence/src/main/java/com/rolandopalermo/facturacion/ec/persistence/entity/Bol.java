@@ -51,15 +51,5 @@ public class Bol extends BaseSRIEntity implements Serializable {
 
 	@OneToMany(mappedBy = "bol", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Consignee> consignees = new ArrayList<>();
-	
-	public void addConsignee(Consignee consignee) {
-		consignees.add(consignee);
-		consignee.setBol(this);
-	}
-
-	public void removeConsignee(Consignee consignee) {
-		consignees.remove(consignee);
-		consignee.setBol(null);
-	}
 
 }

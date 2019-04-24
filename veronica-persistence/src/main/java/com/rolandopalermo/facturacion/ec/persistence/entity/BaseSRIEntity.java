@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 
 import lombok.Getter;
@@ -17,6 +18,7 @@ import lombok.Setter;
 public abstract class BaseSRIEntity {
 
 	@Column
+	@NaturalId
 	private String accessKey;
 
 	@Column
