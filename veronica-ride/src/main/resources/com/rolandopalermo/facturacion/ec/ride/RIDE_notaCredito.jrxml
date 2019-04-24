@@ -536,7 +536,7 @@
 			</staticText>
 			<image hAlign="Center">
 				<reportElement x="0" y="0" width="274" height="150" uuid="ca960ad2-9132-413c-a64a-cac15ae43c44"/>
-				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($P{logo}.getBytes()))]]></imageExpression>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream($P{logo}.getBytes())]]></imageExpression>
 			</image>
 		</band>
 		<band height="29" splitType="Immediate">
