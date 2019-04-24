@@ -20,7 +20,8 @@ public class SignerUtils {
 
 	private static final Logger logger = LogManager.getLogger(SignerUtils.class);
 
-	public static byte[] signXML(byte[] cotenido, byte[] certificado, String passwordCertificado) throws VeronicaException {
+	public static byte[] signXML(byte[] cotenido, byte[] certificado, String passwordCertificado)
+			throws VeronicaException {
 		try {
 			// Actividad 1.- Generar archivo temporales para el XML, certificado y el
 			// archivo firmado
@@ -44,7 +45,8 @@ public class SignerUtils {
 				fos.write(certificado);
 			}
 			// Actividad 4.- Firmar el archivo xml creado temporalmente
-			Signer firmador = new Signer(rutaArchivoXML, rutaArchivoXMLFirmado, rutaArchivoCertificado, passwordCertificado);
+			Signer firmador = new Signer(rutaArchivoXML, rutaArchivoXMLFirmado, rutaArchivoCertificado,
+					passwordCertificado);
 			firmador.firmar();
 			// 5.- Obtener el contenido del archivo XML
 			Path path = Paths.get(rutaArchivoXMLFirmado);
@@ -57,7 +59,6 @@ public class SignerUtils {
 			logger.error("signXML", e);
 			throw new VeronicaException(e.getMessage());
 		}
-
 	}
 
 }

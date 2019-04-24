@@ -30,4 +30,5 @@ public class TipoAmbiente {
 		PRUEBAS = new TipoAmbiente("PRUEBAS", 1, "1");
 		$VALUES = (new TipoAmbiente[] { PRODUCCION, PRUEBAS });
 	}
+	
 }
