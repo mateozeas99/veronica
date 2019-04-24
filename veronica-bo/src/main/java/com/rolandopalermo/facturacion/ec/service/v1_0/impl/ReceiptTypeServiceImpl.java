@@ -6,7 +6,7 @@ import com.rolandopalermo.facturacion.ec.dto.v1_0.TipoDocumentoRetenidoDTO;
 import com.rolandopalermo.facturacion.ec.persistence.entity.ReceiptType;
 
 @Service("receiptTypeServiceImpl")
-public class ReceiptTypeServiceImpl extends GenericOperationServiceImpl<ReceiptType, TipoDocumentoRetenidoDTO> {
+public class ReceiptTypeServiceImpl extends GenericCRUDServiceImpl<ReceiptType, TipoDocumentoRetenidoDTO> {
 
 	@Override
 	public ReceiptType mapTo(TipoDocumentoRetenidoDTO tipoDocumentoRetenidoDTO) {
@@ -14,6 +14,11 @@ public class ReceiptTypeServiceImpl extends GenericOperationServiceImpl<ReceiptT
 		receiptType.setCode(tipoDocumentoRetenidoDTO.getCodigo());
 		receiptType.setDescription(tipoDocumentoRetenidoDTO.getDescripcion());
 		return receiptType;
+	}
+
+	@Override
+	public TipoDocumentoRetenidoDTO build(ReceiptType domainObject) {
+		return null;
 	}
 	
 }

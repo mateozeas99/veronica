@@ -15,18 +15,27 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "payment_method")
-public class PaymentMethod {
+@Table(name = "supplier")
+public class Supplier {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "payment_method_id", updatable = false, nullable = false)
+	@Column(name = "supplier_id", updatable = false, nullable = false)
 	private long id;
 
 	@Column
-	private String code;
+	private String idNumber;
 	
 	@Column
-	private String description;
+	private String idType;
+	
+	@Column
+	private String businessName;
+	
+	@Column
+	private byte[] logo;
+	
+	@Column
+	private boolean isDeleted;
 
 }

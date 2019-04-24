@@ -25,7 +25,7 @@ public class DigitalCert {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "digital_cert_generator")
 	@SequenceGenerator(name = "digital_cert_generator", sequenceName = "digital_cert_seq", allocationSize = 50)
 	@Column(name = "digital_cert_id", updatable = false, nullable = false)
-	private long digitalCertId;
+	private long id;
 
 	@Column
 	@ColumnTransformer(

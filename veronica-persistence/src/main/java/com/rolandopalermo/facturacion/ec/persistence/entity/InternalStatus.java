@@ -21,7 +21,7 @@ public class InternalStatus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "internal_status_id", updatable = false, nullable = false)
-	private long internalStatusId;
+	private long id;
 
 	@Column
 	private String description;

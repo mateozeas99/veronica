@@ -21,7 +21,7 @@ public class TaxType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tax_type_id", updatable = false, nullable = false)
-	private long taxTypeId;
+	private long id;
 
 	@Column
 	private String code;

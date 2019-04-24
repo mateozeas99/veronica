@@ -22,7 +22,7 @@ import com.rolandopalermo.facturacion.ec.persistence.entity.DigitalCert;
 import com.rolandopalermo.facturacion.ec.persistence.entity.PaymentMethod;
 import com.rolandopalermo.facturacion.ec.persistence.entity.ReceiptType;
 import com.rolandopalermo.facturacion.ec.persistence.entity.TaxType;
-import com.rolandopalermo.facturacion.ec.service.v1_0.GenericOperationService;
+import com.rolandopalermo.facturacion.ec.service.v1_0.GenericCRUDService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,16 +34,16 @@ import io.swagger.annotations.ApiParam;
 public class OperationController {
 
 	@Autowired
-	private GenericOperationService<DigitalCert, CertificadoDigitalDTO> digitalCertService;
+	private GenericCRUDService<DigitalCert, CertificadoDigitalDTO> digitalCertService;
 
 	@Autowired
-	private GenericOperationService<PaymentMethod, MetodoPagoDTO> paymentMethodService;
+	private GenericCRUDService<PaymentMethod, MetodoPagoDTO> paymentMethodService;
 
 	@Autowired
-	private GenericOperationService<TaxType, TipoImpuestoDTO> taxTypeService;
+	private GenericCRUDService<TaxType, TipoImpuestoDTO> taxTypeService;
 
 	@Autowired
-	private GenericOperationService<ReceiptType, TipoDocumentoRetenidoDTO> receiptTypeService;
+	private GenericCRUDService<ReceiptType, TipoDocumentoRetenidoDTO> receiptTypeService;
 
 	@ApiOperation(value = "Almacena un certificado digital asociado a número de RUC")
 	@PostMapping(value = "certificados-digitales", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -962,6 +962,64 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "empresa",
+			"description": "",
+			"item": [
+				{
+					"name": "Registra datos de una nueva empresa",
+					"request": {
+						"url": "http://localhost:8080/veronica/api/v1.0/empresas",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"numeroIdentificacion\": \"\",\r\n\t\"razonSocial\": \"\",\r\n\t\"tipoIdentificacion\": \"\",\r\n\t\"logo\": \"\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna la información asociada a una empresa",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8080/veronica/api/v1.0/empresas/:identificacion-empresa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"veronica",
+								"api",
+								"v1.0",
+								"empresas",
+								":identificacion-empresa"
+							],
+							"query": [],
+							"variable": [
+								{
+									"key": "identificacion-empresa",
+									"value": ""
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

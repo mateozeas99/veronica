@@ -21,7 +21,7 @@ public class ReceiptType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "receipt_type_id", updatable = false, nullable = false)
-	private long receiptTypeId;
+	private long id;
 
 	@Column
 	private String code;

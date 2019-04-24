@@ -426,18 +426,20 @@ ALTER TABLE ONLY public.tax_type ALTER COLUMN tax_type_id SET DEFAULT nextval('p
 
 ALTER TABLE ONLY public.receipt_type ALTER COLUMN receipt_type_id SET DEFAULT nextval('public.receipt_type_receipt_type_id_seq'::regclass);
 
+
+ALTER TABLE ONLY public.supplier ALTER COLUMN supplier_id SET DEFAULT nextval('public.supplier_supplier_id_seq'::regclass);
 --
 -- Name: bol_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.bol_seq', 13, true);
+SELECT pg_catalog.setval('public.bol_seq', 1, true);
 
 
 --
 -- Name: consignne_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.consignne_seq', 12, true);
+SELECT pg_catalog.setval('public.consignne_seq', 1, true);
 
 
 --
@@ -451,7 +453,7 @@ SELECT pg_catalog.setval('public.digital_cert_digital_cert_id_seq', 1, false);
 -- Name: digital_cert_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.digital_cert_seq', 2, true);
+SELECT pg_catalog.setval('public.digital_cert_seq', 1, true);
 
 
 --
@@ -479,22 +481,24 @@ SELECT pg_catalog.setval('public.invoice_seq', 1, true);
 -- Name: payment_method_payment_method_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.payment_method_payment_method_id_seq', 9, true);
+SELECT pg_catalog.setval('public.payment_method_payment_method_id_seq', 1, true);
 
 
 --
 -- Name: tax_type_tax_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tax_type_tax_type_id_seq', 5, true);
+SELECT pg_catalog.setval('public.tax_type_tax_type_id_seq', 1, true);
 
 
 --
 -- Name: receipt_type_receipt_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.receipt_type_receipt_type_id_seq', 13, true);
+SELECT pg_catalog.setval('public.receipt_type_receipt_type_id_seq', 1, true);
 
+
+SELECT pg_catalog.setval('public.supplier_supplier_id_seq', 1, true);
 
 --
 -- Name: withholding_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
@@ -638,11 +642,6 @@ ALTER TABLE ONLY public.invoice
 ALTER TABLE ONLY public.withholding
     ADD CONSTRAINT withholding_internal_status_id_fkey FOREIGN KEY (internal_status_id) REFERENCES public.internal_status(internal_status_id);
 
-
---
--- PostgreSQL database dump complete
---
-
 CREATE TABLE public.credit_memo (
     credit_memo_id integer NOT NULL,
     access_key character varying(50) NOT NULL,
@@ -681,3 +680,39 @@ CREATE SEQUENCE public.credit_memo_seq
 
 
 ALTER TABLE public.credit_memo_seq OWNER TO postgres;
+
+CREATE TABLE public.supplier (
+    supplier_id integer NOT NULL,
+    id_number character varying(20) NOT NULL,
+    id_type character varying(10) NOT NULL,
+    business_name character varying(300) NOT NULL,
+    logo bytea,
+    is_deleted boolean DEFAULT false
+);
+
+
+ALTER TABLE public.supplier OWNER TO postgres;
+
+--
+-- Name: supplier_supplier_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.supplier_supplier_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.supplier_supplier_id_seq OWNER TO postgres;
+
+--
+-- Name: supplier_supplier_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.supplier_supplier_id_seq OWNED BY public.supplier.supplier_id;
+--
+-- PostgreSQL database dump complete
+--

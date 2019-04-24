@@ -8,7 +8,7 @@ import com.rolandopalermo.facturacion.ec.dto.v1_0.CertificadoDigitalDTO;
 import com.rolandopalermo.facturacion.ec.persistence.entity.DigitalCert;
 
 @Service("digitalCertServiceImpl")
-public class DigitalCertServiceImpl extends GenericOperationServiceImpl<DigitalCert, CertificadoDigitalDTO> {
+public class DigitalCertServiceImpl extends GenericCRUDServiceImpl<DigitalCert, CertificadoDigitalDTO> {
 
 	@Override
 	public DigitalCert mapTo(CertificadoDigitalDTO certificadoDigital) {
@@ -19,6 +19,11 @@ public class DigitalCertServiceImpl extends GenericOperationServiceImpl<DigitalC
 		cert.setOwner(certificadoDigital.getRucPropietario());
 		cert.setPassword(certificadoDigital.getPassword());
 		return cert;
+	}
+
+	@Override
+	public CertificadoDigitalDTO build(DigitalCert domainObject) {
+		return null;
 	}
 
 }
