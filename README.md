@@ -19,6 +19,7 @@ Cotenidos
 	- [Instalación de base de datos](#instalación-de-base-de-datos)
 	- [Instalación de dependencias](#instalación-de-dependencias)
 	- [Despliegue](#despliegue)
+	- [Docker](#docker)
 - [Documentación](#documentación)
 	- [Swagger](#swagger)
 	- [Postman](#postman)
@@ -32,7 +33,7 @@ Cotenidos
 
 ## Pasos previos
 - [Instalar y configurar Maven](https://www.mkyong.com/maven/how-to-install-maven-in-windows/)
-
+- [Instalar docker y docker compose](https://docs.docker.com/install/linux/docker-ce/debian/)(https://docs.docker.com/compose/install/)
 ## Instalación
 
 ### Instalación de base de datos
@@ -97,6 +98,19 @@ $ mvn spring-boot:run -Pdevelopment
 $ cd /veronica/veronica-web
 $ mvn spring-boot:run -Pproduction
 ```
+## Docker
+`Docker-Veronica` proporciona un fácil despliegue de veronica en pocos minutos. No olvides de cambiar el password de PostgreSQL por seguridad, la base de datos y el ambiente que deseas desplegar dentro del archivo **docker-compose.yml**.
+### Software
+- postgres:11 (https://hub.docker.com/_/postgres)
+- maven:3.6.1-jdk-8 (https://hub.docker.com/_/maven)
+
+### Despliegue
+```bash
+$ sudo docker-compose up -d
+$ sudo docker logs -f veronica_maven_1
+```
+- Esperar que termine de conrrer maven. 
+[INFO Tomcat started on port(s): 8080 (http)]
 
 ## Documentación
 ### Swagger
@@ -114,9 +128,10 @@ http://localhost:8080/veronica/swagger-ui.html
 - V5: 2018-11-19, Integración con Postman.
 - V6: 2019-01-09, Integración con PostgreSQL.
 - V7: 2019-02-21, Retenciones y Guías de remisión.
+- V8: 2019-05-18, Docker.
 
 ## Autores
 
-| [![](https://avatars1.githubusercontent.com/u/11875482?v=4&s=80)](https://github.com/rolandopalermo) | [![](https://avatars2.githubusercontent.com/u/24358710?s=80&v=4)](https://github.com/XaviMontero) | [![](https://avatars0.githubusercontent.com/u/3452663?s=80&v=4)](https://github.com/XaviMontero) |  [![](https://avatars0.githubusercontent.com/u/211490?s=80&v=4)](https://github.com/vperilla) 
+| [![](https://avatars1.githubusercontent.com/u/11875482?v=4&s=80)](https://github.com/rolandopalermo) | [![](https://avatars2.githubusercontent.com/u/24358710?s=80&v=4)](https://github.com/XaviMontero) | [![](https://avatars0.githubusercontent.com/u/3452663?s=80&v=4)](https://github.com/XaviMontero) |  [![](https://avatars0.githubusercontent.com/u/211490?s=80&v=4)](https://github.com/vperilla) |  [![](https://avatars3.githubusercontent.com/u/5132165?s=400&v=4)](https://github.com/mateozeas99) 
 |-|-|-|-|
-| [@RolandoPalermo](https://github.com/rolandopalermo) | [@XaviMontero](https://github.com/XaviMontero) | [@Japstones](https://github.com/japstones) | [@vperilla](https://github.com/vperilla) |
+| [@RolandoPalermo](https://github.com/rolandopalermo) | [@XaviMontero](https://github.com/XaviMontero) | [@Japstones](https://github.com/japstones) | [@vperilla](https://github.com/vperilla) | [@mateozeas99](https://github.com/mateozeas99) |
