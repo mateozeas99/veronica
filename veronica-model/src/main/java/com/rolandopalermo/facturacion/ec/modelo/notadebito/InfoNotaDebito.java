@@ -10,8 +10,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 
-import com.rolandopalermo.facturacion.ec.modelo.Pago;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,8 +33,7 @@ import lombok.Setter;
 		"fechaEmisionDocSustento", 
 		"totalSinImpuestos", 
 		"impuesto", 
-		"valorTotal", 
-		"pago"
+		"valorTotal"
 		})
 public class InfoNotaDebito {
 
@@ -54,16 +51,10 @@ public class InfoNotaDebito {
     protected BigDecimal totalSinImpuestos;
     protected List<Impuesto> impuesto;
     protected BigDecimal valorTotal;
-    private List<Pago> pago;
 
     @XmlElementWrapper(name = "impuestos")
     public List<Impuesto> getImpuesto() {
         return impuesto;
     }
     
-    @XmlElementWrapper(name = "pagos")
-    public List<Pago> getPago() {
-        return pago;
-    }
-
 }

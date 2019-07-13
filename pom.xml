@@ -10,7 +10,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.9.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath />
 	</parent>
 
 	<properties>
@@ -20,20 +20,33 @@
 		<java.version>1.8</java.version>
 		<skipTests>true</skipTests>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<maven.compiler.debug>false</maven.compiler.debug>
 		<maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
 		<maven-plugin-antrun.version>1.8</maven-plugin-antrun.version>
 		<maven-plugin-ant.version>2.4</maven-plugin-ant.version>
+
+		<version.docker.maven.plugin>0.30.0</version.docker.maven.plugin>
+
+		<docker.image.prefix>rolandopalermo</docker.image.prefix>
+
+		<veronica.name>veronica</veronica.name>
+		<veronica.db.user>postgres</veronica.db.user>
+		<veronica.db.password>123456</veronica.db.password>
+		<veronica.db.port>5432</veronica.db.port>
+		<veronica.db.container>veronica-db</veronica.db.container>
+		<veronica.db.key>8qxBjzCdQkwdpu</veronica.db.key>
+		<veronica.db.health>http://localhost:8080/veronica/publico/health</veronica.db.health>
 	</properties>
 	<modules>
 		<module>veronica-model</module>
 		<module>veronica-common</module>
-		<module>veronica-web</module>
+		<module>veronica-app</module>
 		<module>veronica-soap</module>
 		<module>veronica-dto</module>
-		<module>veronica-bo</module>
+		<module>veronica-service</module>
 		<module>veronica-ride</module>
 		<module>veronica-mapper</module>
 		<module>veronica-persistence</module>
@@ -53,6 +66,23 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!--Security-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -62,7 +92,6 @@
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 	</dependencies>
-	<!-- Perfiles -->
 	<profiles>
 		<profile>
 			<id>development</id>
@@ -74,6 +103,12 @@
 			<id>production</id>
 			<properties>
 				<env>prd</env>
+			</properties>
+		</profile>
+		<profile>
+			<id>docker</id>
+			<properties>
+				<env>docker</env>
 			</properties>
 		</profile>
 	</profiles>
@@ -95,6 +130,91 @@
 					<compilerArgs>
 						<arg>-parameters</arg>
 					</compilerArgs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${version.docker.maven.plugin}</version>
+				<configuration>
+					<dockerHost>unix:///var/run/docker.sock</dockerHost>
+					<verbose>true</verbose>
+					<images>
+						<image>
+							<name>${docker.image.prefix}/${veronica.name}</name>
+							<alias>${veronica.name}</alias>
+							<build>
+								<dockerFileDir>${project.basedir}/target/dockerfile/</dockerFileDir>
+								<assembly>
+									<descriptorRef>artifact</descriptorRef>
+								</assembly>
+								<tags>
+									<tag>latest</tag>
+									<tag>${project.version}</tag>
+								</tags>
+							</build>
+							<run>
+								<ports>
+									<port>8080:8080</port>
+								</ports>
+								<links>
+									<link>${veronica.db.container}:${veronica.db.container}</link>
+								</links>
+								<env>
+									<SPRING_DATASOURCE_USERNAME>${veronica.db.user}</SPRING_DATASOURCE_USERNAME>
+									<SPRING_DATASOURCE_PASSWORD>${veronica.db.password}</SPRING_DATASOURCE_PASSWORD>
+								</env>
+								<dependsOn>
+									<container>${veronica.db.container}</container>
+								</dependsOn>
+								<wait>
+									<http>
+										<url>${veronica.db.health}</url>
+										<method>GET</method>
+										<status>200..399</status>
+									</http>
+									<time>200000</time>
+								</wait>
+							</run>
+						</image>
+						<image>
+							<name>${docker.image.prefix}/${veronica.db.container}</name>
+							<alias>${veronica.db.container}</alias>
+							<build>
+								<from>postgres:11.3</from>
+								<assembly>
+									<name>DB</name>
+									<inline>
+										<files>
+											<file>
+												<source>${project.basedir}/src/main/postgres/veronica.sql</source>
+												<fileMode>777</fileMode>
+											</file>
+										</files>
+									</inline>
+									<targetDir>/tmp</targetDir>
+									<mode>dir</mode>
+								</assembly>
+							</build>
+							<run>
+								<ports>
+									<port>${veronica.db.port}:${veronica.db.port}</port>
+								</ports>
+								<env>
+									<POSTGRES_USER>${veronica.db.user}</POSTGRES_USER>
+									<POSTGRES_PASSWORD>${veronica.db.password}</POSTGRES_PASSWORD>
+									<POSTGRES_DB>${veronica.name}</POSTGRES_DB>
+								</env>
+								<cmd>postgres -c encrypt.key=${veronica.db.key}</cmd>
+								<wait>
+									<exec>
+										<postStart>psql -U ${veronica.db.user} -d ${veronica.name} -1 -f /tmp/veronica.sql</postStart>
+									</exec>
+									<time>20000</time>
+								</wait>
+							</run>
+						</image>
+					</images>
 				</configuration>
 			</plugin>
 		</plugins>

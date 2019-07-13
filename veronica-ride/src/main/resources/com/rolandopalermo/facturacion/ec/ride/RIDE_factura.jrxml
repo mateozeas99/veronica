@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RIDE_factura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23078fe1-b005-44ae-8dc0-7a1396cac66c">
 	<property name="ireport.zoom" value="1.6500000000000052"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="493"/>
 	<style name="etiqueta-texto" hAlign="Left" vAlign="Middle" isBlankWhenNull="true">
 		<paragraph leftIndent="2"/>
 	</style>
@@ -205,65 +205,131 @@
 		<band height="403" splitType="Immediate">
 			<rectangle radius="10">
 				<reportElement x="280" y="0" width="275" height="278" uuid="e9447770-73d1-4ad6-becf-386a3f53aed3"/>
+				<graphicElement>
+					<pen lineColor="#013870"/>
+				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement style="etiqueta-celda" mode="Opaque" x="455" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="d506a528-71b5-444f-9923-aba044a862e4"/>
+				<reportElement style="etiqueta-celda" mode="Opaque" x="455" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#013870" uuid="d506a528-71b5-444f-9923-aba044a862e4"/>
+				<box>
+					<pen lineColor="#013870"/>
+					<topPen lineColor="#013870"/>
+					<leftPen lineColor="#013870"/>
+					<bottomPen lineColor="#013870"/>
+					<rightPen lineColor="#013870"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Descuento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="etiqueta-celda" mode="Opaque" x="405" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="091aa67b-3a64-406f-aff0-d9ef1dea8792"/>
+				<reportElement style="etiqueta-celda" mode="Opaque" x="405" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#013870" uuid="091aa67b-3a64-406f-aff0-d9ef1dea8792"/>
+				<box>
+					<pen lineColor="#013870"/>
+					<topPen lineColor="#013870"/>
+					<leftPen lineColor="#013870"/>
+					<bottomPen lineColor="#013870"/>
+					<rightPen lineColor="#013870"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Precio sin Sub.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="etiqueta-celda" mode="Opaque" x="42" y="374" width="48" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="4d85d81a-c674-4389-914e-a096177ca9a9"/>
+				<reportElement style="etiqueta-celda" mode="Opaque" x="42" y="374" width="48" height="29" forecolor="#FFFFFF" backcolor="#013870" uuid="4d85d81a-c674-4389-914e-a096177ca9a9"/>
+				<box>
+					<pen lineColor="#013870"/>
+					<topPen lineColor="#013870"/>
+					<leftPen lineColor="#013870"/>
+					<bottomPen lineColor="#013870"/>
+					<rightPen lineColor="#013870"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Código Auxiliar]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="etiqueta-celda" mode="Opaque" x="355" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="bc99f70e-89a8-4fd9-ae4b-4ad4849fa153"/>
+				<reportElement style="etiqueta-celda" mode="Opaque" x="355" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#013870" uuid="bc99f70e-89a8-4fd9-ae4b-4ad4849fa153"/>
+				<box>
+					<pen lineColor="#013870"/>
+					<topPen lineColor="#013870"/>
+					<leftPen lineColor="#013870"/>
+					<bottomPen lineColor="#013870"/>
+					<rightPen lineColor="#013870"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Subsidio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="etiqueta-celda" mode="Opaque" x="505" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="b816178e-4334-4c9c-b01c-2612a1fb36ac"/>
+				<reportElement style="etiqueta-celda" mode="Opaque" x="505" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#013870" uuid="b816178e-4334-4c9c-b01c-2612a1fb36ac"/>
+				<box>
+					<pen lineColor="#013870"/>
+					<topPen lineColor="#013870"/>
+					<leftPen lineColor="#013870"/>
+					<bottomPen lineColor="#013870"/>
+					<rightPen lineColor="#013870"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Precio Total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="etiqueta-celda" mode="Opaque" x="140" y="374" width="165" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="df34f1ef-df8a-4103-9bb8-807eaa68352d"/>
+				<reportElement style="etiqueta-celda" mode="Opaque" x="140" y="374" width="165" height="29" forecolor="#FFFFFF" backcolor="#013870" uuid="df34f1ef-df8a-4103-9bb8-807eaa68352d"/>
+				<box>
+					<pen lineColor="#013870"/>
+					<topPen lineColor="#013870"/>
+					<leftPen lineColor="#013870"/>
+					<bottomPen lineColor="#013870"/>
+					<rightPen lineColor="#013870"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Descripción]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="etiqueta-celda" mode="Opaque" x="305" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="f85cdc53-3d44-4d03-951b-5eefa0850169"/>
+				<reportElement style="etiqueta-celda" mode="Opaque" x="305" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#013870" uuid="f85cdc53-3d44-4d03-951b-5eefa0850169"/>
+				<box>
+					<pen lineColor="#013870"/>
+					<topPen lineColor="#013870"/>
+					<leftPen lineColor="#013870"/>
+					<bottomPen lineColor="#013870"/>
+					<rightPen lineColor="#013870"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Precio Unitario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="etiqueta-celda" mode="Opaque" x="90" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="352a0315-a51f-4e7b-bdbe-cd374f3c2429"/>
+				<reportElement style="etiqueta-celda" mode="Opaque" x="90" y="374" width="50" height="29" forecolor="#FFFFFF" backcolor="#013870" uuid="352a0315-a51f-4e7b-bdbe-cd374f3c2429"/>
+				<box>
+					<pen lineColor="#013870"/>
+					<topPen lineColor="#013870"/>
+					<leftPen lineColor="#013870"/>
+					<bottomPen lineColor="#013870"/>
+					<rightPen lineColor="#013870"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="etiqueta-celda" mode="Opaque" x="0" y="374" width="42" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="a0e1fbde-b262-4106-bd4a-83daf2b9e8f4"/>
+				<reportElement style="etiqueta-celda" mode="Opaque" x="0" y="374" width="42" height="29" forecolor="#FFFFFF" backcolor="#013870" uuid="a0e1fbde-b262-4106-bd4a-83daf2b9e8f4"/>
+				<box>
+					<pen lineColor="#013870"/>
+					<topPen lineColor="#013870"/>
+					<leftPen lineColor="#013870"/>
+					<bottomPen lineColor="#013870"/>
+					<rightPen lineColor="#013870"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
@@ -271,9 +337,15 @@
 			</staticText>
 			<rectangle>
 				<reportElement x="0" y="286" width="555" height="80" uuid="b8e9113f-d322-4963-9f25-6392ffe2f9c8"/>
+				<graphicElement>
+					<pen lineColor="#013870"/>
+				</graphicElement>
 			</rectangle>
 			<rectangle radius="10">
 				<reportElement x="0" y="158" width="274" height="120" uuid="e58c405a-ee9c-48c7-a6a7-48ab6fcc6d13"/>
+				<graphicElement>
+					<pen lineColor="#013870"/>
+				</graphicElement>
 			</rectangle>
 			<staticText>
 				<reportElement style="etiqueta-texto" x="3" y="195" width="51" height="19" uuid="6abfa67e-0b55-405c-8cda-a78a0f24298b"/>
@@ -475,7 +547,7 @@
 				<text><![CDATA[R.U.C.:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="280" y="24" width="275" height="30" forecolor="#FFFFFF" backcolor="#000000" uuid="bf18b52d-ae57-4736-a865-1c6495a663e5"/>
+				<reportElement mode="Opaque" x="280" y="24" width="275" height="30" forecolor="#FFFFFF" backcolor="#013870" uuid="bf18b52d-ae57-4736-a865-1c6495a663e5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
@@ -519,7 +591,7 @@
 			</staticText>
 			<image hAlign="Center">
 				<reportElement x="0" y="0" width="274" height="150" uuid="a46ef538-80ee-44e8-925f-0a0197e2df04"/>
-				<imageExpression><![CDATA[new java.io.ByteArrayInputStream($P{logo}.getBytes())]]></imageExpression>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($P{logo}.getBytes()))]]></imageExpression>
 			</image>
 		</band>
 		<band height="29" splitType="Immediate">
@@ -532,14 +604,35 @@
 					<jr:listContents height="20" width="555">
 						<textField isStretchWithOverflow="true">
 							<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="42" height="20" uuid="e2e25909-2a52-4feb-9e83-b7a1bece714f"/>
+							<box>
+								<pen lineColor="#013870"/>
+								<topPen lineColor="#013870"/>
+								<leftPen lineColor="#013870"/>
+								<bottomPen lineColor="#013870"/>
+								<rightPen lineColor="#013870"/>
+							</box>
 							<textFieldExpression><![CDATA[$F{codigoPrincipal}.trim()]]></textFieldExpression>
 						</textField>
 						<textField isStretchWithOverflow="true">
 							<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="42" y="0" width="48" height="20" uuid="be676765-cba0-4d7a-b19b-3659c8b97587"/>
+							<box>
+								<pen lineColor="#013870"/>
+								<topPen lineColor="#013870"/>
+								<leftPen lineColor="#013870"/>
+								<bottomPen lineColor="#013870"/>
+								<rightPen lineColor="#013870"/>
+							</box>
 							<textFieldExpression><![CDATA[$F{codigoAuxiliar}.trim()]]></textFieldExpression>
 						</textField>
 						<textField isStretchWithOverflow="true">
 							<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="140" y="0" width="165" height="20" uuid="837e55da-4928-42db-8637-48c4ba6b25c8"/>
+							<box>
+								<pen lineColor="#013870"/>
+								<topPen lineColor="#013870"/>
+								<leftPen lineColor="#013870"/>
+								<bottomPen lineColor="#013870"/>
+								<rightPen lineColor="#013870"/>
+							</box>
 							<textElement>
 								<font size="8"/>
 							</textElement>
@@ -547,6 +640,13 @@
 						</textField>
 						<textField isStretchWithOverflow="true">
 							<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="305" y="0" width="50" height="20" uuid="940c03e0-1492-4056-993c-3d849daaf2d5"/>
+							<box>
+								<pen lineColor="#013870"/>
+								<topPen lineColor="#013870"/>
+								<leftPen lineColor="#013870"/>
+								<bottomPen lineColor="#013870"/>
+								<rightPen lineColor="#013870"/>
+							</box>
 							<textElement textAlignment="Right">
 								<paragraph rightIndent="2"/>
 							</textElement>
@@ -554,6 +654,13 @@
 						</textField>
 						<textField isStretchWithOverflow="true">
 							<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="355" y="0" width="50" height="20" uuid="4ef9a732-e943-4e70-906c-78d698d20533"/>
+							<box>
+								<pen lineColor="#013870"/>
+								<topPen lineColor="#013870"/>
+								<leftPen lineColor="#013870"/>
+								<bottomPen lineColor="#013870"/>
+								<rightPen lineColor="#013870"/>
+							</box>
 							<textElement textAlignment="Right">
 								<paragraph rightIndent="2"/>
 							</textElement>
@@ -561,6 +668,13 @@
 						</textField>
 						<textField isStretchWithOverflow="true">
 							<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="405" y="0" width="50" height="20" uuid="25bb1cb6-e491-438c-9117-93a296b1d12e"/>
+							<box>
+								<pen lineColor="#013870"/>
+								<topPen lineColor="#013870"/>
+								<leftPen lineColor="#013870"/>
+								<bottomPen lineColor="#013870"/>
+								<rightPen lineColor="#013870"/>
+							</box>
 							<textElement textAlignment="Right">
 								<paragraph rightIndent="2"/>
 							</textElement>
@@ -568,6 +682,13 @@
 						</textField>
 						<textField isStretchWithOverflow="true">
 							<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="455" y="0" width="50" height="20" uuid="069ada19-45a0-4c7b-baa2-78e1b5f4f992"/>
+							<box>
+								<pen lineColor="#013870"/>
+								<topPen lineColor="#013870"/>
+								<leftPen lineColor="#013870"/>
+								<bottomPen lineColor="#013870"/>
+								<rightPen lineColor="#013870"/>
+							</box>
 							<textElement textAlignment="Right">
 								<paragraph rightIndent="2"/>
 							</textElement>
@@ -575,6 +696,13 @@
 						</textField>
 						<textField isStretchWithOverflow="true">
 							<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="505" y="0" width="50" height="20" uuid="18a2f0f2-8104-4291-b7f1-2de2824fdc8b"/>
+							<box>
+								<pen lineColor="#013870"/>
+								<topPen lineColor="#013870"/>
+								<leftPen lineColor="#013870"/>
+								<bottomPen lineColor="#013870"/>
+								<rightPen lineColor="#013870"/>
+							</box>
 							<textElement textAlignment="Right">
 								<paragraph rightIndent="2"/>
 							</textElement>
@@ -582,6 +710,13 @@
 						</textField>
 						<textField>
 							<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="90" y="0" width="50" height="20" uuid="9a490617-0c43-43dc-bb48-45e2b9cae7eb"/>
+							<box>
+								<pen lineColor="#013870"/>
+								<topPen lineColor="#013870"/>
+								<leftPen lineColor="#013870"/>
+								<bottomPen lineColor="#013870"/>
+								<rightPen lineColor="#013870"/>
+							</box>
 							<textElement textAlignment="Right">
 								<paragraph rightIndent="2"/>
 							</textElement>
@@ -598,6 +733,13 @@
 					<reportElement mode="Opaque" x="312" y="0" width="243" height="176" isRemoveLineWhenBlank="true" forecolor="#000000" uuid="3fc0ec38-dee3-46de-b578-c86125286326"/>
 					<textField isBlankWhenNull="true">
 						<reportElement style="etiqueta-celda" x="143" y="80" width="100" height="16" uuid="ecd458c4-ee44-4ea1-843c-a5dd2f4cc855"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Right">
 							<paragraph rightIndent="2"/>
 						</textElement>
@@ -605,30 +747,79 @@
 					</textField>
 					<staticText>
 						<reportElement style="etiqueta-celda" x="0" y="0" width="143" height="16" uuid="fe1c588f-f56c-4727-9437-b03ee8a98588"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<text><![CDATA[SUBTOTAL 12%]]></text>
 					</staticText>
 					<staticText>
 						<reportElement style="etiqueta-celda" x="0" y="80" width="143" height="16" uuid="2d237747-9e89-40a0-b103-78ab7d0d1770"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<text><![CDATA[TOTAL DESCUENTO]]></text>
 					</staticText>
 					<staticText>
 						<reportElement style="etiqueta-celda" x="0" y="16" width="143" height="16" uuid="76bd6019-4621-47cb-970a-28ff7118c1ad"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<text><![CDATA[SUBTOTAL 0%]]></text>
 					</staticText>
 					<staticText>
 						<reportElement style="etiqueta-celda" x="0" y="48" width="143" height="16" uuid="f56cb93a-c823-47c1-9bb4-eb0b8d00730e"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<text><![CDATA[SUBTOTAL EXCENTO DE IVA]]></text>
 					</staticText>
 					<staticText>
 						<reportElement style="etiqueta-celda" x="0" y="112" width="143" height="16" uuid="6d7f39c3-108e-478d-87ae-17d2310b4d85"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<text><![CDATA[IVA 12%]]></text>
 					</staticText>
 					<staticText>
 						<reportElement style="etiqueta-celda" x="0" y="32" width="143" height="16" uuid="46a32b71-ea7d-4868-bb86-1225e2d929fa"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<text><![CDATA[SUBTOTAL NO OBJETO DE IVA]]></text>
 					</staticText>
 					<textField isBlankWhenNull="true">
 						<reportElement style="etiqueta-celda" x="143" y="32" width="100" height="16" uuid="e755fc6c-95f7-4df4-8e21-5861ca24ff63"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Right">
 							<paragraph rightIndent="2"/>
 						</textElement>
@@ -636,6 +827,13 @@
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement style="etiqueta-celda" x="143" y="64" width="100" height="16" uuid="47dcea5a-ef99-4a00-b930-a608abaddd6d"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Right">
 							<paragraph rightIndent="2"/>
 						</textElement>
@@ -643,6 +841,13 @@
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement style="etiqueta-celda" x="143" y="112" width="100" height="16" uuid="3efeaf5b-ae71-4bef-a0fb-5317050e311f"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Right">
 							<paragraph rightIndent="2"/>
 						</textElement>
@@ -650,14 +855,35 @@
 					</textField>
 					<staticText>
 						<reportElement style="etiqueta-celda" x="0" y="144" width="143" height="16" uuid="4207277d-d467-4291-ba8e-152b80989531"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<text><![CDATA[PROPINA]]></text>
 					</staticText>
 					<staticText>
 						<reportElement style="etiqueta-celda" x="0" y="128" width="143" height="16" uuid="a6c5ddfd-d9e0-4a61-8046-07d8c3429299"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<text><![CDATA[IRBPNR]]></text>
 					</staticText>
 					<textField isBlankWhenNull="true">
 						<reportElement style="etiqueta-celda" x="143" y="0" width="100" height="16" uuid="bf85b0ea-e366-437c-8fa4-19ba280fa5ef"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Right">
 							<paragraph rightIndent="2"/>
 						</textElement>
@@ -665,10 +891,24 @@
 					</textField>
 					<staticText>
 						<reportElement style="etiqueta-celda" x="0" y="64" width="143" height="16" uuid="d1c0bd94-0a34-4d0d-922d-a7e59fdd91e4"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<text><![CDATA[SUBTOTAL SIN IMPUESTOS]]></text>
 					</staticText>
 					<textField isBlankWhenNull="true">
 						<reportElement style="etiqueta-celda" x="143" y="16" width="100" height="16" uuid="aa374c01-bcb4-40c6-8ab2-18ce55dc5f64"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Right">
 							<paragraph rightIndent="2"/>
 						</textElement>
@@ -676,6 +916,13 @@
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement style="etiqueta-celda" x="143" y="144" width="100" height="16" uuid="dfe79359-4a10-4121-a4c3-c6248bc3f1a8"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Right">
 							<paragraph rightIndent="2"/>
 						</textElement>
@@ -683,6 +930,13 @@
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement style="etiqueta-celda" x="143" y="48" width="100" height="16" uuid="f4763e1e-7cce-43a5-8590-c07d741f4128"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Right">
 							<paragraph rightIndent="2"/>
 						</textElement>
@@ -690,6 +944,13 @@
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement style="etiqueta-celda" x="143" y="128" width="100" height="16" uuid="3e29b535-2664-4326-977d-54a2beceef01"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Right">
 							<paragraph rightIndent="2"/>
 						</textElement>
@@ -697,10 +958,24 @@
 					</textField>
 					<staticText>
 						<reportElement style="etiqueta-celda" x="0" y="96" width="143" height="16" uuid="3d9cd7d5-319d-4de5-a086-a9502b7b729e"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<text><![CDATA[ICE]]></text>
 					</staticText>
 					<textField isBlankWhenNull="true">
 						<reportElement style="etiqueta-celda" x="143" y="160" width="100" height="16" uuid="e85d4f3c-58f1-4768-bf1d-e604f3452896"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Right">
 							<paragraph rightIndent="2"/>
 						</textElement>
@@ -708,10 +983,24 @@
 					</textField>
 					<staticText>
 						<reportElement style="etiqueta-celda" x="0" y="160" width="143" height="16" uuid="8983183f-9ad6-4b94-8bde-f2d8d4721abb"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<text><![CDATA[VALOR TOTAL]]></text>
 					</staticText>
 					<textField isBlankWhenNull="true">
 						<reportElement style="etiqueta-celda" x="143" y="96" width="100" height="16" uuid="0eef8344-2c31-4bcf-9de8-b54fb9cc6732"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Right">
 							<paragraph rightIndent="2"/>
 						</textElement>
@@ -721,7 +1010,7 @@
 				<frame>
 					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="305" height="40" isRemoveLineWhenBlank="true" uuid="b065232e-ea96-4c67-b195-5807c1d9ebf0"/>
 					<staticText>
-						<reportElement style="etiqueta-celda" mode="Opaque" x="0" y="0" width="305" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="724b2175-3044-4e95-b718-0859fc1289ca"/>
+						<reportElement style="etiqueta-celda" mode="Opaque" x="0" y="0" width="305" height="20" forecolor="#FFFFFF" backcolor="#013870" uuid="724b2175-3044-4e95-b718-0859fc1289ca"/>
 						<text><![CDATA[Información Adicional]]></text>
 					</staticText>
 					<componentElement>
@@ -733,10 +1022,24 @@
 							<jr:listContents height="20" width="305">
 								<textField isStretchWithOverflow="true">
 									<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="150" height="20" uuid="173bb383-f329-4ce3-a4ef-df19163cff23"/>
+									<box>
+										<pen lineColor="#013870"/>
+										<topPen lineColor="#013870"/>
+										<leftPen lineColor="#013870"/>
+										<bottomPen lineColor="#013870"/>
+										<rightPen lineColor="#013870"/>
+									</box>
 									<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 								</textField>
 								<textField isStretchWithOverflow="true">
 									<reportElement style="etiqueta-celda" positionType="Float" stretchType="RelativeToTallestObject" x="150" y="0" width="155" height="20" uuid="8b430085-95b7-42ec-be5c-45a948c9223a"/>
+									<box>
+										<pen lineColor="#013870"/>
+										<topPen lineColor="#013870"/>
+										<leftPen lineColor="#013870"/>
+										<bottomPen lineColor="#013870"/>
+										<rightPen lineColor="#013870"/>
+									</box>
 									<textFieldExpression><![CDATA[$F{campoAdicional}]]></textFieldExpression>
 								</textField>
 							</jr:listContents>
@@ -746,28 +1049,56 @@
 				<frame>
 					<reportElement positionType="Float" mode="Opaque" x="0" y="48" width="305" height="41" isRemoveLineWhenBlank="true" uuid="611aac77-19d0-4149-bb17-90575622e088"/>
 					<staticText>
-						<reportElement style="etiqueta-celda" mode="Opaque" x="185" y="0" width="50" height="20" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#000000" uuid="dcf0b19e-9566-4007-a020-5adde509d753"/>
+						<reportElement style="etiqueta-celda" mode="Opaque" x="185" y="0" width="50" height="20" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#013870" uuid="dcf0b19e-9566-4007-a020-5adde509d753"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Center">
 							<font isBold="false"/>
 						</textElement>
 						<text><![CDATA[Plazo]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="etiqueta-celda" mode="Opaque" x="0" y="0" width="135" height="20" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#000000" uuid="66465179-9e95-4011-903f-b9a96776117c"/>
+						<reportElement style="etiqueta-celda" mode="Opaque" x="0" y="0" width="135" height="20" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#013870" uuid="66465179-9e95-4011-903f-b9a96776117c"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Center">
 							<font isBold="false"/>
 						</textElement>
 						<text><![CDATA[Forma de Pago]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="etiqueta-celda" mode="Opaque" x="135" y="0" width="50" height="20" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#000000" uuid="7e074ac6-7142-4fa2-bb53-e96dcb36d975"/>
+						<reportElement style="etiqueta-celda" mode="Opaque" x="135" y="0" width="50" height="20" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#013870" uuid="7e074ac6-7142-4fa2-bb53-e96dcb36d975"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Center">
 							<font isBold="false"/>
 						</textElement>
 						<text><![CDATA[Valor]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="etiqueta-celda" mode="Opaque" x="235" y="0" width="70" height="20" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#000000" uuid="526f361f-9d41-4f65-94b0-71d880c22b4a"/>
+						<reportElement style="etiqueta-celda" mode="Opaque" x="235" y="0" width="70" height="20" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#013870" uuid="526f361f-9d41-4f65-94b0-71d880c22b4a"/>
+						<box>
+							<pen lineColor="#013870"/>
+							<topPen lineColor="#013870"/>
+							<leftPen lineColor="#013870"/>
+							<bottomPen lineColor="#013870"/>
+							<rightPen lineColor="#013870"/>
+						</box>
 						<textElement textAlignment="Center"/>
 						<text><![CDATA[Tiempo]]></text>
 					</staticText>
@@ -783,10 +1114,24 @@
 							<jr:listContents height="20" width="305">
 								<textField isStretchWithOverflow="true">
 									<reportElement style="etiqueta-celda" x="0" y="0" width="135" height="20" isRemoveLineWhenBlank="true" uuid="aef4dea4-a9d3-4504-8411-8f47790f1a80"/>
+									<box>
+										<pen lineColor="#013870"/>
+										<topPen lineColor="#013870"/>
+										<leftPen lineColor="#013870"/>
+										<bottomPen lineColor="#013870"/>
+										<rightPen lineColor="#013870"/>
+									</box>
 									<textFieldExpression><![CDATA[$P{hmapFormasPago}.get($F{formaPago})]]></textFieldExpression>
 								</textField>
 								<textField isStretchWithOverflow="true">
 									<reportElement style="etiqueta-celda" x="135" y="0" width="50" height="20" isRemoveLineWhenBlank="true" uuid="6baea55c-b6da-46c6-9880-a6d63762581b"/>
+									<box>
+										<pen lineColor="#013870"/>
+										<topPen lineColor="#013870"/>
+										<leftPen lineColor="#013870"/>
+										<bottomPen lineColor="#013870"/>
+										<rightPen lineColor="#013870"/>
+									</box>
 									<textElement textAlignment="Right">
 										<paragraph rightIndent="2"/>
 									</textElement>
@@ -794,6 +1139,13 @@
 								</textField>
 								<textField isStretchWithOverflow="true">
 									<reportElement style="etiqueta-celda" x="185" y="0" width="50" height="20" isRemoveLineWhenBlank="true" uuid="b6205168-3fb9-4428-911e-d1081a48399f"/>
+									<box>
+										<pen lineColor="#013870"/>
+										<topPen lineColor="#013870"/>
+										<leftPen lineColor="#013870"/>
+										<bottomPen lineColor="#013870"/>
+										<rightPen lineColor="#013870"/>
+									</box>
 									<textElement textAlignment="Right">
 										<paragraph rightIndent="2"/>
 									</textElement>
@@ -801,6 +1153,13 @@
 								</textField>
 								<textField isStretchWithOverflow="true">
 									<reportElement style="etiqueta-celda" x="235" y="0" width="70" height="20" isRemoveLineWhenBlank="true" uuid="04b4f21f-0dc4-46b4-a2ee-4fbec3046872"/>
+									<box>
+										<pen lineColor="#013870"/>
+										<topPen lineColor="#013870"/>
+										<leftPen lineColor="#013870"/>
+										<bottomPen lineColor="#013870"/>
+										<rightPen lineColor="#013870"/>
+									</box>
 									<textFieldExpression><![CDATA[$F{unidadTiempo}]]></textFieldExpression>
 								</textField>
 							</jr:listContents>

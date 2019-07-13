@@ -3,15 +3,17 @@ FROM maven:3.6.1-jdk-8
 COPY ./additional_libs /opt/veronica/additional_libs/
 COPY ./src /opt/veronica/src/
 COPY ./pom.xml /opt/veronica/
-COPY ./veronica-bo /opt/veronica/veronica-bo/
+# COPY ./veronica-bo /opt/veronica/veronica-bo/
+COPY ./veronica-app /opt/veronica/veronica-app/
 COPY ./veronica-common /opt/veronica/veronica-common/
 COPY ./veronica-dto /opt/veronica/veronica-dto/
 COPY ./veronica-mapper /opt/veronica/veronica-mapper/
 COPY ./veronica-model /opt/veronica/veronica-model/
 COPY ./veronica-persistence /opt/veronica/veronica-persistence/
 COPY ./veronica-ride /opt/veronica/veronica-ride/
+COPY ./veronica-service /opt/veronica/veronica-service/
 COPY ./veronica-soap /opt/veronica/veronica-soap/
-COPY ./veronica-web /opt/veronica/veronica-web/
+# COPY ./veronica-web /opt/veronica/veronica-web/
 #---------------------------
 WORKDIR /opt/veronica/additional_libs
 #---------------------------

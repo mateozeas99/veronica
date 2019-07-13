@@ -13,7 +13,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "tax_type")
 public class TaxType {

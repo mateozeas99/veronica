@@ -186,12 +186,21 @@
 		<band height="394" splitType="Immediate">
 			<rectangle radius="10">
 				<reportElement x="280" y="0" width="275" height="278" uuid="e9447770-73d1-4ad6-becf-386a3f53aed3"/>
+				<graphicElement>
+					<pen lineColor="#013870"/>
+				</graphicElement>
 			</rectangle>
 			<rectangle>
 				<reportElement x="0" y="286" width="555" height="100" uuid="b8e9113f-d322-4963-9f25-6392ffe2f9c8"/>
+				<graphicElement>
+					<pen lineColor="#013870"/>
+				</graphicElement>
 			</rectangle>
 			<rectangle radius="10">
 				<reportElement x="0" y="158" width="274" height="120" uuid="e58c405a-ee9c-48c7-a6a7-48ab6fcc6d13"/>
+				<graphicElement>
+					<pen lineColor="#013870"/>
+				</graphicElement>
 			</rectangle>
 			<staticText>
 				<reportElement style="etiqueta-texto" x="3" y="195" width="51" height="19" uuid="6abfa67e-0b55-405c-8cda-a78a0f24298b"/>
@@ -279,7 +288,7 @@
 				<textFieldExpression><![CDATA["1".equals($F{tipoEmision}) ? "NORMAL" : "INDISPONIBILIDAD DEL SISTEMA"]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement x="283" y="215" width="268" height="38" uuid="724e12d0-39f7-4e43-ab44-785da69a551a"/>
+				<reportElement x="283" y="215" width="268" height="38" forecolor="#013870" uuid="724e12d0-39f7-4e43-ab44-785da69a551a"/>
 				<jr:Code128 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" moduleWidth="1.0" textPosition="none">
 					<jr:codeExpression><![CDATA[$F{claveAcceso}]]></jr:codeExpression>
 				</jr:Code128>
@@ -365,7 +374,7 @@
 				<text><![CDATA[R.U.C.:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="280" y="24" width="275" height="30" forecolor="#FFFFFF" backcolor="#000000" uuid="bf18b52d-ae57-4736-a865-1c6495a663e5"/>
+				<reportElement mode="Opaque" x="280" y="24" width="275" height="30" forecolor="#FFFFFF" backcolor="#013870" uuid="bf18b52d-ae57-4736-a865-1c6495a663e5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
@@ -451,7 +460,7 @@
 			</textField>
 			<image hAlign="Center">
 				<reportElement x="0" y="0" width="274" height="150" uuid="6ee187d0-a961-4801-ac98-fe5602beb0b2"/>
-				<imageExpression><![CDATA[new java.io.ByteArrayInputStream($P{logo}.getBytes())]]></imageExpression>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($P{logo}.getBytes()))]]></imageExpression>
 			</image>
 		</band>
 		<band height="228" splitType="Immediate">
@@ -470,6 +479,9 @@
 					<jr:listContents height="228" width="555">
 						<rectangle>
 							<reportElement positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="0" width="555" height="219" uuid="5b014818-f866-44be-84c1-f2b274af2dfb"/>
+							<graphicElement>
+								<pen lineColor="#013870"/>
+							</graphicElement>
 						</rectangle>
 						<textField>
 							<reportElement style="etiqueta-texto" x="165" y="60" width="386" height="20" uuid="f1d78b90-7194-46e2-b8a8-1e1f5746a9f1"/>
